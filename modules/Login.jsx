@@ -7,11 +7,11 @@ export default React.createClass({
         <h3>Login!</h3>
         <label>
           Email:
-          <input type="text" ref={(input) => this.input = input} />
+          <input type="text" name="email" />
         </label>
         <label>
           Password:
-          <input type="text" ref={(input) => this.input = input} />
+          <input type="text" name="password" />
         </label>
         <input type="submit" value="Submit" />
       </form>
