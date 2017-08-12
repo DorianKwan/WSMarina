@@ -4,13 +4,13 @@ class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
+      username: '',
       email: '',
       password: '',
       password_confirmation: '',
       bio: '',
-      birthday: '',
-      photo: ''
+      date_of_birth: '',
+      image: ''
   };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -30,8 +30,8 @@ class Register extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <h3>Sign Up!</h3>
         <label>
-          Full Name:
-          <input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
+          Username:
+          <input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
         </label>
         <label>
           Email:
@@ -50,12 +50,12 @@ class Register extends React.Component {
           <input type="text" name="bio" value={this.state.bio} onChange={this.handleChange} />
         </label>
         <label>
-          Birthday:
-          <input type="date" name="birthday" value={this.state.birthday} onChange={this.handleChange} />
+          Date of Birth:
+          <input type="date" name="date_of_birth" value={this.state.date_of_birth} onChange={this.handleChange} />
         </label>
         <label>
-          Upload A Profile Photo:
-          <input type="file" name="photo" value={this.state.photo} onChange={this.handleChange} />
+          Upload A Profile Picture:
+          <input type="file" name="image" value={this.state.image} onChange={this.handleChange} />
         </label>
         <input type="submit" value="Submit" />
       </form>
