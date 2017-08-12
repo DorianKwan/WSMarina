@@ -1,5 +1,6 @@
+
 module.exports = {
-  entry: './modules/index.js',
+  entry: './modules/index.jsx',
 
   output: {
     filename: 'bundle.js',
@@ -8,7 +9,7 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader?presets[]=es2015&presets[]=react' }
+      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader?presets[]=es2015&presets[]=react' }
     ]
   }
 }
