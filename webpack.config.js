@@ -6,10 +6,23 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: ''
   },
-
+  devtool: 'source-map',
   module: {
     loaders: [
-      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader?presets[]=es2015&presets[]=react' }
+      { test: /\.jsx?$/, 
+        loader: 'babel-loader'
+      },
+
+      {
+        test: /\.scss$/,
+        // use: [{
+        loader: 'style-loader',
+        // }, {
+        loader: 'css-loader',
+        // }, {
+        loader: 'sass-loader',
+        // }]
+      }
     ]
   }
-}
+};
