@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
     table.string('email', 40).notNullable();
     table.string('password_digest').notNullable();
     table.text('bio');
-    table.integer('rep');
+    table.integer('rep').defaultTo(5000);
     table.date('date_of_birth');
     table.string('image');
   });
