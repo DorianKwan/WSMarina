@@ -4,12 +4,8 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
       email: '',
-      password: '',
-      bio: '',
-      birthday: '',
-      photo: ''
+      password: ''
   };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,8 +16,21 @@ class Login extends React.Component {
   }
 
   handleSubmit(event) {
+    console.log(this.state);
     alert('You have been logged in successfully!');
     event.preventDefault();
+
+    $.ajax({
+      url: '/register',
+      type: 'POST',
+      data: {
+            email: this.state.email,
+            password: this.state.password,
+            },
+          success: (response) => {
+              console.log('it worked', response);
+          }
+    });
   }
 
   render() {
