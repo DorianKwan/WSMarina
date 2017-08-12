@@ -4,7 +4,7 @@
   "description": "",
   "main": "./modules/index.jsx",
   "scripts": {
-    "start": "webpack-dev-server --inline --content-base --host 0.0.0.0 .",
+    "start": "webpack-dev-server --inline --content-base --host 0.0.0.0 . --history-api-fallback",
     "webpack": "./node_modules/.bin/webpack"
   },
   "author": "",
