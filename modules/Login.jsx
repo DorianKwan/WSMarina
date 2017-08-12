@@ -20,7 +20,7 @@ class Login extends React.Component {
   }
 
   handleSubmit(event) {
-    alert('A {event.target.name} was submitted: ' + this.state.name);
+    alert('You have been logged in successfully!');
     event.preventDefault();
   }
 

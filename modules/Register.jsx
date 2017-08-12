@@ -21,7 +21,7 @@ class Register extends React.Component {
   }
 
   handleSubmit(event) {
-    alert('A {event.target.name} was submitted: ' + this.state.name);
+    alert('Your account has been created successfully!');
     event.preventDefault();
   }
 
