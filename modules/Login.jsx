@@ -16,11 +16,11 @@ class Login extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({name: event.target.value});
+    this.setState({[event.target.name]: event.target.value});
   }
 
   handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.value);
+    alert('A {event.target.name} was submitted: ' + this.state.name);
     event.preventDefault();
   }
 
@@ -30,11 +30,11 @@ class Login extends React.Component {
         <h3>Login!</h3>
         <label>
           Email:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
+          <input type="text" name="email" value={this.state.value} onChange={this.handleChange} />
         </label>
         <label>
           Password:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
+          <input type="text" name="password" value={this.state.value} onChange={this.handleChange} />
         </label>
         <input type="submit" value="Submit" />
       </form>

@@ -7,6 +7,7 @@ class Register extends React.Component {
       name: '',
       email: '',
       password: '',
+      password_confirmation: '',
       bio: '',
       birthday: '',
       photo: ''
@@ -16,11 +17,11 @@ class Register extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({name: event.target.value});
+    this.setState({[event.target.name]: event.target.value});
   }
 
   handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.value);
+    alert('A {event.target.name} was submitted: ' + this.state.name);
     event.preventDefault();
   }
 
@@ -30,31 +31,31 @@ class Register extends React.Component {
         <h3>Sign Up!</h3>
         <label>
           Full Name:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
+          <input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
         </label>
         <label>
           Email:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
+          <input type="text" name="email" value={this.state.email} onChange={this.handleChange} />
         </label>
         <label>
           Password:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
+          <input type="text" name="password" value={this.state.password} onChange={this.handleChange} />
         </label>
         <label>
           Password Confirmation:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
+          <input type="text" name="password_confirmation" value={this.state.password_confirmation} onChange={this.handleChange} />
         </label>
         <label>
           Bio:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
+          <input type="text" name="bio" value={this.state.bio} onChange={this.handleChange} />
         </label>
         <label>
           Birthday:
-          <input type="date" value={this.state.value} onChange={this.handleChange} />
+          <input type="date" name="birthday" value={this.state.birthday} onChange={this.handleChange} />
         </label>
         <label>
           Upload A Profile Photo:
-          <input type="file" value={this.state.value} onChange={this.handleChange} />
+          <input type="file" name="photo" value={this.state.photo} onChange={this.handleChange} />
         </label>
         <input type="submit" value="Submit" />
       </form>
