@@ -22,7 +22,7 @@ exports.up = function(knex, Promise) {
   return Promise.all([
     knex.schema.createTable('chatrooms', function(table){
       table.uuid('id');
-      table.string('name', 255);
+      table.string('name', 16);
     })
   ])
 };
@@ -38,11 +38,11 @@ exports.up = function(knex, Promise) {
   return Promise.all([
     knex.schema.createTable('bets', function(table){
       table.uuid('id');
-      table.int('rep_wagered');
+      table.int('rep_wagered').notNullable();
       table.foreign('pool_id').references('pools.id');
       table.foreign('user_id').references('users.id');
-      table.int('rep_won', 0)
-      table.bool('up')
+      table.int('rep_won').nullable();
+      table.bool('up');
     })
   ])
 };
