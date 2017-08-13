@@ -1,54 +1,29 @@
 import React from 'react'
+import { browserHistory } from 'react-router'
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: ''
-  };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({[event.target.name]: event.target.value});
-  }
+export default React.createClass({
+  contextTypes: {
+    router: React.PropTypes.object
+  },
 
   handleSubmit(event) {
-    console.log(this.state);
-    alert('You have been logged in successfully!');
-    event.preventDefault();
-
-    $.ajax({
-      url: '/register',
-      type: 'POST',
-      data: {
-            email: this.state.email,
-            password: this.state.password,
-            },
-          success: (response) => {
-              console.log('it worked', response);
-          }
-    });
-  }
+    event.preventDefault()
+    const email = event.target.elements[0].value
+    const password = event.target.elements[1].value
+    const path = `/login/${email}/${password}`
+    console.log(path)
+    this.context.router.push(path)
+  },
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <h3>Login!</h3>
-        <label>
-          Email:
-          <input type="text" name="email" value={this.state.value} onChange={this.handleChange} />
-        </label>
-        <label>
-          Password:
-          <input type="text" name="password" value={this.state.value} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
+        <input type="text" placeholder="email" /> {' '}
+        <input type="text" placeholder="password" />{' '}
+        <button type="submit">Go</button>
       </form>
     );
   }
-}
+});
 
-export default Login;
+

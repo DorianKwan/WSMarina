@@ -4,15 +4,23 @@
   "description": "",
   "main": "./modules/index.jsx",
   "scripts": {
-    "start": "webpack-dev-server --inline --content-base --host 0.0.0.0 . --history-api-fallback",
-    "webpack": "./node_modules/.bin/webpack"
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:dev": "webpack-dev-server --inline --content-base public/ --host 0.0.0.0 . --history-api-fallback",
+    "start:prod": "npm run build && node server.bundle.js",
+    "build:client": "webpack",
+    "build:server": "webpack --config webpack.server.config.js",
+    "build": "npm run build:client && npm run build:server"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^1.0.2",
+    "body-parser": "^1.17.2",
+    "compression": "^1.7.0",
     "css-loader": "^0.28.4",
     "dotenv": "^4.0.0",
+    "express": "^4.15.4",
+    "if-env": "^1.0.0",
     "knex": "^0.13.0",
     "node-sass": "^4.5.3",
     "pg": "^7.1.0",
