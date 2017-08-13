@@ -58,9 +58,9 @@ exports.up = function(knex, Promise) {
   return Promise.all([
     knex.schema.createTable('bets', function(table){
       table.uuid('id').primary();
-      table.date('date_created').defaultTo(knex.raw('now()'));
+      table.date('date_created').notNullable().defaultTo(knex.raw('now()'));
       // date now !!!!!
-      table.foreign('stock_id').references('stocks_id');     
+      table.foreign('stock_id').references('stocks.id');     
       // Or
       // table.string('ticker', 4).notNullable();
     })
@@ -77,7 +77,7 @@ exports.down = function(knex, Promise) {
 exports.up = function(knex, Promise) {
   return Promise.all([
     knex.schema.createTable('stocks', function(table){
-      table.uuid('id');
+      table.uuid('id').primary();
       table.string('company_ticker');
     })
   ])
@@ -96,7 +96,7 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable('payouts', function(table){
       table.uuid('id').primary();
       table.foreign('bet_id').references('bets.id'); 
-      table.date('date_of_payout').defaultTo(knex.raw('now()'));
+      table.date('date_of_payout').notNullable().defaultTo(knex.raw('now()'));
       // the above hack should prevent potential errors or change date to dateTime
       table.foreign('user_id').references('users.id');
       table.int('amount');
