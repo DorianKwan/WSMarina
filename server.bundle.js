@@ -313,6 +313,15 @@
 	      body: body
 	    }).then(function (response) {
 	      console.log(response);
+	      if (response.status === 200) {
+	        alert('Logged in successfully!');
+	      } else if (response.status === 409) {
+	        alert('Bad credentials!');
+	      } else if (response.status === 410) {
+	        alert('Email or password cannot be blank!');
+	      } else {
+	        alert('Something went wrong!');
+	      }
 	    });
 	  },
 	  render: function render() {
@@ -657,20 +666,17 @@
 			// Guard function to check for bad input
 			if (!req.body.email || !req.body.password) {
 				console.log("Test1");
-				res.sendStatus(300);
+				res.sendStatus(410);
 				return;
 			}
 			// Check for email match in db
 			knex('users').select('*').where({ email: req.body.email }).limit(1).then(function (rows) {
 				console.log("Test2");
 				var user = rows[0];
-				console.log(rows);
-				console.log("test2.0");
-				console.log(user);
 				if (!user) {
 					return Promise.reject({
 						type: 409,
-						message: 'Check your spelling, submitted credentials are invalid!'
+						message: 'Bad credentials!'
 					});
 				}
 				// If user exists, check for password match

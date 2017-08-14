@@ -27,6 +27,15 @@ export default React.createClass({
     })
     .then((response) => {
       console.log(response)
+      if (response.status === 200) {
+        alert('Logged in successfully!');
+      } else if (response.status === 409) {
+        alert('Bad credentials!');
+      } else if (response.status === 410) {
+        alert('Email or password cannot be blank!');
+      } else {
+        alert('Something went wrong!');
+      }
     })
   },
 
