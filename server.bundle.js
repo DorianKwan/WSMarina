@@ -61,13 +61,22 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	// and these to match the url to routes and then render
-	var express = __webpack_require__(10);
+	var ENV = process.env.ENV || "development";
 	// we'll use this to render our app to an html string
 
+	var express = __webpack_require__(10);
 	var path = __webpack_require__(11);
 	var compression = __webpack_require__(12);
 	var app = express();
 	var bodyParser = __webpack_require__(13);
+	var cookieSession = __webpack_require__(14);
+	var flash = __webpack_require__(15);
+
+	var knexConfig = __webpack_require__(16);
+	var knex = __webpack_require__(18)(knexConfig[ENV]);
+	var knexLogger = __webpack_require__(19);
+	var bcrypt = __webpack_require__(20);
+
 	app.use(bodyParser.urlencoded({ extended: true }));
 	app.use(bodyParser.json());
 
@@ -75,36 +84,26 @@
 	// add path.join here
 	app.use(express.static(path.join(__dirname, 'public')));
 
-	// ...
+	var registerRoute = __webpack_require__(21)(knex, bcrypt);
 
-	app.post('/register', function (req, res) {
-	  console.log("wat");
-	  console.log(req.body);
-	  console.log("---------------------------------------------------------------");
-	  res.send("HOLY SHIT success!");
-	  // match({ routes: routes, location: req.url }, (err, redirect, props) => {
-	  //   // in here we can make some decisions all at once
-	  //   if (err) {
-	  //     // there was an error somewhere during route matching
-	  //     res.status(500).send(err.message)
-	  //   } else if (redirect) {
-	  //     // we haven't talked about `onEnter` hooks on routes, but before a
-	  //     // route is entered, it can redirect. Here we handle on the server.
-	  //     res.redirect(redirect.pathname + redirect.search)
-	  //   } else if (props) {
-	  //     // if we got props then we matched a route and can render
-	  //     const appHtml = renderToString(<RouterContext {...props} />)
-	  //     res.send(renderPage(appHtml))
-	  //   } else {
-	  //     // no errors, no redirect, we just didn't match anything
-	  //     res.status(404).send('Not Found')
-	  //   }
-	  // })
+	app.use(registerRoute);
+
+	app.post('/login', function (req, res) {
+	  // Check for email match in db
+	  var findUserByEmail = knex('users').select('id', 'name', 'password').where({ email: req.body.email }).limit(1);
 	});
 
-	function renderPage(appHtml) {
-	  return '\n    <!doctype html public="storage">\n    <html>\n    <meta charset=utf-8/>\n    <title>W.S. Marina</title>\n    <link rel=stylesheet href=/index.css>\n    <div id=app>' + appHtml + '</div>\n    <script src="/bundle.js"></script>\n   ';
-	}
+	// function renderPage(appHtml) {
+	//   return `
+	//     <!doctype html public="storage">
+	//     <html>
+	//     <meta charset=utf-8/>
+	//     <title>W.S. Marina</title>
+	//     <link rel=stylesheet href=/index.css>
+	//     <div id=app>${appHtml}</div>
+	//     <script src="/bundle.js"></script>
+	//    `
+	// }
 
 	var PORT = process.env.PORT || 8080;
 	app.listen(PORT, function () {
@@ -352,12 +351,23 @@
 	    var date_of_birth = event.target.elements[4].value;
 
 	    var body = JSON.stringify({
-	      username: "hi",
-	      email: "hi",
-	      password: "hi",
-	      password_confirmation: "hi",
-	      date_of_birth: "hi"
+	      username: username,
+	      email: email,
+	      password: password,
+	      password_confirmation: password_confirmation,
+	      date_of_birth: date_of_birth
 	    });
+
+	    if (new Date().getFullYear() - date_of_birth.substring(0, 4) < 21) {
+	      alert('You are underage!');
+	      event.preventDefault();
+	      return;
+	    }
+	    if (password !== password_confirmation) {
+	      alert('Your passwords do not match!');
+	      event.preventDefault();
+	      return;
+	    }
 
 	    fetch('/register', {
 	      method: 'POST',
@@ -369,6 +379,11 @@
 	      body: body
 	    }).then(function (response) {
 	      console.log(response);
+	      if (response.status == 200) {
+	        alert('Your account has been created successfully!');
+	      } else {
+	        alert('Email already exist!');
+	      }
 	    });
 	  },
 	  render: function render() {
@@ -378,16 +393,16 @@
 	      _react2.default.createElement('input', { type: 'text', placeholder: 'name' }),
 	      ' ',
 	      ' ',
-	      _react2.default.createElement('input', { type: 'text', placeholder: 'email' }),
+	      _react2.default.createElement('input', { type: 'email', placeholder: 'email' }),
 	      ' ',
 	      ' ',
-	      _react2.default.createElement('input', { type: 'text', placeholder: 'password' }),
+	      _react2.default.createElement('input', { type: 'password', placeholder: 'password' }),
 	      ' ',
 	      ' ',
-	      _react2.default.createElement('input', { type: 'text', placeholder: 'password confirmation' }),
+	      _react2.default.createElement('input', { type: 'password', placeholder: 'password confirmation' }),
 	      ' ',
 	      ' ',
-	      _react2.default.createElement('input', { type: 'text', placeholder: 'date of birth' }),
+	      _react2.default.createElement('input', { type: 'date', placeholder: 'date of birth' }),
 	      ' ',
 	      ' ',
 	      _react2.default.createElement(
@@ -449,6 +464,164 @@
 /***/ (function(module, exports) {
 
 	module.exports = require("body-parser");
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+	module.exports = require("cookie-session");
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports) {
+
+	module.exports = require("connect-flash");
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	__webpack_require__(17).config();
+
+	module.exports = {
+
+	  development: {
+	    client: 'postgresql',
+	    connection: {
+	      database: process.env.DB_NAME,
+	      user: process.env.DB_USER,
+	      password: process.env.DB_PASS
+	    },
+	    migrations: {
+	      directory: './db/migrations'
+	    }
+	  },
+
+	  staging: {
+	    client: 'postgresql',
+	    connection: {
+	      database: 'my_db',
+	      user: 'username',
+	      password: 'password'
+	    },
+	    pool: {
+	      min: 2,
+	      max: 10
+	    },
+	    migrations: {
+	      tableName: 'knex_migrations'
+	    }
+	  },
+
+	  production: {
+	    client: 'postgresql',
+	    connection: {
+	      database: 'my_db',
+	      user: 'username',
+	      password: 'password'
+	    },
+	    pool: {
+	      min: 2,
+	      max: 10
+	    },
+	    migrations: {
+	      tableName: 'knex_migrations'
+	    }
+	  }
+
+	};
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports) {
+
+	module.exports = require("dotenv");
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+	module.exports = require("knex");
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports) {
+
+	module.exports = require("knex-logger");
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports) {
+
+	module.exports = require("bcrypt");
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var express = __webpack_require__(10);
+
+	function createRouter(knex, bcrypt) {
+	  var router = express.Router();
+
+	  //   router.post("/register", (req, res) => {
+	  //     const password_digest = bcrypt.hash(req.body.password, 10);
+	  //     knex("users").insert({
+	  //       username: req.body.username,
+	  //       email: req.body.email,
+	  //       password_digest: password_digest,
+	  //       date_of_birth: req.body.date_of_birth
+	  //     }).then(() => {
+	  //       res.send('Success! Account created!')
+	  //     });
+	  //   });
+	  //   return router;
+	  // }
+
+	  router.post("/register", function (req, res) {
+	    // Guard function to check bad input
+	    if (!req.body.email || !req.body.password) {
+	      // res.send('blank email/pw!');
+	      // req.flash("errors", "email and password cannot be blank!");
+	      res.send("email and password cannot be blank!").status(400);
+	      return;
+	    }
+
+	    var matchProvidedEmail = knex("users").select(1).where({ email: req.body.email }).limit(1);
+	    matchProvidedEmail.then(function (rows) {
+	      if (rows.length) {
+	        return Promise.reject({
+	          type: 409,
+	          message: "email already exists"
+	        });
+	      }
+	      return bcrypt.hash(req.body.password, 10);
+	    }).then(function (encryptedPassword) {
+	      return knex("users").insert({
+	        username: req.body.username,
+	        email: req.body.email,
+	        password_digest: encryptedPassword,
+	        date_of_birth: req.body.date_of_birth
+	      });
+	    }).then(function () {
+	      return knex("users").select("id").where({ email: req.body.email }).limit(1);
+	    }).then(function (rows) {
+	      req.session.user_id = rows[0].id;
+	      // req.flash("info", "Account created successfully");
+	      res.send("Account created successfully").status(200);
+	    }).catch(function (err) {
+	      // req.flash('errors', err.message);
+	      res.send(err.message).status(err.type);
+	    });
+	  });
+	  return router;
+	}
+
+	module.exports = createRouter;
 
 /***/ })
 /******/ ]);
