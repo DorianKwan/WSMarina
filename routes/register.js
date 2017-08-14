@@ -48,6 +48,7 @@ function createRouter(knex, bcrypt) {
       .select(1)
       .where({ email: req.body.email })
       .limit(1);
+      
     matchProvidedEmail.then((rows) => {
       if (rows.length) {
         return Promise.reject({

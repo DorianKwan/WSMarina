@@ -85,18 +85,15 @@
 	app.use(express.static(path.join(__dirname, 'public')));
 
 	var registerRoute = __webpack_require__(21)(knex, bcrypt);
+	var loginRoute = __webpack_require__(22)(knex, bcrypt);
 
 	app.use(registerRoute);
+	app.use(loginRoute);
 
 	app.use(cookieSession({
 	  name: "session",
 	  keys: [process.env.SESSION_SECRET || 'development']
 	}));
-
-	app.post('/login', function (req, res) {
-	  // Check for email match in db
-	  var findUserByEmail = knex('users').select('id', 'name', 'password').where({ email: req.body.email }).limit(1);
-	});
 
 	// function renderPage(appHtml) {
 	//   return `
@@ -298,11 +295,32 @@
 
 	  handleSubmit: function handleSubmit(event) {
 	    event.preventDefault();
-	    var email = event.target.elements[0].value;
-	    var password = event.target.elements[1].value;
-	    var path = '/login/' + email + '/' + password;
-	    console.log(path);
-	    this.context.router.push(path);
+	    var email = event.target.elements[1].value;
+	    var password = event.target.elements[2].value;
+
+	    var body = JSON.stringify({
+	      email: email,
+	      password: password
+	    });
+
+	    fetch('/login', {
+	      method: 'POST',
+	      headers: {
+	        'Accept': 'application/json',
+	        'Content-Type': 'application/json',
+	        'Content-Length': new Buffer(body).length
+	      },
+	      body: body
+	    }).then(function (response) {
+	      console.log(response);
+	      if (response.status === 200) {
+	        alert('Your account has been created successfully!');
+	      } else if (response.status === 409) {
+	        alert('Bad credentials!');
+	      } else {
+	        alert('Email or password cannot be empty!');
+	      }
+	    });
 	  },
 	  render: function render() {
 	    return _react2.default.createElement(
@@ -614,6 +632,7 @@
 	    });
 
 	    var matchProvidedEmail = knex("users").select(1).where({ email: req.body.email }).limit(1);
+
 	    matchProvidedEmail.then(function (rows) {
 	      if (rows.length) {
 	        return Promise.reject({
@@ -647,6 +666,67 @@
 	  return router;
 	}
 
+	module.exports = createRouter;
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var express = __webpack_require__(10);
+
+	function createRouter(knex, bcrypt) {
+		var router = express.Router();
+
+		// router.get("/", (req, res) => {
+		// 	let templateVars = { user: req.session.user_id };
+		// 	res.render("login", templateVars);
+		// });
+
+		router.post("/login", function (req, res) {
+			// Guard function to check for bad input
+			if (!req.body.email || !req.body.password) {
+				// res.send('no input in input fields!');
+				res.sendStatus(400);
+				return;
+			}
+			// Check for email match in db
+			var findUserByEmail = knex('users').select('id', 'username', 'password').where({ email: req.body.email }).limit(1);
+
+			findUserByEmail.then(function (rows) {
+				var user = rows[0];
+				if (!user) {
+					return Promise.reject({
+						type: 409,
+						message: 'Check your spelling, submitted credentials are invalid!'
+					});
+				}
+				// If user exists, check for password match
+				var comparePasswords = bcrypt.compare(req.body.password, user.password);
+
+				return comparePasswords.then(function (passwordsMatch) {
+					if (!passwordsMatch) {
+						return Promise.reject({
+							type: 409,
+							message: 'Bad credentials!'
+						});
+					}
+					return Promise.resolve(user);
+				});
+			}).then(function (user) {
+				// Log user in
+				req.session.user_id = user.id;
+				// Redirect to users page
+				res.sendStatus(200);
+
+				// If chain is broken by error:
+			}).catch(function (err) {
+				res.sendStatus(err.type);
+			});
+		});
+		return router;
+	}
 	module.exports = createRouter;
 
 /***/ })

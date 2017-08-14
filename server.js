@@ -28,21 +28,15 @@ app.use(compression())
 app.use(express.static(path.join(__dirname, 'public')))
 
 const registerRoute = require("./routes/register")(knex, bcrypt);
+const loginRoute = require("./routes/login")(knex, bcrypt);
 
 app.use(registerRoute);
+app.use(loginRoute);
 
 app.use(cookieSession({
   name: "session",
   keys: [process.env.SESSION_SECRET || 'development']
 }));
-
-app.post('/login', (req, res) => {
-  // Check for email match in db
-  const findUserByEmail = knex('users')
-    .select('id', 'name', 'password')
-    .where({ email: req.body.email })
-    .limit(1);
-})
 
 // function renderPage(appHtml) {
 //   return `

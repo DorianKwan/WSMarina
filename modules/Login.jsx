@@ -8,11 +8,33 @@ export default React.createClass({
 
   handleSubmit(event) {
     event.preventDefault()
-    const email = event.target.elements[0].value
-    const password = event.target.elements[1].value
-    const path = `/login/${email}/${password}`
-    console.log(path)
-    this.context.router.push(path)
+    const email = event.target.elements[1].value
+    const password = event.target.elements[2].value
+
+    const body = JSON.stringify({
+      email: email,
+      password: password
+    })
+
+    fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Content-Length': new Buffer(body).length
+      },
+      body: body
+    })
+    .then((response) => {
+      console.log(response)
+      if(response.status === 200) {
+        alert('Your account has been created successfully!');
+      } else if (response.status === 409) {
+        alert('Bad credentials!');
+      } else {
+        alert('Email or password cannot be empty!');
+      }
+    })
   },
 
   render() {
