@@ -15,12 +15,23 @@ export default React.createClass({
     const date_of_birth = event.target.elements[4].value
 
     const body = JSON.stringify({
-      username: "hi",
-      email: "hi",
-      password: "hi",
-      password_confirmation: "hi",
-      date_of_birth: "hi"
+      username: username,
+      email: email,
+      password: password,
+      password_confirmation: password_confirmation,
+      date_of_birth: date_of_birth
     })
+
+    if (new Date().getFullYear() - date_of_birth.substring(0, 4) < 21) {
+      alert('You are underage!');
+      event.preventDefault();
+      return;
+    }
+    if (password !== password_confirmation) {
+      alert('Your passwords do not match!');
+      event.preventDefault();
+      return;
+    }
 
     fetch('/register', {
       method: 'POST',
@@ -33,6 +44,11 @@ export default React.createClass({
     })
     .then((response) => {
       console.log(response)
+      if(response.status == 200) {
+        alert('Your account has been created successfully!');
+      } else {
+        alert('Email already exist!');
+      }
     })
   },
 
@@ -41,10 +57,10 @@ export default React.createClass({
     return (
       <form onSubmit={this.handleSubmit}>
         <input type="text" placeholder="name" /> {' '}
-        <input type="text" placeholder="email" /> {' '}
-        <input type="text" placeholder="password" /> {' '}
-        <input type="text" placeholder="password confirmation" /> {' '}
-        <input type="text" placeholder="date of birth" /> {' '}
+        <input type="email" placeholder="email" /> {' '}
+        <input type="password" placeholder="password" /> {' '}
+        <input type="password" placeholder="password confirmation" /> {' '}
+        <input type="date" placeholder="date of birth" /> {' '}
         <button type="submit">Register</button>
       </form>
     );
