@@ -295,8 +295,8 @@
 
 	  handleSubmit: function handleSubmit(event) {
 	    event.preventDefault();
-	    var email = event.target.elements[1].value;
-	    var password = event.target.elements[2].value;
+	    var email = event.target.elements[0].value;
+	    var password = event.target.elements[1].value;
 
 	    var body = JSON.stringify({
 	      email: email,
@@ -313,13 +313,17 @@
 	      body: body
 	    }).then(function (response) {
 	      console.log(response);
-	      if (response.status === 200) {
-	        alert('Your account has been created successfully!');
-	      } else if (response.status === 409) {
-	        alert('Bad credentials!');
-	      } else {
-	        alert('Email or password cannot be empty!');
-	      }
+	      if (statusCode >= 100 && statusCode < 600) res.status(statusCode);else res.status(500);
+	      // if(response.status === 200) {
+	      //   alert('Your account has been created successfully!');
+	      // } else if (response.status === 409) {
+	      //   alert('Bad credentials!');
+	      // } else if (response.status === 420) {
+	      //   alert('Email or password cannot be empty!');
+	      // } else {
+	      //   console.log(response.status);
+	      //   alert(response.status);
+	      // }
 	    });
 	  },
 	  render: function render() {
@@ -329,12 +333,12 @@
 	      _react2.default.createElement('input', { type: 'text', placeholder: 'email' }),
 	      ' ',
 	      ' ',
-	      _react2.default.createElement('input', { type: 'text', placeholder: 'password' }),
+	      _react2.default.createElement('input', { type: 'password', placeholder: 'password' }),
 	      ' ',
 	      _react2.default.createElement(
 	        'button',
 	        { type: 'submit' },
-	        'Go'
+	        'Log in'
 	      )
 	    );
 	  }
@@ -688,7 +692,7 @@
 			// Guard function to check for bad input
 			if (!req.body.email || !req.body.password) {
 				// res.send('no input in input fields!');
-				res.sendStatus(400);
+				res.sendStatus(420);
 				return;
 			}
 			// Check for email match in db

@@ -8,8 +8,8 @@ export default React.createClass({
 
   handleSubmit(event) {
     event.preventDefault()
-    const email = event.target.elements[1].value
-    const password = event.target.elements[2].value
+    const email = event.target.elements[0].value
+    const password = event.target.elements[1].value
 
     const body = JSON.stringify({
       email: email,
@@ -27,13 +27,20 @@ export default React.createClass({
     })
     .then((response) => {
       console.log(response)
-      if(response.status === 200) {
-        alert('Your account has been created successfully!');
-      } else if (response.status === 409) {
-        alert('Bad credentials!');
-      } else {
-        alert('Email or password cannot be empty!');
-      }
+      if (statusCode >= 100 && statusCode < 600)
+        res.status(statusCode);
+      else
+        res.status(500);
+      // if(response.status === 200) {
+      //   alert('Your account has been created successfully!');
+      // } else if (response.status === 409) {
+      //   alert('Bad credentials!');
+      // } else if (response.status === 420) {
+      //   alert('Email or password cannot be empty!');
+      // } else {
+      //   console.log(response.status);
+      //   alert(response.status);
+      // }
     })
   },
 
@@ -41,8 +48,8 @@ export default React.createClass({
     return (
       <form onSubmit={this.handleSubmit}>
         <input type="text" placeholder="email" /> {' '}
-        <input type="text" placeholder="password" />{' '}
-        <button type="submit">Go</button>
+        <input type="password" placeholder="password" />{' '}
+        <button type="submit">Log in</button>
       </form>
     );
   }

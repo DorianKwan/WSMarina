@@ -12,7 +12,7 @@ function createRouter(knex, bcrypt) {
 		// Guard function to check for bad input
 		if (!req.body.email || !req.body.password) {
 			// res.send('no input in input fields!');
-			res.sendStatus(400)
+			res.sendStatus(420)
 			return;
 		}
 		// Check for email match in db
