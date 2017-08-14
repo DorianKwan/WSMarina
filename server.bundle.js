@@ -88,6 +88,11 @@
 
 	app.use(registerRoute);
 
+	app.use(cookieSession({
+	  name: "session",
+	  keys: [process.env.SESSION_SECRET || 'development']
+	}));
+
 	app.post('/login', function (req, res) {
 	  // Check for email match in db
 	  var findUserByEmail = knex('users').select('id', 'name', 'password').where({ email: req.body.email }).limit(1);
@@ -627,7 +632,11 @@
 	    }).then(function () {
 	      return knex("users").select("id").where({ email: req.body.email }).limit(1);
 	    }).then(function (rows) {
-	      req.session.user_id = rows[0].id;
+	      console.log('hellllllllllllllllllllllllllllo');
+	      console.log('ROW' + row[0].id);
+	      console.log(req.session.user_id);
+	      res.session.user_id = rows[0].id;
+	      console.log(req.session.user_id);
 	      // req.flash("info", "Account created successfully");
 	      res.sendStatus(200);
 	    }).catch(function (err) {

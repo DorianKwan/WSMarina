@@ -69,7 +69,11 @@ function createRouter(knex, bcrypt) {
         .where({ email: req.body.email })
         .limit(1);
     }).then((rows) => {
-      req.session.user_id = rows[0].id;
+      console.log('hellllllllllllllllllllllllllllo')
+      console.log('ROW' + row[0].id)
+      console.log(req.session.user_id)
+      res.session.user_id = rows[0].id;
+      console.log(req.session.user_id)
       // req.flash("info", "Account created successfully");
       res.sendStatus(200)
 

@@ -31,6 +31,11 @@ const registerRoute = require("./routes/register")(knex, bcrypt);
 
 app.use(registerRoute);
 
+app.use(cookieSession({
+  name: "session",
+  keys: [process.env.SESSION_SECRET || 'development']
+}));
+
 app.post('/login', (req, res) => {
   // Check for email match in db
   const findUserByEmail = knex('users')
