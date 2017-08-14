@@ -87,13 +87,13 @@
 	var registerRoute = __webpack_require__(21)(knex, bcrypt);
 	var loginRoute = __webpack_require__(22)(knex, bcrypt);
 
-	app.use(registerRoute);
-	app.use(loginRoute);
-
 	app.use(cookieSession({
 	  name: "session",
 	  keys: [process.env.SESSION_SECRET || 'development']
 	}));
+
+	app.use(registerRoute);
+	app.use(loginRoute);
 
 	// function renderPage(appHtml) {
 	//   return `
@@ -313,17 +313,6 @@
 	      body: body
 	    }).then(function (response) {
 	      console.log(response);
-	      if (statusCode >= 100 && statusCode < 600) res.status(statusCode);else res.status(500);
-	      // if(response.status === 200) {
-	      //   alert('Your account has been created successfully!');
-	      // } else if (response.status === 409) {
-	      //   alert('Bad credentials!');
-	      // } else if (response.status === 420) {
-	      //   alert('Email or password cannot be empty!');
-	      // } else {
-	      //   console.log(response.status);
-	      //   alert(response.status);
-	      // }
 	    });
 	  },
 	  render: function render() {
@@ -599,25 +588,9 @@
 	function createRouter(knex, bcrypt) {
 	  var router = express.Router();
 
-	  //   router.post("/register", (req, res) => {
-	  //     const password_digest = bcrypt.hash(req.body.password, 10);
-	  //     knex("users").insert({
-	  //       username: req.body.username,
-	  //       email: req.body.email,
-	  //       password_digest: password_digest,
-	  //       date_of_birth: req.body.date_of_birth
-	  //     }).then(() => {
-	  //       res.send('Success! Account created!')
-	  //     });
-	  //   });
-	  //   return router;
-	  // }
-
 	  router.post("/register", function (req, res) {
 	    // Guard function to check bad input
 	    if (!req.body.email || !req.body.password) {
-	      // res.send('blank email/pw!');
-	      // req.flash("errors", "email and password cannot be blank!");
 	      res.sendStatus(400);
 	      return;
 	    }
@@ -655,10 +628,7 @@
 	    }).then(function () {
 	      return knex("users").select("id").where({ email: req.body.email }).limit(1);
 	    }).then(function (rows) {
-	      console.log('hellllllllllllllllllllllllllllo');
-	      console.log('ROW' + row[0].id);
-	      console.log(req.session.user_id);
-	      res.session.user_id = rows[0].id;
+	      req.session.user_id = rows[0].id;
 	      console.log(req.session.user_id);
 	      // req.flash("info", "Account created successfully");
 	      res.sendStatus(200);
@@ -676,30 +646,27 @@
 /* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	var express = __webpack_require__(10);
 
 	function createRouter(knex, bcrypt) {
 		var router = express.Router();
 
-		// router.get("/", (req, res) => {
-		// 	let templateVars = { user: req.session.user_id };
-		// 	res.render("login", templateVars);
-		// });
-
 		router.post("/login", function (req, res) {
 			// Guard function to check for bad input
 			if (!req.body.email || !req.body.password) {
-				// res.send('no input in input fields!');
-				res.sendStatus(420);
+				console.log("Test1");
+				res.sendStatus(300);
 				return;
 			}
 			// Check for email match in db
-			var findUserByEmail = knex('users').select('id', 'username', 'password').where({ email: req.body.email }).limit(1);
-
-			findUserByEmail.then(function (rows) {
+			knex('users').select('*').where({ email: req.body.email }).limit(1).then(function (rows) {
+				console.log("Test2");
 				var user = rows[0];
+				console.log(rows);
+				console.log("test2.0");
+				console.log(user);
 				if (!user) {
 					return Promise.reject({
 						type: 409,
@@ -707,9 +674,10 @@
 					});
 				}
 				// If user exists, check for password match
-				var comparePasswords = bcrypt.compare(req.body.password, user.password);
+				var comparePasswords = bcrypt.compare(req.body.password, user.password_digest);
 
 				return comparePasswords.then(function (passwordsMatch) {
+					console.log("Test3");
 					if (!passwordsMatch) {
 						return Promise.reject({
 							type: 409,
@@ -719,6 +687,7 @@
 					return Promise.resolve(user);
 				});
 			}).then(function (user) {
+				console.log("Test4");
 				// Log user in
 				req.session.user_id = user.id;
 				// Redirect to users page
@@ -726,6 +695,7 @@
 
 				// If chain is broken by error:
 			}).catch(function (err) {
+				console.log("Test5");
 				res.sendStatus(err.type);
 			});
 		});

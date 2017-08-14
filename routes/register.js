@@ -3,25 +3,9 @@ const express = require("express");
 function createRouter(knex, bcrypt) {
   const router = express.Router();
 
-//   router.post("/register", (req, res) => {
-//     const password_digest = bcrypt.hash(req.body.password, 10);
-//     knex("users").insert({
-//       username: req.body.username,
-//       email: req.body.email,
-//       password_digest: password_digest,
-//       date_of_birth: req.body.date_of_birth
-//     }).then(() => {
-//       res.send('Success! Account created!')
-//     });
-//   });
-//   return router;
-// }
-
   router.post("/register", (req, res) => {
     // Guard function to check bad input
     if (!req.body.email || !req.body.password) {
-      // res.send('blank email/pw!');
-      // req.flash("errors", "email and password cannot be blank!");
       res.sendStatus(400)
       return;
     }
@@ -70,10 +54,7 @@ function createRouter(knex, bcrypt) {
         .where({ email: req.body.email })
         .limit(1);
     }).then((rows) => {
-      console.log('hellllllllllllllllllllllllllllo')
-      console.log('ROW' + row[0].id)
-      console.log(req.session.user_id)
-      res.session.user_id = rows[0].id;
+      req.session.user_id = rows[0].id;
       console.log(req.session.user_id)
       // req.flash("info", "Account created successfully");
       res.sendStatus(200)

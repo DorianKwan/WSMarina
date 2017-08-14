@@ -30,13 +30,14 @@ app.use(express.static(path.join(__dirname, 'public')))
 const registerRoute = require("./routes/register")(knex, bcrypt);
 const loginRoute = require("./routes/login")(knex, bcrypt);
 
-app.use(registerRoute);
-app.use(loginRoute);
-
 app.use(cookieSession({
   name: "session",
   keys: [process.env.SESSION_SECRET || 'development']
 }));
+
+app.use(registerRoute);
+app.use(loginRoute);
+
 
 // function renderPage(appHtml) {
 //   return `

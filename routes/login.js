@@ -3,25 +3,20 @@ const express = require('express');
 function createRouter(knex, bcrypt) {
 	const router = express.Router();
 
-	// router.get("/", (req, res) => {
-	// 	let templateVars = { user: req.session.user_id };
-	// 	res.render("login", templateVars);
-	// });
-
 	router.post("/login", (req, res) => {
 		// Guard function to check for bad input
 		if (!req.body.email || !req.body.password) {
-			// res.send('no input in input fields!');
-			res.sendStatus(420)
+			console.log("Test1")
+			res.sendStatus(300)
 			return;
 		}
 		// Check for email match in db
-		const findUserByEmail = knex('users')
-			.select('id', 'username', 'password')
+		knex('users')
+			.select('*')
 			.where({ email: req.body.email })
-			.limit(1);
-
-		findUserByEmail.then((rows) => {
+			.limit(1)
+		.then((rows) => {
+			console.log("Test2")
 			const user = rows[0];
 			if (!user) {
 				return Promise.reject({
@@ -30,9 +25,10 @@ function createRouter(knex, bcrypt) {
 				});
 			}
 			// If user exists, check for password match
-			const comparePasswords = bcrypt.compare(req.body.password, user.password);
+			const comparePasswords = bcrypt.compare(req.body.password, user.password_digest);
 
 			return comparePasswords.then((passwordsMatch) => {
+				console.log("Test3")
 				if (!passwordsMatch) {
 					return Promise.reject({
 						type: 409,
@@ -42,6 +38,7 @@ function createRouter(knex, bcrypt) {
 				return Promise.resolve(user);
 			});
 		}).then((user) => {
+			console.log("Test4")
 			// Log user in
 			req.session.user_id = user.id;
 			// Redirect to users page
@@ -49,6 +46,7 @@ function createRouter(knex, bcrypt) {
 
 			// If chain is broken by error:
 		}).catch((err) => {
+			console.log("Test5")
 	    res.sendStatus(err.type)
 		});
 	});

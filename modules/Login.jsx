@@ -27,20 +27,6 @@ export default React.createClass({
     })
     .then((response) => {
       console.log(response)
-      if (statusCode >= 100 && statusCode < 600)
-        res.status(statusCode);
-      else
-        res.status(500);
-      // if(response.status === 200) {
-      //   alert('Your account has been created successfully!');
-      // } else if (response.status === 409) {
-      //   alert('Bad credentials!');
-      // } else if (response.status === 420) {
-      //   alert('Email or password cannot be empty!');
-      // } else {
-      //   console.log(response.status);
-      //   alert(response.status);
-      // }
     })
   },
 
