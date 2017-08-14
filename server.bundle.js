@@ -379,10 +379,14 @@
 	      body: body
 	    }).then(function (response) {
 	      console.log(response);
-	      if (response.status == 200) {
+	      if (response.status === 200) {
 	        alert('Your account has been created successfully!');
-	      } else {
+	      } else if (response.status === 409) {
 	        alert('Email already exist!');
+	      } else if (response.status === 410) {
+	        alert('Username already exist!');
+	      } else {
+	        alert('Email or password cannot be empty!');
 	      }
 	    });
 	  },
@@ -587,9 +591,22 @@
 	    if (!req.body.email || !req.body.password) {
 	      // res.send('blank email/pw!');
 	      // req.flash("errors", "email and password cannot be blank!");
-	      res.send("email and password cannot be blank!").status(400);
+	      res.sendStatus(400);
 	      return;
 	    }
+
+	    knex("users").select(1).where({ username: req.body.username }).limit(1).then(function (rows) {
+	      if (rows.length) {
+	        return Promise.reject({
+	          type: 410,
+	          message: "username already exists"
+	        });
+	      }
+	      return;
+	    }).catch(function (err) {
+	      // req.flash('errors', err.message);
+	      res.sendStatus(err.type);
+	    });
 
 	    var matchProvidedEmail = knex("users").select(1).where({ email: req.body.email }).limit(1);
 	    matchProvidedEmail.then(function (rows) {
@@ -612,10 +629,10 @@
 	    }).then(function (rows) {
 	      req.session.user_id = rows[0].id;
 	      // req.flash("info", "Account created successfully");
-	      res.send("Account created successfully").status(200);
+	      res.sendStatus(200);
 	    }).catch(function (err) {
 	      // req.flash('errors', err.message);
-	      res.send(err.message).status(err.type);
+	      res.sendStatus(err.type);
 	    });
 	  });
 	  return router;

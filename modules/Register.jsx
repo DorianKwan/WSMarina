@@ -44,10 +44,14 @@ export default React.createClass({
     })
     .then((response) => {
       console.log(response)
-      if(response.status == 200) {
+      if(response.status === 200) {
         alert('Your account has been created successfully!');
-      } else {
+      } else if (response.status === 409) {
         alert('Email already exist!');
+      } else if (response.status === 410) {
+        alert('Username already exist!');
+      } else {
+        alert('Email or password cannot be empty!');
       }
     })
   },

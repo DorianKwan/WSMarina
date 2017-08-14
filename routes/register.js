@@ -22,9 +22,27 @@ function createRouter(knex, bcrypt) {
     if (!req.body.email || !req.body.password) {
       // res.send('blank email/pw!');
       // req.flash("errors", "email and password cannot be blank!");
-      res.send("email and password cannot be blank!").status(400)
+      res.sendStatus(400)
       return;
     }
+
+    knex("users")
+      .select(1)
+      .where({ username: req.body.username })
+      .limit(1)
+    .then((rows) => {
+      if (rows.length) {
+        return Promise.reject({
+          type: 410,
+          message: "username already exists"
+        });
+      }
+      return;
+    }).catch((err) => {
+      // req.flash('errors', err.message);
+      res.sendStatus(err.type)
+    });
+
 
     const matchProvidedEmail = knex("users")
       .select(1)
@@ -53,11 +71,11 @@ function createRouter(knex, bcrypt) {
     }).then((rows) => {
       req.session.user_id = rows[0].id;
       // req.flash("info", "Account created successfully");
-      res.send("Account created successfully").status(200)
+      res.sendStatus(200)
 
     }).catch((err) => {
       // req.flash('errors', err.message);
-      res.send(err.message).status(err.type)
+      res.sendStatus(err.type)
     });
   });
   return router;
