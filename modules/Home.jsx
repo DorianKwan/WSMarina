@@ -1,6 +1,6 @@
-import React from 'react';
-import StockReel from './StockReel.jsx';
-import NewsReel from './NewsReel.jsx';
+import React from "react";
+import NewsReel from "./NewsReel.jsx";
+import StockReel from "./StockReel.jsx";
 
 export default React.createClass({
   render() {

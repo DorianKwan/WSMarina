@@ -1,5 +1,5 @@
 {
-  "name": "wsmarina",
+  "name": "ws-marina",
   "version": "1.0.0",
   "description": "",
   "main": "./modules/index.jsx",
@@ -12,7 +12,7 @@
     "build:server": "webpack --config webpack.server.config.js",
     "build": "npm run build:client && npm run build:server"
   },
-  "author": "",
+  "author": "cryptoshell, doriankwan, kai19, kaichesterni, rajmytaj",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^1.0.2",

@@ -1,9 +1,10 @@
-import React from 'react'
-import { Route, IndexRoute } from 'react-router'
-import App from './App.jsx'
-import Login from './Login.jsx'
-import Register from './Register.jsx'
-import Home from './Home.jsx'
+import React from "react";
+import { Route, IndexRoute } from "react-router";
+
+import App from "./App.jsx";
+import Login from "./Login.jsx";
+import Register from "./Register.jsx";
+import Home from "./Home.jsx";
 
 module.exports = (
   <Route path="/" component={App}>
@@ -11,4 +12,4 @@ module.exports = (
     <Route path="/login" component={Login} />
     <Route path="/register" component={Register} />
   </Route>
-)
+);

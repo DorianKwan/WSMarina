@@ -1,5 +1,5 @@
-import React from 'react';
-import https from 'https';
+import https from "https";
+import React from "react";
 
 function createNode(element) {
   return document.createElement(element);
@@ -10,9 +10,10 @@ function append(parent, el) {
 }
 
 function postTickers(input) {
-  const username = "INTRINIO_API_USERNAME";
+  const username = "INTRINIO_API_USERNAME"; // TODO: use dotenv
   const password = "INTRINIO_API_PASSWORD";
-  const auth = "Basic " + new Buffer(username + ':' + password).toString('base64');
+  const auth = "Basic " + new Buffer(username + ":" + password).toString("base64");
+
   input.map((ticker) => {
     const request = https.request({
       method: "GET",
@@ -21,32 +22,34 @@ function postTickers(input) {
       headers: {
         "Authorization": auth
       }
+
     }, (response) => {
       let json = "";
-      response.on('data', (chunk) => {
+      response.on("data", (chunk) => {
         json += chunk;
       });
-      response.on('end', function() {
-        const section = document.getElementById('tickers');      
+
+      response.on("end", function() {
+        const section = document.getElementById("tickers");
         const data = JSON.parse(json);
-        let span = createNode('span');
+        let span = createNode("span");
         span.innerHTML = `Ticker: ${data.identifier} Price: $${data.value} `;
         return append(section, span);
       });
     });
+
     request.end();
   });
 }
 
 export default React.createClass({
-
   componentDidMount() {
-    const companies = ['GOOG', 'TSLA', 'MSFT', 'FB', 'AMZN'];
+    const companies = ["GOOG", "TSLA", "MSFT", "FB", "AMZN"];
     postTickers(companies);
   },
 
   render() {
-    return(
+    return (
       <div id="tickers"></div>
     );
   }

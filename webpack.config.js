@@ -1,35 +1,34 @@
-var webpack = require('webpack');
+var webpack = require("webpack");
 
 module.exports = {
-  entry: './modules/index.jsx',
+  entry: "./modules/index.jsx",
 
-  plugins: process.env.NODE_ENV === 'production' ? [
+  plugins: process.env.NODE_ENV === "production" ? [
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin()
   ] : [],
 
   output: {
-    path: 'public',
-    filename: 'bundle.js',
-    publicPath: '/'
+    path: "public",
+    filename: "bundle.js",
+    publicPath: "/"
   },
-  devtool: 'source-map',
+  devtool: "source-map",
   module: {
-    loaders: [
-      {
+    loaders: [{
         test: /\.jsx?$/,
-        loader: 'babel-loader'
+        loader: "babel-loader"
       },
 
       {
         test: /\.scss$/,
         // use: [{
-        loader: 'style-loader',
+        loader: "style-loader",
         // }, {
-        loader: 'css-loader',
+        loader: "css-loader",
         // }, {
-        loader: 'sass-loader'
+        loader: "sass-loader"
         // }]
       }
     ]

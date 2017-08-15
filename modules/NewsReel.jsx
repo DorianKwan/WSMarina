@@ -1,5 +1,5 @@
-import React from 'react';
-import https from 'https';
+import https from "https";
+import React from "react";
 
 function createNode(element) {
   return document.createElement(element);
@@ -10,9 +10,9 @@ function append(parent, el) {
 }
 
 function postArticles(amount) {
-  const username = "INTRINIO_API_USERNAME";
+  const username = "INTRINIO_API_USERNAME"; // TODO: use dotenv
   const password = "INTRINIO_API_PASSWORD";
-  const auth = "Basic " + new Buffer(username + ':' + password).toString('base64');
+  const auth = "Basic " + new Buffer(username + ":" + password).toString("base64");
   const request = https.request({
     method: "GET",
     host: "api.intrinio.com",
@@ -22,15 +22,15 @@ function postArticles(amount) {
     }
   }, (response) => {
     let json = "";
-    response.on('data', (chunk) => {
+    response.on("data", (chunk) => {
       json += chunk;
     });
-    response.on('end', function() {
-      const section = document.getElementById('news');      
+    response.on("end", function() {
+      const section = document.getElementById("news");
       const data = JSON.parse(json);
       for (let i = 0; i < amount; i++) {
         const content = data.data[i];
-        let a = createNode('a');
+        let a = createNode("a");
         a.innerHTML = `Article: ${content.title}`;
         a.href = `${content.url}`;
         append(section, a);
