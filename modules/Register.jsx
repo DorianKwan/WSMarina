@@ -1,86 +1,72 @@
 import React from 'react'
+import { browserHistory } from 'react-router'
 
-class Register extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      email: '',
-      password: '',
-      password_confirmation: '',
-      bio: '',
-      date_of_birth: ''
-  };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({[event.target.name]: event.target.value});
-  }
+export default React.createClass({
+  contextTypes: {
+    router: React.PropTypes.object
+  },
 
   handleSubmit(event) {
-    if (new Date().getFullYear() - this.state.date_of_birth.substring(0, 4) < 21) {
+    event.preventDefault()
+    const username = event.target.elements[0].value
+    const email = event.target.elements[1].value
+    const password = event.target.elements[2].value
+    const password_confirmation = event.target.elements[3].value
+    const date_of_birth = event.target.elements[4].value
+
+    const body = JSON.stringify({
+      username: username,
+      email: email,
+      password: password,
+      password_confirmation: password_confirmation,
+      date_of_birth: date_of_birth
+    })
+
+    if (new Date().getFullYear() - date_of_birth.substring(0, 4) < 21) {
       alert('You are underage!');
       event.preventDefault();
       return;
     }
-    if (this.state.password !== this.state.password_confirmation) {
+    if (password !== password_confirmation) {
       alert('Your passwords do not match!');
       event.preventDefault();
       return;
     }
-    alert('Your account has been created successfully!');
-    event.preventDefault();
-    console.log(this.state);
 
-    $.ajax({
-      url: '/register',
-      type: 'POST',
-      data: {username: this.state.username,
-            email: this.state.email,
-            password: this.state.password,
-            password_confirmation: this.state.password_confirmation,
-            bio: this.state.bio,
-            date_of_birth: this.state.date_of_birth},
-          success: (response) => {
-              console.log('it worked', response);
-          }
-    });
-  }
+    fetch('http://localhost:3000/register', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Content-Length': new Buffer(body).length
+      },
+      body: body
+    })
+    .then((response) => {
+      console.log(response)
+      if(response.status === 200) {
+        alert('Your account has been created successfully!');
+      } else if (response.status === 409) {
+        alert('Email already exist!');
+      } else if (response.status === 410) {
+        alert('Username already exist!');
+      } else {
+        alert('Email or password cannot be empty!');
+      }
+    })
+  },
+
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <h3>Sign Up!</h3>
-        <label>
-          Username:
-          <input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
-        </label>
-        <label>
-          Email:
-          <input type="text" name="email" value={this.state.email} onChange={this.handleChange} />
-        </label>
-        <label>
-          Password:
-          <input type="text" name="password" value={this.state.password} onChange={this.handleChange} />
-        </label>
-        <label>
-          Password Confirmation:
-          <input type="text" name="password_confirmation" value={this.state.password_confirmation} onChange={this.handleChange} />
-        </label>
-        <label>
-          Bio:
-          <input type="text" name="bio" value={this.state.bio} onChange={this.handleChange} />
-        </label>
-        <label>
-          Date of Birth:
-          <input type="date" name="date_of_birth" value={this.state.date_of_birth} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
+        <input type="text" placeholder="name" /> {' '}
+        <input type="email" placeholder="email" /> {' '}
+        <input type="password" placeholder="password" /> {' '}
+        <input type="password" placeholder="password confirmation" /> {' '}
+        <input type="date" placeholder="date of birth" /> {' '}
+        <button type="submit">Register</button>
       </form>
     );
   }
-}
-
-export default Register;
+});

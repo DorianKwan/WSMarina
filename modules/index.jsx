@@ -1,19 +1,10 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, Route, browserHistory, IndexRoute } from 'react-router'
-import App from './App.jsx'
-import Login from './Login.jsx'
-import Register from './Register.jsx'
-import Home from './Home.jsx'
+import { Router, browserHistory } from 'react-router'
+// import routes and pass them into <Router/>
+import routes from './routes.jsx'
 
-render((
-  <Router history={browserHistory}>
-    <Route path="/" component={App}>
-      <IndexRoute component={Home} />
-      <Route path="/login" component={Login} />
-      <Route path="/register" component={Register} />
-    </Route>
-  </Router>
-), document.getElementById('app'))
-
-
+render(
+  <Router routes={routes} history={browserHistory} />,
+  document.getElementById('app')
+)
