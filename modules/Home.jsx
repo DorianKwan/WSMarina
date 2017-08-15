@@ -10,6 +10,6 @@ export default React.createClass({
         <p>JOIN OUR COMMUNITY NOW!</p>
         <NewsReel></NewsReel>
       </div>
-    )
+    );
   }
-})
+});
