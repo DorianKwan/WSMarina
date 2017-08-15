@@ -1,4 +1,4 @@
-var webpack = require('webpack')
+var webpack = require('webpack');
 
 module.exports = {
   entry: './modules/index.jsx',
@@ -17,8 +17,8 @@ module.exports = {
   devtool: 'source-map',
   module: {
     loaders: [
-      { 
-        test: /\.jsx?$/, 
+      {
+        test: /\.jsx?$/,
         loader: 'babel-loader'
       },
 
@@ -29,7 +29,7 @@ module.exports = {
         // }, {
         loader: 'css-loader',
         // }, {
-        loader: 'sass-loader',
+        loader: 'sass-loader'
         // }]
       }
     ]
