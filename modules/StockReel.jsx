@@ -10,7 +10,7 @@ function append(parent, el) {
 }
 
 function postTickers(input) {
-  const username = "INTRINIO_API_USERNAME"; // TODO: Use ENV variables
+  const username = "INTRINIO_API_USERNAME"; // TODO: use dotenv
   const password = "INTRINIO_API_PASSWORD";
   const auth = "Basic " + new Buffer(username + ":" + password).toString("base64");
 
