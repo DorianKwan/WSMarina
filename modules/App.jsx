@@ -1,6 +1,5 @@
-
-import React from 'react'
-import NavLink from './NavLink.jsx'
+import React from 'react';
+import NavLink from './NavLink.jsx';
 
 export default React.createClass({
   render() {
@@ -15,6 +14,6 @@ export default React.createClass({
         </ul>
         {this.props.children}
       </div>
-    )
+    );
   }
-})
+});
