@@ -11,38 +11,17 @@ const express = require('express');
 const path = require('path');
 const compression = require('compression');
 const app = express();
-const bodyParser = require("body-parser");
-const cookieSession = require("cookie-session");
-const flash = require("connect-flash");
 
-const knexConfig = require("./knexfile");
-const knex = require("knex")(knexConfig[ENV]);
-const knexLogger = require("knex-logger");
-const bcrypt = require("bcrypt");
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 
 app.use(compression())
 // add path.join here
 app.use(express.static(path.join(__dirname, 'public')))
 
-const registerRoute = require("./routes/register")(knex, bcrypt);
-const loginRoute = require("./routes/login")(knex, bcrypt);
-
-app.use(cookieSession({
-  name: "session",
-  keys: [process.env.SESSION_SECRET || 'development']
-}));
-
-app.use(registerRoute);
-app.use(loginRoute);
-
 
 // function renderPage(appHtml) {
 //   return `
 //     <!doctype html public="storage">
-//     <html>
+//     <html>ech
 //     <meta charset=utf-8/>
 //     <title>W.S. Marina</title>
 //     <link rel=stylesheet href=/index.css>

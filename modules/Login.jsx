@@ -16,7 +16,7 @@ export default React.createClass({
       password: password
     })
 
-    fetch('/login', {
+    fetch('http://localhost:3000/login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

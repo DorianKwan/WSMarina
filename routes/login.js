@@ -1,6 +1,7 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
 
-function createRouter(knex, bcrypt) {
+function createRouter(knex) {
 	const router = express.Router();
 
 	router.post("/login", (req, res) => {

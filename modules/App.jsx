@@ -3,6 +3,9 @@ import React from 'react'
 import NavLink from './NavLink.jsx'
 
 export default React.createClass({
+  componentDidMount(){
+    this.socket = io.connect('http://localhost:3000');
+  },
   render() {
     return (
       <div>

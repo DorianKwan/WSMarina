@@ -33,7 +33,7 @@ export default React.createClass({
       return;
     }
 
-    fetch('/register', {
+    fetch('http://localhost:3000/register', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

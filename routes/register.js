@@ -1,9 +1,11 @@
 const express = require("express");
+const bcrypt = require('bcrypt');
 
-function createRouter(knex, bcrypt) {
+function createRouter(knex) {
   const router = express.Router();
 
   router.post("/register", (req, res) => {
+    console.log('req.body.email')
     // Guard function to check bad input
     if (!req.body.email || !req.body.password) {
       res.sendStatus(400)
