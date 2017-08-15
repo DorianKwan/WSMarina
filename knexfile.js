@@ -1,48 +1,50 @@
-require('dotenv').config();
+require("dotenv").config();
 
 module.exports = {
 
   development: {
-    client: 'postgresql',
+    client: "postgresql",
     connection: {
       database: process.env.DB_NAME,
-      user:     process.env.DB_USER,
+      user: process.env.DB_USER,
       password: process.env.DB_PASS
     },
     migrations: {
-      directory: './db/migrations'
+      directory: "./db/migrations"
     }
   },
 
+  // Change (or at least review) following configuration in case of actual staing/production use
+
   staging: {
-    client: 'postgresql',
+    client: "postgresql",
     connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
+      database: process.env.DB_NAME,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASS
     },
     pool: {
       min: 2,
       max: 10
     },
     migrations: {
-      tableName: 'knex_migrations'
+      tableName: "knex_migrations"
     }
   },
 
   production: {
-    client: 'postgresql',
+    client: "postgresql",
     connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
+      database: process.env.DB_NAME,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASS
     },
     pool: {
       min: 2,
       max: 10
     },
     migrations: {
-      tableName: 'knex_migrations'
+      tableName: "knex_migrations"
     }
   }
 
