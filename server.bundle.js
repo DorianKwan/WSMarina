@@ -604,18 +604,22 @@
 	      return;
 	    }
 
-	    knex("users").select(1).where({ username: req.body.username }).limit(1).then(function (rows) {
-	      if (rows.length) {
-	        return Promise.reject({
-	          type: 410,
-	          message: "username already exists"
-	        });
-	      }
-	      return;
-	    }).catch(function (err) {
-	      // req.flash('errors', err.message);
-	      res.sendStatus(err.type);
-	    });
+	    // knex("users")
+	    //   .select(1)
+	    //   .where({ username: req.body.username })
+	    //   .limit(1)
+	    // .then((rows) => {
+	    //   if (rows.length) {
+	    //     return Promise.reject({
+	    //       type: 410,
+	    //       message: "username already exists"
+	    //     });
+	    //   }
+	    //   return;
+	    // }).catch((err) => {
+	    //   res.sendStatus(err.type)
+	    // });
+
 
 	    var matchProvidedEmail = knex("users").select(1).where({ email: req.body.email }).limit(1);
 
@@ -639,10 +643,8 @@
 	    }).then(function (rows) {
 	      req.session.user_id = rows[0].id;
 	      console.log(req.session.user_id);
-	      // req.flash("info", "Account created successfully");
 	      res.sendStatus(200);
 	    }).catch(function (err) {
-	      // req.flash('errors', err.message);
 	      res.sendStatus(err.type);
 	    });
 	  });

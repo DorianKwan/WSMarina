@@ -23,7 +23,6 @@ function createRouter(knex, bcrypt) {
       }
       return;
     }).catch((err) => {
-      // req.flash('errors', err.message);
       res.sendStatus(err.type)
     });
 
@@ -56,11 +55,9 @@ function createRouter(knex, bcrypt) {
     }).then((rows) => {
       req.session.user_id = rows[0].id;
       console.log(req.session.user_id)
-      // req.flash("info", "Account created successfully");
       res.sendStatus(200)
 
     }).catch((err) => {
-      // req.flash('errors', err.message);
       res.sendStatus(err.type)
     });
   });
