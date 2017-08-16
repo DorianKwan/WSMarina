@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="stylesheet" href="/styles/styles.css">
+  <title>Welcome to W.S. Marina</title>
+</head>
+<body>
+  <form action="/register" method="post">
+    <p>
+      <label for="register-username">Username</label>
+      <input id="register-username" name="username">
+    </p>
+    <p>
+      <label for="register-email">Email</label>
+      <input id="register-email" name="email">
+    </p>
+    <p>
+      <label for="register-password">Password</label>
+      <input id="register-password" name="password" type="password">
+    </p>
+    <p>
+      <label for="register-date_of_birth">Date of Birth</label>
+      <input id="register-date_of_birth" name="date_of_birth" type="date">
+    </p>
+    <p>
+      <button>Register</button>
+    </p>
+  </form>
+  <form action="/login" method="post">
+    <p>
+      <label for="login-email">Email</label>
+      <input id="login-email" name="email">
+    </p>
+    <p>
+      <label for="login-password">Password</label>
+      <input id="login-password" name="password" type="password">
+    </p>
+    <p>
+      <button>Login</button>
+    </p>
+  </form>
+</body>
+</html>
