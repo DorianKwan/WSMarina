@@ -10,37 +10,8 @@ function round(number, decimals) {
 
 class Ticker extends Component {
 
-  constructor() {
-    super();
-    this.state = {
-      tickers: [
-        {
-          name: 'AAPL',
-          price: null,
-          percentChange: null
-        },
-        {
-          name: 'GOOG',
-          price: null,
-          percentChange: null
-        },
-        {
-          name: 'AMZN',
-          price: null,
-          percentChange: null
-        },
-        {
-          name: 'MSFT',
-          price: null,
-          percentChange: null
-        },
-        {
-          name: 'FB',
-          price: null,
-          percentChange: null
-        },
-      ]
-    }
+  constructor(props) {
+    super(props);
     this.realTimeTickers = this.realTimeTickers.bind(this);
   }
 
@@ -50,9 +21,9 @@ class Ticker extends Component {
   }
 
   realTimeTickers() {
-    const alphaVantageKey = 'Alpha vantage key here';
+    const alphaVantageKey = 'YW6PCYJ22Y79AP56';
     Promise.all(
-      this.state.tickers.map((item, index) => {
+      this.props.tickers.map((item, index) => {
         return fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${item.name}&outputsize=full&apikey=${alphaVantageKey}`)
         .then((resp) => resp.json());
       })
@@ -80,7 +51,8 @@ class Ticker extends Component {
   }
 
   render() {
-    const stocks = this.state.tickers.map(stock => {
+    const data = this.state || this.props;
+    const stocks = data.tickers.map(stock => {
       return (
         <div key={ stock.name }>{ stock.name } | { stock.price }</div>
       )
@@ -95,3 +67,4 @@ class Ticker extends Component {
 }
 
 export default Ticker;
+
