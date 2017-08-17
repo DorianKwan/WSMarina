@@ -9,7 +9,7 @@ ____    __    ____     _______.       .___  ___.      ___      .______       __ 
 Getting started:
 
 1. `npm install`
-2. `cp server/.env.example .env` and update **.env** file
+2. `cp server/.env.example server/.env` and update **.env** file
 3. Create database and `npm run db:migrate`
 
 During development:
