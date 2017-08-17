@@ -75,12 +75,26 @@ function createRouter(knex) {
 
     }).then((rows) => {
 
+      const user = rows[0].id;
+
       // Set cookie to reflect logged in status and redirect to users page
-      req.session.user_id = rows[0].id;
-      console.log(req.session.user_id);
+      req.session.user_id = user;
+
+      return user;
+
+    }).then((user) => {
+
+      return knex("farms").insert({
+        user_id: user
+      });
+
+    }).then(() => {
+      
       res.redirect('/');
 
     }).catch((err) => {
+
+      console.log(err);
 
       // Lazy error handling
       // TODO: handle errors properly
