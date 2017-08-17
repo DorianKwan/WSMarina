@@ -8,7 +8,8 @@
     "nodemon": "cd server && npm run start:dev",
     "dev-server": "cd client && npm start",
     "install": "cd client && npm install && cd ../server && npm install",
-    "db:migrate": "cd server && npm run knex migrate:latest"
+    "db:migrate": "cd server && npm run knex migrate:latest",
+    "db:rollback": "cd server && npm run knex migrate:rollback"
   },
   "keywords": [],
   "author": "",
