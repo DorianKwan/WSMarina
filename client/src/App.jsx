@@ -17,22 +17,29 @@ class App extends React.Component {
       leaders: []
     };
   }
-  componentDidMount(){
-    fetch("http://localhost:8080/currentUser", {
-      method: "GET",
-      credentials: 'include', 
+
+  findCurrentUser() {
+    //For Localhost use the below url
+    const url = "/currentUser";
+
+    fetch(url, {
+      credentials: 'include',
       headers: {
         "Accept": "application/json"
       }
-    }).then((response) => {
-      return res.json();
-    }).then((user) => {
-      if (user) {
-        console.log(user);
-        this.setState({ user });
-        this.socket.emit('user_logged_in', user);
-      }
-    });
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((user) => {
+        console.log(user)
+        this.setState({
+          currentUser: user.username
+        })
+      })
+  }
+  componentDidMount(){
+    this.findCurrentUser();
   }
 
   render() {

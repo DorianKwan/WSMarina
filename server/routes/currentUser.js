@@ -1,4 +1,3 @@
-const bcrypt = require("bcrypt");
 const express = require("express");
 
 function createRouter(knex) {
@@ -7,14 +6,13 @@ function createRouter(knex) {
   router.get("/", (req, res) => {
     console.log(req.session.user_id)
     knex("users")
-      .select("*")
+      .select("id","username","email","bio","image","rep" )
       .where({
         id: req.session.user_id
       })
       .limit(1)
     .then((userInfo) => {
-      console.log(userInfo)
-      res.send(userInfo);
+      res.send(userInfo[0]);
     });
   });
   return router;
