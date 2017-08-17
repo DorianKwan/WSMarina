@@ -5,6 +5,7 @@ import Leaders from './Leaders.jsx';
 import News from './News.jsx';
 import ChatRooms from './ChatRooms.jsx';
 import SiteFooter from './SiteFooter.jsx';
+import ProfilePage from './ProfilePage.jsx';
 
 
 class App extends React.Component {
@@ -55,6 +56,7 @@ class App extends React.Component {
         <form action="/logout" method="POST">
           <input type='submit' value='Logout' />
         </form>
+        <ProfilePage currentUser={this.state.currentUser} />
       </div>
     );
   }
