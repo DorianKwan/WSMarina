@@ -35,8 +35,8 @@ class App extends React.Component {
         console.log(user)
         this.setState({
           currentUser: user.username
-        })
-      })
+        });
+      });
   }
   componentDidMount(){
     this.findCurrentUser();
