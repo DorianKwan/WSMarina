@@ -41,6 +41,16 @@ app.use('/register', registerRouter(knex));
 
 io.on("connection", (socket) => {
   console.log('Client connected');
+  knex("users")
+    .select("*")
+    .where({
+      id: req.session.user_id
+    })
+    .limit(1)
+    .then((rows) => {
+      console.log(rows)
+    })
+
   numberOfClients();
 
   // Each message recieved will given a random id

@@ -21,6 +21,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
+        <p>Welcome!!!{this.state.currentUser}</p>
         <Navbar currentUser={this.state.currentUser} />
         <Ticker tickers={this.state.tickers} />
         <Leaders leaders={this.state.leaders} />
