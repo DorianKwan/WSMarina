@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
   if (req.session.user_id) {
     res.render('app', {
       bundleURL
@@ -61,7 +61,7 @@ io.on("connection", (socket) => {
   numberOfClients();
 
   // Each message recieved will given a random id
-  socket.on('message', function incoming(message) {
+  socket.on('message', (message) => {
     let messageRecieved = JSON.parse(message);
     console.log(messageRecieved);
     switch (messageRecieved.type) {
