@@ -43,6 +43,18 @@ app.use('/register', registerRouter(knex));
 app.use('/currentUser', currentUserRouter(knex));
 app.use('/logout', logoutRouter(knex));
 
+// This function broadcasts data to all clients connected to server
+function broadcast(data) {
+  io.sockets.emit('data', data);
+}
+
+// This function checks number of users connected to server and passes noOfClients to broadcast function
+function numberOfClients() {
+  const noOfClients = io.engine.clientsCount;
+  console.log("no of clients", noOfClients);
+  const clients = io.sockets.clients();
+  broadcast(JSON.stringify({ type: "clientCount", number: noOfClients }));
+}
 
 io.on("connection", (socket) => {
   console.log('Client connected');
@@ -69,21 +81,6 @@ io.on("connection", (socket) => {
     numberOfClients();
   });
 });
-
-
-// This function broadcasts data to all clients connected to server
-function broadcast(data) {
-  io.sockets.emit('data', data);
-}
-
-// This function checks number of users connected to server and passes noOfClients to broadcast function
-function numberOfClients() {
-  const noOfClients = io.engine.clientsCount;
-  console.log("no of clients", noOfClients);
-  const clients = io.sockets.clients();
-  broadcast(JSON.stringify({ type: "clientCount", number: noOfClients }));
-}
-
 
 server.listen(process.env.PORT || 3000, () => {
   const address = server.address();
