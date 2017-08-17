@@ -33,7 +33,6 @@ function createRouter(knex) {
         // Check if username is already being used
         const comparePasswords = bcrypt.compare(req.body.password, user.password_digest);
         return comparePasswords.then((passwordsMatch) => {
-
           if (!passwordsMatch) {
             return Promise.reject({
               type: 409,

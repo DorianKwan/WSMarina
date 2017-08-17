@@ -13,7 +13,9 @@ const flash = require("connect-flash");
 
 const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
+const currentUserRouter = require('./routes/currentUser');
 const logoutRouter = require('./routes/logout');
+
 
 app.set('view engine', 'ejs');
 
@@ -48,7 +50,9 @@ app.get('/', function (req, res) {
 
 app.use('/login', loginRouter(knex));
 app.use('/register', registerRouter(knex));
+app.use('/currentUser', currentUserRouter(knex));
 app.use('/logout', logoutRouter(knex));
+
 
 io.on("connection", (socket) => {
   console.log('Client connected');
