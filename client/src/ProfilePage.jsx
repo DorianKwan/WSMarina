@@ -4,7 +4,7 @@ class ProfilePage extends React.Component {
   constructor(props){
     super(props); 
     this.state = {
-      avatarUrl:'',
+      image:'',
       bio:'',
     }
     this.onSubmit = this.handleSubmit.bind(this);
@@ -15,12 +15,13 @@ class ProfilePage extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const email = event.target.elements[0].value;
-    const password = event.target.elements[1].value;
-    const body = JSON.stringify({avatarUrl: avatarUrl, bio: bio});
+    const image = event.target.elements[0].value;
+    const bio = event.target.elements[1].value;
+    const body = JSON.stringify({image: image, bio: bio});
 
     fetch("/users", {
-      method: "POST",
+      method: "PUT",
+      credentials: 'include',
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
@@ -40,7 +41,7 @@ class ProfilePage extends React.Component {
       <div>
         <p> profile page</p>
         <form onSubmit={this.onSubmit}>
-        <input type="text" placeholder="avatarURL" ref="avatarURL"/>
+        <input type="text" placeholder="image" ref="image"/>
         <input type="text" placeholder="bio" ref="bio"/>
         <input type="submit" />
       </form>
