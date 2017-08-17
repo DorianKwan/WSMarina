@@ -49,9 +49,34 @@ class App extends React.Component {
     };
   }
 
+  findCurrentUser() {
+    //For Localhost use the below url
+    const url = "/currentUser";
+
+    fetch(url, {
+      credentials: 'include',
+      headers: {
+        "Accept": "application/json"
+      }
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((user) => {
+        console.log(user)
+        this.setState({
+          currentUser: user.username
+        });
+      });
+  }
+  componentDidMount(){
+    this.findCurrentUser();
+  }
+
   render() {
     return (
       <div className="app">
+        <p>Welcome!!!{this.state.currentUser}</p>
         <Navbar currentUser={this.state.currentUser} />
         <Ticker tickers={this.state.tickers} />
         <Leaders leaders={this.state.leaders} />

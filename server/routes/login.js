@@ -8,7 +8,6 @@ function createRouter(knex) {
 
     // Check if user input exists
     if (!req.body.email || !req.body.password) {
-      console.log("Test 1");
       res.sendStatus(410);
       return;
     }
@@ -22,7 +21,6 @@ function createRouter(knex) {
       .limit(1)
       .then((rows) => {
 
-        console.log("Test 2");
         const user = rows[0];
         if (!user) {
           return Promise.reject({
@@ -35,7 +33,7 @@ function createRouter(knex) {
         const comparePasswords = bcrypt.compare(req.body.password, user.password_digest);
         return comparePasswords.then((passwordsMatch) => {
 
-          console.log("Test 3");
+
           if (!passwordsMatch) {
             return Promise.reject({
               type: 409,
@@ -48,7 +46,7 @@ function createRouter(knex) {
       }).then((user) => {
 
       // Set cookie to reflect logged in status and redirect to users page
-      console.log("Test 4");
+
       req.session.user_id = user.id;
       res.redirect('/');
 
@@ -56,7 +54,6 @@ function createRouter(knex) {
 
       // Lazy error handling
       // TODO: properly handle errors
-      console.log("Test 5");
       res.sendStatus(err.type);
     });
   });

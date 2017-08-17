@@ -12,7 +12,13 @@ const bundleURL = process.env.NODE_ENV === 'production' ? '/bundle.js' : process
 
 const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
+<<<<<<< HEAD
 const logoutRouter = require('./routes/logout');
+=======
+const currentUserRouter = require('./routes/currentUser');
+const logoutRouter = require('./routes/logout');
+
+>>>>>>> master
 
 app.set('view engine', 'ejs');
 
@@ -38,6 +44,7 @@ app.get('/', function (req, res) {
 
 app.use('/login', loginRouter(knex));
 app.use('/register', registerRouter(knex));
+<<<<<<< HEAD
 app.use('/logout', logoutRouter(knex));
 
 io.on("connection", (socket) => {
@@ -59,6 +66,31 @@ io.on("connection", (socket) => {
     }
   });
 
+=======
+app.use('/currentUser', currentUserRouter(knex));
+app.use('/logout', logoutRouter(knex));
+
+
+io.on("connection", (socket) => {
+  console.log('Client connected');
+  numberOfClients();
+
+  // Each message recieved will given a random id
+  socket.on('message', function incoming(message) {
+    let messageRecieved = JSON.parse(message);
+    console.log(messageRecieved)
+    switch (messageRecieved.type) {
+      case "incomingNotification":
+      case "incomingMessage":
+        messageRecieved.id = uuidv4();
+        broadcast(JSON.stringify(messageRecieved));
+        break;
+      default:
+        throw new Error("Unknown event type " + message.type);
+    }
+  });
+
+>>>>>>> master
   // Set up a callback for when a client closes the socket. This usually means they closed their broioer.
   socket.on('disconnecting', () => {
     console.log('Client disconnected');
