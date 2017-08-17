@@ -21,7 +21,7 @@ class Ticker extends Component {
   }
 
   realTimeTickers() {
-    const alphaVantageKey = 'YW6PCYJ22Y79AP56';
+    const alphaVantageKey = 'Alpha vantage key here';
     Promise.all(
       this.props.tickers.map((item, index) => {
         return fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${item.name}&outputsize=full&apikey=${alphaVantageKey}`)
