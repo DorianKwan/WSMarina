@@ -8,10 +8,10 @@ function createRouter(knex) {
 
     // Check if user input exists
     if (!req.body.email || !req.body.password) {
-      console.log("Test 1");
-      res.sendStatus(410);
-      return;
-    }
+      req.flash("errors", "email and password fields cannot be blank!");
+			// res.redirect("/login");
+			return;
+		}
 
     // Check if user email is already being used
     knex("users")
@@ -22,12 +22,11 @@ function createRouter(knex) {
       .limit(1)
       .then((rows) => {
 
-        console.log("Test 2");
         const user = rows[0];
         if (!user) {
           return Promise.reject({
             type: 409,
-            message: "Email is already being used"
+            message: "Email is already being used!"
           });
         }
 
@@ -39,7 +38,7 @@ function createRouter(knex) {
           if (!passwordsMatch) {
             return Promise.reject({
               type: 409,
-              message: "Username is already being used"
+              message: "Password is incorrect!"
             });
           }
 
@@ -48,16 +47,13 @@ function createRouter(knex) {
       }).then((user) => {
 
       // Set cookie to reflect logged in status and redirect to users page
-      console.log("Test 4");
       req.session.user_id = user.id;
+      req.flash("info", "Logged in successfully!");
       res.redirect('/');
 
     }).catch((err) => {
-
-      // Lazy error handling
-      // TODO: properly handle errors
-      console.log("Test 5");
-      res.sendStatus(err.type);
+      req.flash('errors', err.message);
+      // res.redirect("/login");
     });
   });
 

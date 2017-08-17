@@ -9,7 +9,8 @@ function createRouter(knex) {
 
     // Check if user input exists
     if (!req.body.email || !req.body.password) {
-      res.sendStatus(400);
+      req.flash("errors", "email and password cannot be blank!");
+      // res.redirect("/register");
       return;
     }
 
@@ -23,14 +24,15 @@ function createRouter(knex) {
       .then((rows) => {
         if (rows.length) {
           return Promise.reject({
-            type: 410,
+            type: 409,
             message: "Username is already being used"
           });
         }
         return;
 
       }).catch((err) => {
-      res.sendStatus(err.type);
+      req.flash('errors', err.message);
+      // res.redirect("/register");
     });
 
     // Check if email is already being used
@@ -77,14 +79,12 @@ function createRouter(knex) {
 
       // Set cookie to reflect logged in status and redirect to users page
       req.session.user_id = rows[0].id;
-      console.log(req.session.user_id);
-      res.redirect('/');
+      req.flash("info", "Account created successfully");
+      res.redirect("/");
 
     }).catch((err) => {
-
-      // Lazy error handling
-      // TODO: handle errors properly
-      res.sendStatus(err.type);
+      req.flash('errors', err.message);
+      // res.redirect("/register");
     });
   });
   return router;
