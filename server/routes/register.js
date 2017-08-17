@@ -5,12 +5,25 @@ function createRouter(knex) {
   const router = express.Router();
 
   router.post("/", (req, res) => {
-    console.log("req.body.email");
 
     // Check if user input exists
     if (!req.body.email || !req.body.password) {
-      req.flash("errors", "email and password cannot be blank!");
-      // res.redirect("/register");
+      req.flash("errors", "Input fields cannot be empty!");
+      res.redirect("/");
+      return;
+    }
+
+    // Check if password and password confirmation match
+    if (req.body.password !== req.body.password_confirmation) {
+      req.flash("errors", "Passwords don't match!");
+      res.redirect("/");
+      return;
+    }
+    
+    // Check if age is 21 or over
+    if (new Date().getFullYear() - req.body.date_of_birth.substring(0, 4) < 21) {
+      req.flash("errors", "Passwords don't match!");
+      res.redirect("/");
       return;
     }
 
@@ -25,14 +38,13 @@ function createRouter(knex) {
         if (rows.length) {
           return Promise.reject({
             type: 409,
-            message: "Username is already being used"
+            message: "Username is already being used!"
           });
         }
-        return;
 
       }).catch((err) => {
       req.flash('errors', err.message);
-      // res.redirect("/register");
+      res.redirect("/");
     });
 
     // Check if email is already being used
@@ -48,7 +60,7 @@ function createRouter(knex) {
       if (rows.length) {
         return Promise.reject({
           type: 409,
-          message: "Email is already being used"
+          message: "Email is already being used!"
         });
       }
 
@@ -79,12 +91,12 @@ function createRouter(knex) {
 
       // Set cookie to reflect logged in status and redirect to users page
       req.session.user_id = rows[0].id;
-      req.flash("info", "Account created successfully");
+      req.flash("info", "Account created successfully!");
       res.redirect("/");
 
     }).catch((err) => {
       req.flash('errors', err.message);
-      // res.redirect("/register");
+      res.redirect("/");
     });
   });
   return router;

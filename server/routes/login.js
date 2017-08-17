@@ -8,8 +8,8 @@ function createRouter(knex) {
 
     // Check if user input exists
     if (!req.body.email || !req.body.password) {
-      req.flash("errors", "email and password fields cannot be blank!");
-			// res.redirect("/login");
+      req.flash("errors", "Email or password cannot be empty!");
+			res.redirect("/");
 			return;
 		}
 
@@ -34,11 +34,10 @@ function createRouter(knex) {
         const comparePasswords = bcrypt.compare(req.body.password, user.password_digest);
         return comparePasswords.then((passwordsMatch) => {
 
-          console.log("Test 3");
           if (!passwordsMatch) {
             return Promise.reject({
               type: 409,
-              message: "Password is incorrect!"
+              message: "Incorrect password!"
             });
           }
 
@@ -53,7 +52,7 @@ function createRouter(knex) {
 
     }).catch((err) => {
       req.flash('errors', err.message);
-      // res.redirect("/login");
+      res.redirect("/");
     });
   });
 
