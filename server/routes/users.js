@@ -16,9 +16,7 @@ function createRouter(knex) {
           console.log(e);
           res.json({ status: 422, msg: 'world has ended' })
         })
-    
   })
-
   return router;
 }
 
