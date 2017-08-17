@@ -38,7 +38,7 @@ class ChatRooms extends Component {
           self.setState({ messages: allMessages });
           break;
       }
-    })
+    });
   }
 
   // This function will send content & currentUser to server
