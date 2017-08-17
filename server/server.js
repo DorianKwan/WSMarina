@@ -51,15 +51,15 @@ io.on("connection", (socket) => {
   // Each message recieved will given a random id
   socket.on('message', function incoming(message) {
     let messageRecieved = JSON.parse(message);
-    console.log(messageRecieved)
+    console.log(messageRecieved);
     switch (messageRecieved.type) {
-      case "incomingNotification":
-      case "incomingMessage":
-        messageRecieved.id = uuidv4();
-        broadcast(JSON.stringify(messageRecieved));
-        break;
-      default:
-        throw new Error("Unknown event type " + message.type);
+    case "incomingNotification":
+    case "incomingMessage":
+      messageRecieved.id = uuidv4();
+      broadcast(JSON.stringify(messageRecieved));
+      break;
+    default:
+      throw new Error("Unknown event type " + message.type);
     }
   });
 
@@ -78,9 +78,9 @@ function broadcast(data) {
 
 // This function checks number of users connected to server and passes noOfClients to broadcast function
 function numberOfClients() {
-  const noOfClients = io.engine.clientsCount
-  console.log("no of clients", noOfClients)
-  const clients = io.sockets.clients()
+  const noOfClients = io.engine.clientsCount;
+  console.log("no of clients", noOfClients);
+  const clients = io.sockets.clients();
   broadcast(JSON.stringify({ type: "clientCount", number: noOfClients }));
 }
 
