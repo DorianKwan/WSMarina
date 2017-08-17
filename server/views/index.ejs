@@ -9,36 +9,29 @@
 <body>
   <h1>Welcome to W.S. Marina</h1>
   <h2>...because you need a second yacht...</h2> 
-  
-  <div class="errors-infos">
-    <% if (errors.length) { %>
-      <% errors.forEach(error => { %>
-        Error: <%= error %>
-      <% }) %>
-    <% } %>
-    <% if (info.length) { %>
-      <% info.forEach(message => { %>
-        <%= message %>
-      <% }) %>
-    <% } %>
-  <div>
+  <% include partials/_errors %>
 
-  <h3>Join The Community!</h3>
+  <h3>Join Our Community!</h3>
   <form action="/register" method="post">
+    <p><i>*fields are required</i></p>
     <p>
-      <label for="register-username">Username</label>
+      <label for="register-username">Username*</label>
       <input id="register-username" name="username">
     </p>
     <p>
-      <label for="register-email">Email</label>
+      <label for="register-email">Email*</label>
       <input id="register-email" name="email">
     </p>
     <p>
-      <label for="register-password">Password</label>
+      <label for="register-password">Password*</label>
       <input id="register-password" name="password" type="password">
     </p>
     <p>
-      <label for="register-date_of_birth">Date of Birth</label>
+      <label for="register-password_confirmation">Password Confirmation*</label>
+      <input id="register-password_confirmation" name="password_confirmation" type="password">
+    </p>
+    <p>
+      <label for="register-date_of_birth">Date of Birth*</label>
       <input id="register-date_of_birth" name="date_of_birth" type="date">
     </p>
     <p>

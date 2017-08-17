@@ -57,7 +57,7 @@ io.on("connection", (socket) => {
   // Each message recieved will given a random id
   socket.on('message', function incoming(message) {
     let messageRecieved = JSON.parse(message);
-    console.log(messageRecieved)
+    console.log(messageReceived)
     switch (messageRecieved.type) {
       case "incomingNotification":
       case "incomingMessage":
