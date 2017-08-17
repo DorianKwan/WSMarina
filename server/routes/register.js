@@ -30,8 +30,8 @@ function createRouter(knex) {
         return;
 
       }).catch((err) => {
-      res.sendStatus(err.type);
-    });
+        res.sendStatus(err.type);
+      });
 
     // Check if email is already being used
     const matchProvidedEmail = knex("users")
