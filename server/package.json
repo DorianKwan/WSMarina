@@ -19,7 +19,8 @@
     "express": "^4.15.4",
     "knex": "^0.13.0",
     "pg": "^7.1.2",
-    "socket.io": "^2.0.3"
+    "socket.io": "^2.0.3",
+    "uuid": "^3.1.0"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
