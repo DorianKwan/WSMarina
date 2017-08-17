@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-import NavBar from './chatroom/NavBar.jsx';
+import ChatNav from './chatroom/ChatNav.jsx';
 import MessageList from './chatroom/MessageList.jsx';
 import ChatBar from './chatroom/ChatBar.jsx';
 
 // Class App recieves response from server and renders components from Chatbar, NavBar, MessageList and Messages
-class Chatrooms extends Component {
+class ChatRooms extends Component {
   constructor(props) {
     super(props);
     // clientCount represents the number of users connected to server
@@ -68,11 +68,11 @@ class Chatrooms extends Component {
   render() {
     return (
       <div>
-        <NavBar clientCount={this.state.clientCount} />
+        <ChatNav clientCount={this.state.clientCount} />
         <MessageList messages={this.state.messages} type={this.state.type} currentUser={this.state.currentUser} />
         <ChatBar currentUser={this.state.currentUser} onNewName={this.onNewName} onNewPost={this.onNewPost} />
       </div>
     );
   }
 }
-export default Chatrooms;
+export default ChatRooms;
