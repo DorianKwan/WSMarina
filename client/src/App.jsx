@@ -29,7 +29,7 @@ class App extends React.Component {
         <Ticker tickers={this.state.tickers} />
         <Leaders leaders={this.state.leaders} />
         <News newsItems={this.state.newsItems} />
-        <ChatRooms chatRooms={this.state.chatRooms} />
+        <ChatRooms chatRooms={this.state.chatRooms} /> 
         <SiteFooter />
       </div>
     );
