@@ -6,6 +6,7 @@ import News from './News.jsx';
 import ChatRooms from './ChatRooms.jsx';
 import SiteFooter from './SiteFooter.jsx';
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);

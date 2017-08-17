@@ -8,11 +8,11 @@ class ProfilePage extends React.Component {
       bio:'',
     }
   }
-  getInitialState: function(params) {
-    return {
-      users: {}
-    }
-  }
+  // getInitialState: function(params) {
+  //   return {
+  //     users: {}
+  //   }
+  // }
 
   componentDidMount() {
   }
@@ -37,12 +37,12 @@ class ProfilePage extends React.Component {
         alert("profile updated!");
       }  
     });
-  },
+  }
 
   render() {
     return (
       <div>
-        <div className="profile-form">
+        {/* <div className="profile-form">
           <form onSubmit={this.handleSubmit}>
             <input type="text" placeholder="email"/> {" "}
             <input type="password" placeholder="password"/>{" "}
@@ -58,8 +58,9 @@ class ProfilePage extends React.Component {
         <h2>ProfilePage</h2>
         <div>
           <img src={this.state.avatarURL}/> 
-        </div>
-         </div>
+        </div> */}
+        <p> profile page</p>
+         {/* </div> */}
       </div>
     );
   }
