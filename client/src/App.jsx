@@ -11,7 +11,38 @@ class App extends React.Component {
     super(props);
     this.state = {
       currentUser: null,
-      tickers: [],
+      tickers: [
+        {
+          name: 'AAPL',
+          open: null,
+          price: null,
+          percentChange: null
+        },
+        {
+          name: 'GOOG',
+          open: null,
+          price: null,
+          percentChange: null
+        },
+        {
+          name: 'AMZN',
+          open: null,
+          price: null,
+          percentChange: null
+        },
+        {
+          name: 'MSFT',
+          open: null,
+          price: null,
+          percentChange: null
+        },
+        {
+          name: 'FB',
+          open: null,
+          price: null,
+          percentChange: null
+        },
+      ],
       chatRooms: [],
       newsItems: [],
       leaders: []
