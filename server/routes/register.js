@@ -22,7 +22,7 @@ function createRouter(knex) {
     
     // Check if age is 21 or over
     if (new Date().getFullYear() - req.body.date_of_birth.substring(0, 4) < 21) {
-      req.flash("errors", "Passwords don't match!");
+      req.flash("errors", "You are underage!");
       res.redirect("/");
       return;
     }
