@@ -13,6 +13,7 @@ class Ticker extends Component {
   constructor(props) {
     super(props);
     this.tickerFeed = this.tickerFeed.bind(this);
+    this.checkTicker = this.checkTicker.bind(this);
   }
 
   componentDidMount() {
@@ -20,10 +21,23 @@ class Ticker extends Component {
     setInterval(this.tickerFeed, 60000);
   }
 
+  checkTicker() {
+    this.setState = {
+      tickers: [
+        { name: 'DRYS'},
+        { name: 'DRIO'},
+        { name: 'NLST'},
+        { name: 'CDTI'},
+        { name: 'CLS'}
+      ]
+    }
+  }
+
   tickerFeed() {
-    const alphaVantageKey = 'YW6PCYJ22Y79AP56';
+    const alphaVantageKey = 'Your vantage key here';
+    const data = this.state || this.props;
     Promise.all(
-      this.props.tickers.map((item, index) => {
+      data.tickers.map((item, index) => {
         return fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${item.name}&outputsize=full&apikey=${alphaVantageKey}`)
         .then((resp) => resp.json());
       })
@@ -52,7 +66,7 @@ class Ticker extends Component {
   }
 
   render() {
-    const data = this.state || this.props;
+    const data = this.state || this.props; // Is this necessary? For now it will only pass state if tickerFeed is broken
     const stocks = data.tickers.map(stock => {
       return (
         <div key={ stock.name }>{ stock.name } | ${ stock.price } | { stock.percentChange }% </div>
@@ -62,10 +76,10 @@ class Ticker extends Component {
     return (
       <section id="tickers">
         { stocks }
+        <button onClick={ this.checkTicker }>ChangeTickers</button>
       </section>
     );
   }
 }
 
 export default Ticker;
-
