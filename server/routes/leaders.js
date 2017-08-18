@@ -5,10 +5,11 @@ function createRouter(knex) {
 
   router.get("/", (req, res) => {
     knex("users")
-      .orderBy('rep', 'desc')
+      .select("username", "rep")
+      .orderBy("rep", "desc")
+      .limit(10)
     .then((leaders) => {
-      console.log(leaders);
-      res.send(leaders[0]);
+      res.send(leaders);
     });
   });
   return router;

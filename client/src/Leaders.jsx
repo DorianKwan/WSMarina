@@ -26,31 +26,25 @@ class Leaders extends React.Component {
         });
       });
   }
-
   componentDidMount() {
     this.getLeaders();
   }
+
   render() {
+    let position = 0;
     const leaders = this.state.leaders.map((leader) => { 
+      position++;
       return (
         <div>
-          <ol>
-            <li>{leader.name}</li>
-          </ol>
-        </div>
-      );
-    
-      return (
-        <div>
-          <p>Top 10 Leaders</p>
-          <p>{leaders}</p>
+          {position}. {leader.username} [reps: {leader.rep}]
         </div>
       );
     });
-
-    return(
-      <div className="store">
-          {flairs}
+    
+    return (
+      <div>
+        <p>Top 10 Leaders</p>
+        {leaders}
       </div>
     );
   }
