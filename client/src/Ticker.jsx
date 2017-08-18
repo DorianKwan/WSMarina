@@ -31,12 +31,13 @@ class Ticker extends Component {
       const tickers = all.map(data => {
         const realTimeData = data['Time Series (Daily)'];
         for (let date in realTimeData) {
-          const price = realTimeData[date]['4. close'];
-          const open = realTimeData[date]['1. open'];
-          const percentChange = calculatePercentChange(price, open);
+          const price = round(realTimeData[date]['4. close'], 2);
+          const open = round(realTimeData[date]['1. open'], 2);
+          const percentChange = round(calculatePercentChange(price, open), 2);
 
           return {
             name: data['Meta Data']['2. Symbol'],
+            open,
             price,
             percentChange
           };
@@ -54,7 +55,7 @@ class Ticker extends Component {
     const data = this.state || this.props;
     const stocks = data.tickers.map(stock => {
       return (
-        <div key={ stock.name }>{ stock.name } | { stock.price }</div>
+        <div key={ stock.name }>{ stock.name } | ${ stock.price } | { stock.percentChange }% </div>
       )
     });
 
