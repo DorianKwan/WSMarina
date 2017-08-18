@@ -24,6 +24,10 @@ class News extends React.Component {
     this.postArticles = this.postArticles.bind(this);
   }
 
+  componentDidMount() {
+    this.postArticles();
+  } 
+
   postArticles() {
     console.log('filled with hatred');
     const newsApiKey = 'Your newsapi key here';
