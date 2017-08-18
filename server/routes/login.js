@@ -8,9 +8,10 @@ function createRouter(knex) {
 
     // Check if user input exists
     if (!req.body.email || !req.body.password) {
-      res.sendStatus(410);
-      return;
-    }
+      req.flash("errors", "Email or password cannot be empty!");
+			res.redirect("/");
+			return;
+		}
 
     // Check if user email is already being used
     knex("users")
@@ -25,19 +26,17 @@ function createRouter(knex) {
         if (!user) {
           return Promise.reject({
             type: 409,
-            message: "Email is already being used"
+            message: "Email is already being used!"
           });
         }
 
         // Check if username is already being used
         const comparePasswords = bcrypt.compare(req.body.password, user.password_digest);
         return comparePasswords.then((passwordsMatch) => {
-
-
           if (!passwordsMatch) {
             return Promise.reject({
               type: 409,
-              message: "Username is already being used"
+              message: "Incorrect password!"
             });
           }
 
@@ -46,15 +45,13 @@ function createRouter(knex) {
       }).then((user) => {
 
       // Set cookie to reflect logged in status and redirect to users page
-
       req.session.user_id = user.id;
+      req.flash("info", "Logged in successfully!");
       res.redirect('/');
 
     }).catch((err) => {
-
-      // Lazy error handling
-      // TODO: properly handle errors
-      res.sendStatus(err.type);
+      req.flash('errors', err.message);
+      res.redirect("/");
     });
   });
 
