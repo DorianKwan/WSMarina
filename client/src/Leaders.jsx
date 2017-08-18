@@ -42,7 +42,7 @@ class Leaders extends React.Component {
     });
     
     return (
-      <div>
+      <div className="leaders">
         <p>Top 10 Leaders</p>
         {leaders}
       </div>
