@@ -21,6 +21,7 @@ class News extends React.Component {
     this.state = {
       articles: []
     }
+    this.postArticles = this.postArticles.bind(this);
   }
 
   postArticles() {
