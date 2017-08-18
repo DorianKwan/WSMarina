@@ -4,18 +4,23 @@ class ProfilePage extends React.Component {
   constructor(props){
     super(props); 
     this.state = {
-      image:'',
+      image:'tests',
       bio:'',
-      data:{}
+      username:'',
+      rep:'',
+      email:'',
+      flairs:''
     }
     this.onSubmit = this.handleSubmit.bind(this);
+    // this.getUserInfo = this.getUserInfo.bind(this);
   }
 
   componentDidMount() {
-    getUserInfo(); 
+    this.getUserInfo(); 
   }
 
   getUserInfo() {
+    var c = this;
     fetch("/users", {
       method: "GET",
       credentials: 'include'
@@ -23,8 +28,18 @@ class ProfilePage extends React.Component {
     .then((response) => {
       console.log("response ", response);
       return response.json();
-    }).then(function(data) { 
-      console.log("data ", data);
+    }).then((userInfo) => { 
+      console.log("hereeeeee",userInfo);
+      c.setState({
+        image: userInfo.image,
+        bio: userInfo.bio,
+        username: userInfo.username,
+        rep: userInfo.rep,
+        email: userInfo.email,
+        flairs: this.props.currentUserFlairs
+      });
+      console.log("userinfo......",userInfo);
+  
     }).catch(function(error){ 
       console.log("error ", error); 
     });
@@ -53,7 +68,14 @@ class ProfilePage extends React.Component {
     });
   }
 
+  shouldComponentUpdate(nextProps) {
+    const differentTitle = this.props.title !== nextProps.title;
+    const differentDone = this.props.done !== nextProps.done
+    return differentTitle || differentDone;
+}
+
   render() {
+    console.log("state.....", state);
     return (
       <div>
         <p> profile page</p>
@@ -61,6 +83,13 @@ class ProfilePage extends React.Component {
         <input type="text" placeholder="image" ref="image"/>
         <input type="text" placeholder="bio" ref="bio"/>
         <input type="submit" />
+        <p>email {this.state.email}</p> 
+        <p>bio {this.state.bio}</p>
+        <p> this state: {this.state}</p>
+        <p> image {this.state.image}</p>
+        <p>rep {this.state.rep}</p>
+        <p>username {this.state.username}</p>
+        
       </form>
       </div>
     );

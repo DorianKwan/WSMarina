@@ -16,13 +16,10 @@ const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
 const currentUserRouter = require('./routes/currentUser');
 const logoutRouter = require('./routes/logout');
-<<<<<<< HEAD
 const usersRouter = require('./routes/users');
 
-=======
 const flairsRouter = require('./routes/flairs');
 const currentUserFlairsRouter = require('./routes/currentUserFlairs');
->>>>>>> 1cb436e2cfdf7a74455146cb0c0f9cdf8b6e3b0b
 
 app.set('view engine', 'ejs');
 
