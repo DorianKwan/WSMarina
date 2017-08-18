@@ -69,8 +69,21 @@ class News extends React.Component {
   }
 
   render() {
+
+    const articles = this.state.articles.map(article => {
+      return (
+        <div key={ article.title }>
+          <img src={ article.image } href={ article.url } /> | <a href={ article.url }>{ article.title }</a> 
+          <p>{ article.description }></p>
+          <span><small>Written by:{ article.author }</small></span>
+        </div>
+      );
+    });
+
     return (
-      <section className="news"></section>
+      <section className="news">
+        { articles }
+      </section>
     );
   }
 }
