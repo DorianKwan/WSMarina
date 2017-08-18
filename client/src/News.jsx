@@ -26,6 +26,7 @@ class News extends React.Component {
 
   componentDidMount() {
     this.postArticles();
+    setInterval(this.postArticles(), 1800000);
   } 
 
   postArticles() {
