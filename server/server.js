@@ -18,6 +18,7 @@ const currentUserRouter = require('./routes/currentUser');
 const logoutRouter = require('./routes/logout');
 const flairsRouter = require('./routes/flairs');
 const currentUserFlairsRouter = require('./routes/currentUserFlairs');
+const leadersRouter = require('./routes/leaders');
 
 app.set('view engine', 'ejs');
 
@@ -38,7 +39,6 @@ app.use(express.static('public'));
 // Middleware for req.flash messages
 app.use((req, res, next) => {
   res.locals.errors = req.flash('errors');
-  res.locals.info = req.flash('info');
   next();
 });
 
@@ -58,6 +58,7 @@ app.use('/currentUser', currentUserRouter(knex));
 app.use('/logout', logoutRouter());
 app.use('/flairs', flairsRouter(knex));
 app.use('/currentUserFlairs', currentUserFlairsRouter(knex));
+app.use('/leaders', leadersRouter(knex));
 
 // This function broadcasts data to all clients connected to server
 function broadcast(data) {

@@ -5,13 +5,10 @@ function createRouter(knex) {
 
   router.get("/", (req, res) => {
     knex("users")
-      .select("id","username","email","bio","image","rep")
-      .where({
-        id: req.session.user_id
-      })
-      .limit(1)
-    .then((userInfo) => {
-      res.send(userInfo[0]);
+      .orderBy('rep', 'desc')
+    .then((leaders) => {
+      console.log(leaders);
+      res.send(leaders[0]);
     });
   });
   return router;
