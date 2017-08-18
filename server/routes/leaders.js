@@ -5,14 +5,12 @@ function createRouter(knex) {
 
   router.get("/", (req, res) => {
     knex("users")
-      .select("id","username","email","bio","image","rep")
-      .where({
-        id: req.session.user_id
-      })
-      .limit(1)
-      .then((userInfo) => {
-        res.send(userInfo[0]);
-      });
+      .select("username", "rep")
+      .orderBy("rep", "desc")
+      .limit(10)
+    .then((leaders) => {
+      res.send(leaders);
+    });
   });
   return router;
 }

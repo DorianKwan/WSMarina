@@ -57,13 +57,13 @@ class Store extends React.Component {
           </div>
         );
       }
-    })
+    });
 
-  return(
-    <div className="store">
-        {flairs}
-    </div>
-  )
+    return(
+      <div className="store">
+          {flairs}
+      </div>
+    );
   }
 }
 
