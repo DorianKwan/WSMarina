@@ -26,7 +26,7 @@ function createRouter(knex) {
         if (!user) {
           return Promise.reject({
             type: 409,
-            message: "Email is already being used."
+            message: "Email doesn't exist."
           });
         }
 
