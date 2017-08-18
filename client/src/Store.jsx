@@ -24,7 +24,6 @@ class Store extends React.Component {
         this.setState({
           flairs: flairs
         });
-        console.log("test kai", this.state.flairs);
       });
   }
 
@@ -37,10 +36,10 @@ class Store extends React.Component {
         return (
           <div>
             <p>{flair.name}</p>
-            <img src= {flair.image}/>
+            <img src= {flair.image} height="100" width="100" />
             <p>cost: {flair.cost} points</p>
             <form action="/flairs" method="POST">
-              <input type='hidden' name='currentUserId' value={this.props.currentUserId}/>
+              <input type='hidden' name='currentUserId' value={this.props.currentUserId} />
               <input type='hidden' name='currentUserRep' value={this.props.currentUserRep} />
               <input type='hidden' name='flairId' value={flair.id} />
               <input type='hidden' name='flairCost' value={flair.cost} />
@@ -52,7 +51,7 @@ class Store extends React.Component {
         return (
           <div>
             <p>{flair.name}</p>
-            <img src={flair.image} />
+            <img src={flair.image} height="100" width="100" />
             <p>cost: {flair.cost} points</p>
             <p> You can't afford this! </p>
           </div>

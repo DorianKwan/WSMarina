@@ -6,9 +6,9 @@ function createRouter(knex) {
   router.get("/", (req, res) => {
     knex("flairs")
       .select('*')
-      .then((flairs) => {
-        res.send(flairs);
-      });
+    .then((flairs) => {
+      res.send(flairs);
+    });
   });
 
   router.post("/", (req, res) => {
