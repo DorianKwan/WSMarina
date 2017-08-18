@@ -6,11 +6,28 @@ class ProfilePage extends React.Component {
     this.state = {
       image:'',
       bio:'',
+      data:{}
     }
     this.onSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
+    getUserInfo(); 
+  }
+
+  getUserInfo() {
+    fetch("/users", {
+      method: "GET",
+      credentials: 'include'
+    })
+    .then((response) => {
+      console.log("response ", response);
+      return response.json();
+    }).then(function(data) { 
+      console.log("data ", data);
+    }).catch(function(error){ 
+      console.log("error ", error); 
+    });
   }
 
   handleSubmit(event) {
