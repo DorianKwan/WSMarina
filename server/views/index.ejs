@@ -1,51 +1,62 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="stylesheet" href="/styles/reset.css">
   <link rel="stylesheet" href="/styles/styles.css">
+  <script src="https://use.fontawesome.com/b828bf247e.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
+  <script src="/scripts/toggle-login.js"></script>
   <title>W.S. Marina</title>
 </head>
+
 <body>
-  <h1>Welcome to W.S. Marina</h1>
-  <h2>...because you need a second yacht...</h2> 
+  <div id="container">
+    <video autoplay loop muted>
+      <source src="/videos/login-background.mp4" type="video/mp4">
+    </video>
 
-  <h3>Join The Community!</h3>
-  <form action="/register" method="post">
-    <p>
-      <label for="register-username">Username</label>
-      <input id="register-username" name="username">
-    </p>
-    <p>
-      <label for="register-email">Email</label>
-      <input id="register-email" name="email">
-    </p>
-    <p>
-      <label for="register-password">Password</label>
-      <input id="register-password" name="password" type="password">
-    </p>
-    <p>
-      <label for="register-date_of_birth">Date of Birth</label>
-      <input id="register-date_of_birth" name="date_of_birth" type="date">
-    </p>
-    <p>
-      <button>Register</button>
-    </p>
-  </form>
+    <div class="main">
+      <section class="form signin">
+        <form action="/login" method="post">
+          <button disabled><i class="fa fa-ship" aria-hidden="true"></i></button>
+          <br><br>
 
-  <h3>Login!</h3>
-  <form action="/login" method="post">
-    <p>
-      <label for="login-email">Email</label>
-      <input id="login-email" name="email">
-    </p>
-    <p>
-      <label for="login-password">Password</label>
-      <input id="login-password" name="password" type="password">
-    </p>
-    <p>
-      <button>Login</button>
-    </p>
-  </form>
+          <input id="login-email" name="email" placeholder="Email">
+          <br><br>
+
+          <input id="login-password" name="password" type="password" placeholder="Password">
+          <br><br>
+
+          <button>Sign In</button><button class="switch-to-signup">Sign Up</button>
+        </form>
+      </section>
+
+      <section class="form signup display-none">
+        <form action="/register" method="post">
+          <button disabled><i class="fa fa-ship" aria-hidden="true"></i></button>
+          <input id="register-username" name="username" placeholder="Username">
+          <br><br>
+
+          <input id="register-email" name="email" placeholder="Email">
+          <br><br>
+
+          <input id="register-password" name="password" type="password" placeholder="Password">
+          <br><br>
+
+          <input id="register-password_confirmation" name="password_confirmation" type="password" placeholder="Confirm Password">
+          <br><br>
+
+          <input id="register-date_of_birth" name="date_of_birth" type="date">
+          <br><br>
+
+          <button class="switch-to-signin">Sign In</button><button>Sign Up</button>
+        </form>
+      </section>
+    </div>
+  </div>
 </body>
+
 </html>

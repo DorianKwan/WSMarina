@@ -1,0 +1,12 @@
+<div class="errors-infos">
+  <% if (errors.length) { %>
+    <% errors.forEach(error => { %>
+      Error: <%= error %>
+    <% }) %>
+  <% } %>
+  <% if (info.length) { %>
+    <% info.forEach(message => { %>
+      <%= message %>
+    <% }) %>
+  <% } %>
+<div>

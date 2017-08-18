@@ -4,7 +4,6 @@ function createRouter(knex) {
   const router = express.Router();
 
   router.get("/", (req, res) => {
-    console.log(req.session.user_id)
     knex("users")
       .select("id","username","email","bio","image","rep" )
       .where({

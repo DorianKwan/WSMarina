@@ -5,11 +5,25 @@ function createRouter(knex) {
   const router = express.Router();
 
   router.post("/", (req, res) => {
-    console.log("req.body.email");
 
     // Check if user input exists
     if (!req.body.email || !req.body.password) {
-      res.sendStatus(400);
+      req.flash("errors", "Input fields cannot be empty!");
+      res.redirect("/");
+      return;
+    }
+
+    // Check if password and password confirmation match
+    if (req.body.password !== req.body.password_confirmation) {
+      req.flash("errors", "Passwords don't match!");
+      res.redirect("/");
+      return;
+    }
+    
+    // Check if age is 21 or over
+    if (new Date().getFullYear() - req.body.date_of_birth.substring(0, 4) < 21) {
+      req.flash("errors", "You are underage!");
+      res.redirect("/");
       return;
     }
 
@@ -23,15 +37,15 @@ function createRouter(knex) {
       .then((rows) => {
         if (rows.length) {
           return Promise.reject({
-            type: 410,
-            message: "Username is already being used"
+            type: 409,
+            message: "Username is already being used!"
           });
         }
-        return;
 
       }).catch((err) => {
-        res.sendStatus(err.type);
-      });
+      req.flash('errors', err.message);
+      res.redirect("/");
+    });
 
     // Check if email is already being used
     const matchProvidedEmail = knex("users")
@@ -46,7 +60,7 @@ function createRouter(knex) {
       if (rows.length) {
         return Promise.reject({
           type: 409,
-          message: "Email is already being used"
+          message: "Email is already being used!"
         });
       }
 
@@ -93,12 +107,8 @@ function createRouter(knex) {
       res.redirect('/');
 
     }).catch((err) => {
-
-      console.log(err);
-
-      // Lazy error handling
-      // TODO: handle errors properly
-      res.sendStatus(err.type);
+      req.flash('errors', err.message);
+      res.redirect("/");
     });
   });
   return router;
