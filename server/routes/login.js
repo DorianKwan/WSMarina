@@ -8,7 +8,7 @@ function createRouter(knex) {
 
     // Check if user input exists
     if (!req.body.email || !req.body.password) {
-      req.flash("errors", "Email or password cannot be empty!");
+      req.flash("errors", "Email or password cannot be empty.");
 			res.redirect("/");
 			return;
 		}
@@ -26,7 +26,7 @@ function createRouter(knex) {
         if (!user) {
           return Promise.reject({
             type: 409,
-            message: "Email is already being used!"
+            message: "Email is already being used."
           });
         }
 
@@ -36,7 +36,7 @@ function createRouter(knex) {
           if (!passwordsMatch) {
             return Promise.reject({
               type: 409,
-              message: "Incorrect password!"
+              message: "Incorrect password."
             });
           }
 
