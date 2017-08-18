@@ -74,7 +74,7 @@ class News extends React.Component {
     const articles = this.state.articles.map(article => {
       return (
         <div key={ article.title }>
-          <img src={ article.image } href={ article.url } /> | <a href={ article.url }>{ article.title }</a> 
+          <a href={ article.url }><img src={ article.image } alt="Click for Full Article" style={{ width: "300px" }}/></a>  <a className="article-title" href={ article.url } style={{ color: "white" }}>{ article.title }</a> 
           <p>{ article.description }></p>
           <span><small>Written by:{ article.author }</small></span>
         </div>
