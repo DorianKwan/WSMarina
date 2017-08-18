@@ -5,7 +5,7 @@ function calculatePercentChange(currentPrice, openingPrice) {
 }
 
 function round(number, decimals) {
-    return Number(Math.round(number + 'e' + decimals) + 'e-' + decimals);
+    return Number(Math.round(number + 'e' + decimals) + 'e-' + decimals).toFixed(2);
 }
 
 class Ticker extends Component {
@@ -21,7 +21,7 @@ class Ticker extends Component {
   }
 
   realTimeTickers() {
-    const alphaVantageKey = 'Alpha vantage key here';
+    const alphaVantageKey = 'YW6PCYJ22Y79AP56';
     Promise.all(
       this.props.tickers.map((item, index) => {
         return fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${item.name}&outputsize=full&apikey=${alphaVantageKey}`)
