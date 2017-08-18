@@ -51,6 +51,10 @@ button:hover {
   z-index: 0;
 }
 
+.display-none {
+  display: none;
+}
+
 form {
   margin: 0;
 }

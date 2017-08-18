@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="/styles/reset.css">
   <link rel="stylesheet" href="/styles/styles.css">
   <script src="https://use.fontawesome.com/b828bf247e.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
+  <script src="/scripts/toggle-login.js"></script>
   <title>W.S. Marina</title>
 </head>
 
@@ -17,7 +19,7 @@
     </video>
 
     <div class="main">
-      <section class="form">
+      <section class="form signin">
         <form action="/login" method="post">
           <button disabled><i class="fa fa-ship" aria-hidden="true"></i></button>
           <br><br>
@@ -28,11 +30,11 @@
           <input id="login-password" name="password" type="password" placeholder="Password">
           <br><br>
 
-          <button>Sign In</button><button class="switch-to-signup" disabled>Sign Up</button>
+          <button>Sign In</button><button class="switch-to-signup">Sign Up</button>
         </form>
       </section>
 
-      <section class="form" style="display:none;">
+      <section class="form signup display-none">
         <form action="/register" method="post">
           <button disabled><i class="fa fa-ship" aria-hidden="true"></i></button>
           <input id="register-username" name="username" placeholder="Username">
@@ -43,14 +45,14 @@
 
           <input id="register-password" name="password" type="password" placeholder="Password">
           <br><br>
-          
+
           <input id="register-password_confirmation" name="password_confirmation" type="password" placeholder="Confirm Password">
           <br><br>
 
           <input id="register-date_of_birth" name="date_of_birth" type="date">
           <br><br>
 
-          <button class="switch-to-signin" disabled>Sign In</button><button>Sign Up</button>
+          <button class="switch-to-signin">Sign In</button><button>Sign Up</button>
         </form>
       </section>
     </div>
