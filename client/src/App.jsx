@@ -4,6 +4,7 @@ import Ticker from './Ticker.jsx';
 import Leaders from './Leaders.jsx';
 import News from './News.jsx';
 import ChatRooms from './ChatRooms.jsx';
+import Store from './Store.jsx';
 import SiteFooter from './SiteFooter.jsx';
 
 class App extends React.Component {
@@ -82,6 +83,7 @@ class App extends React.Component {
         <Leaders leaders={this.state.leaders} />
         <News newsItems={this.state.newsItems} />
         <ChatRooms chatRooms={this.state.chatRooms} />  
+        <Store />
         <form action="/logout" method="POST">
           <input type='submit' value='Logout' />
         </form>
