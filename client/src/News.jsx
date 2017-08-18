@@ -1,5 +1,19 @@
 import React from 'react';
 
+function orderByTime(arr) {
+  const modifiedArr = arr.map((article) => {
+    const publishedAt = article.publishedAt;
+    const year = publishedAt.slice(0, 10).split('-').join('');
+    const time = publishedAt.slice(12, 20).split(':').join('');
+    article.publishedAt = year + time;
+    return article;
+  });
+  modifiedArr.sort((a, b) => {
+    return b - a;
+  });
+  return modifiedArr;
+}
+
 class News extends React.Component {
 
   postArticles() {
