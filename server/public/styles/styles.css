@@ -55,6 +55,10 @@ button:hover {
   display: none;
 }
 
+.errors-infos {
+  color: red;
+}
+
 form {
   margin: 0;
 }
@@ -86,19 +90,19 @@ input:focus {
 }
 
 input::-webkit-input-placeholder {
-color: rgba(255,255,255,.57);
+  color: rgba(255,255,255,.57);
 }
 
 input:-moz-placeholder { /* Firefox 18- */
-color: rgba(255,255,255,.57);
+  color: rgba(255,255,255,.57);
 }
 
 input::-moz-placeholder {  /* Firefox 19+ */
-color: rgba(255,255,255,.57);
+  color: rgba(255,255,255,.57);
 }
 
 input:-ms-input-placeholder {
-color: rgba(255,255,255,.57);
+  color: rgba(255,255,255,.57);
 }
 
 .main {

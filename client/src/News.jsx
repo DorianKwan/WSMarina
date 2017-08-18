@@ -74,7 +74,7 @@ class News extends React.Component {
       return (
         <div key={ article.title }>
           <a href={ article.url }><img src={ article.image } alt="Click for Full Article" style={{ width: "300px" }}/></a>  <a className="article-title" href={ article.url } style={{ color: "white" }}>{ article.title }</a> 
-          <p>{ article.description }></p>
+          <p>{ article.description }</p>
           <span><small>Written by:{ article.author }</small></span>
         </div>
       );
