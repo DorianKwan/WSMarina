@@ -12,15 +12,15 @@ class Ticker extends Component {
 
   constructor(props) {
     super(props);
-    this.realTimeTickers = this.realTimeTickers.bind(this);
+    this.tickerFeed = this.tickerFeed.bind(this);
   }
 
   componentDidMount() {
-    this.realTimeTickers();
-    setInterval(this.realTimeTickers, 60000);
+    this.tickerFeed();
+    setInterval(this.tickerFeed, 60000);
   }
 
-  realTimeTickers() {
+  tickerFeed() {
     const alphaVantageKey = 'YW6PCYJ22Y79AP56';
     Promise.all(
       this.props.tickers.map((item, index) => {
@@ -29,10 +29,10 @@ class Ticker extends Component {
       })
     ).then(all => {
       const tickers = all.map(data => {
-        const realTimeData = data['Time Series (Daily)'];
-        for (let date in realTimeData) {
-          const price = round(realTimeData[date]['4. close'], 2);
-          const open = round(realTimeData[date]['1. open'], 2);
+        const realTimeStockPrices = data['Time Series (Daily)'];
+        for (let time in realTimeStockPrices) {
+          const price = round(realTimeStockPrices[time]['4. close'], 2);
+          const open = round(realTimeStockPrices[time]['1. open'], 2);
           const percentChange = round(calculatePercentChange(price, open), 2);
 
           return {
