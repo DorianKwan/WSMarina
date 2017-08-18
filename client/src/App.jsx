@@ -14,33 +14,18 @@ class App extends React.Component {
       tickers: [
         {
           name: 'AAPL',
-          open: null,
-          price: null,
-          percentChange: null
         },
         {
           name: 'GOOG',
-          open: null,
-          price: null,
-          percentChange: null
         },
         {
           name: 'AMZN',
-          open: null,
-          price: null,
-          percentChange: null
         },
         {
           name: 'MSFT',
-          open: null,
-          price: null,
-          percentChange: null
         },
         {
           name: 'FB',
-          open: null,
-          price: null,
-          percentChange: null
         },
       ],
       chatRooms: [],
