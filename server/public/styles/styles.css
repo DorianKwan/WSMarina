@@ -1,0 +1,94 @@
+html {
+  background-color: black;
+  color: rgb(255,255,255);
+  font-family: "avenir", "roboto", "sans-serif";
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  padding: 0;
+  height: 100%;
+}
+
+/* Everything below is ordered alphabetically */
+
+button {
+  background-color: rgba(200,200,200,0);
+  border-bottom: none;
+  color: white;
+  padding: 5px;
+  width: 40%
+}
+
+button:hover {
+  background-color: rgba(200,200,200,.3);
+  border-bottom: 1px solid rgba(255,255,255,.38);
+}
+
+#container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+#container div {
+  position: relative;
+  z-index: 1;
+}
+
+#container video {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  z-index: 0;
+}
+
+form {
+  margin: 0;
+}
+
+h1 {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+h2 {
+  font-style: italic;
+}
+
+input {
+  background-color: rgba(0, 0, 0, 0);
+  border-bottom: 1px solid rgb(200,200,200);
+  color: white;
+  padding: 3px;
+  width: 95%;
+}
+
+.main {
+  background-color: rgba(0,0,0,.5);
+  display: table;
+  margin: auto;
+  padding: 1em 2em;
+  text-align: center;
+  width: 200px;
+
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+section.form {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+}
