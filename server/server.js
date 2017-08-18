@@ -10,6 +10,7 @@ const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
 const uuidv4 = require('uuid/v4');
 const bundleURL = process.env.NODE_ENV === 'production' ? '/bundle.js' : process.env.DEV_BUNDLE || 'http://localhost:8080/bundle.js';
+const flash = require("connect-flash");
 
 const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
@@ -23,6 +24,8 @@ app.use(cookieSession({
   secret: process.env.SESSION_SECRET || 'development'
 }));
 
+app.use(flash());
+
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -30,6 +33,13 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 app.use(express.static('public'));
+
+// Middleware for req.flash messages
+app.use((req, res, next) => {
+  res.locals.errors = req.flash('errors');
+  res.locals.info = req.flash('info');
+  next();
+});
 
 app.get('/', (req, res) => {
   if (req.session.user_id) {
@@ -66,6 +76,7 @@ io.on("connection", (socket) => {
   // Each message recieved will given a random id
   socket.on('message', (message) => {
     let messageRecieved = JSON.parse(message);
+
     console.log(messageRecieved);
     switch (messageRecieved.type) {
     case "incomingNotification":
