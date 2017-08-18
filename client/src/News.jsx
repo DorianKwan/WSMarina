@@ -16,6 +16,13 @@ function orderByTime(arr) {
 
 class News extends React.Component {
 
+  constructor() {
+    super();
+    this.state = {
+      articles: []
+    }
+  }
+
   postArticles() {
     console.log('filled with hatred');
     const newsApiKey = 'Your newsapi key here';
