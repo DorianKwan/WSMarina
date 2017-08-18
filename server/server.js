@@ -2,7 +2,8 @@ require('dotenv').config();
 
 const knexConfig = require('./knexfile');
 const knex = require('knex')(knexConfig[process.env.NODE_ENV || 'development']);
-const app = require('express')();
+const express = require('express');
+const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const cookieSession = require('cookie-session');
@@ -28,6 +29,8 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
+app.use(express.static('public'));
+
 app.get('/', (req, res) => {
   if (req.session.user_id) {
     res.render('app', {
@@ -41,7 +44,7 @@ app.get('/', (req, res) => {
 app.use('/login', loginRouter(knex));
 app.use('/register', registerRouter(knex));
 app.use('/currentUser', currentUserRouter(knex));
-app.use('/logout', logoutRouter(knex));
+app.use('/logout', logoutRouter());
 
 // This function broadcasts data to all clients connected to server
 function broadcast(data) {
