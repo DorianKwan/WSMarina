@@ -10,6 +10,19 @@ function createRouter(knex) {
         res.send(flairs);
       });
   });
+
+  router.post("/", (req, res) => {
+    console.log(req.body)
+    return knex("user_flairs")
+      .insert({
+        user_id: req.body.currentUserId,
+        flair_id: req.body.flairId
+    }).then(() => {
+      res.redirect("/");
+    });
+  });
+
+
   return router;
 }
 

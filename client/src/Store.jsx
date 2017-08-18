@@ -38,6 +38,11 @@ class Store extends React.Component {
           <p>{flair.name}</p>
           <img src= {flair.image}/>
           <p>cost: {flair.cost} points</p>
+          <form action="/flairs" method="POST">
+            <input type='hidden' name='currentUserId' value={this.props.currentUserId}/>
+            <input type='hidden' name='flairId' value={flair.id} />
+            <input type='submit' value='Purchase' />
+          </form>
         </div>
       );
     })

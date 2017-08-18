@@ -11,7 +11,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: null,
+      currentUserId: null,
+      currentUsername: "",
       tickers: [
         {
           name: 'AAPL',
@@ -66,7 +67,8 @@ class App extends React.Component {
       .then((user) => {
         console.log(user)
         this.setState({
-          currentUser: user.username
+          currentUserId: user.id,
+          currentUsername: user.username
         });
       });
   }
@@ -77,9 +79,9 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
-        <p>Welcome!!!{this.state.currentUser}</p>
-        <Navbar currentUser={this.state.currentUser} />
-        <Store />
+        <p>Welcome!!!{this.state.currentUsername}</p>
+        <Navbar currentUsername={this.state.currentUsername} />
+        <Store currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} />
         <Ticker tickers={this.state.tickers} />
         <Leaders leaders={this.state.leaders} />
         <News newsItems={this.state.newsItems} />
