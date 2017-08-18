@@ -9,7 +9,8 @@
     "dev-server": "cd client && npm start",
     "install": "cd client && npm install && cd ../server && npm install",
     "db:migrate": "cd server && npm run knex migrate:latest",
-    "db:rollback": "cd server && npm run knex migrate:rollback"
+    "db:rollback": "cd server && npm run knex migrate:rollback",
+    "db:seed": "cd server && npm run knex seed:run"
   },
   "keywords": [],
   "author": "",
