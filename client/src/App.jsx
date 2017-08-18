@@ -79,11 +79,11 @@ class App extends React.Component {
       <div className="app">
         <p>Welcome!!!{this.state.currentUser}</p>
         <Navbar currentUser={this.state.currentUser} />
+        <Store />
         <Ticker tickers={this.state.tickers} />
         <Leaders leaders={this.state.leaders} />
         <News newsItems={this.state.newsItems} />
         <ChatRooms chatRooms={this.state.chatRooms} />  
-        <Store />
         <form action="/logout" method="POST">
           <input type='submit' value='Logout' />
         </form>
