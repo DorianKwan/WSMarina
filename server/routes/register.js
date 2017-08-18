@@ -91,11 +91,10 @@ function createRouter(knex) {
 
       const user = rows[0].id;
 
-      req.flash("info", "Account created successfully!");
-      res.redirect("/");
-
       // Set cookie to reflect logged in status and redirect to users page
       req.session.user_id = user;
+      res.redirect("/");
+
       return user;
 
     }).then((user) => {
