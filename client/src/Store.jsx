@@ -33,18 +33,31 @@ class Store extends React.Component {
   }
   render() {
     const flairs = this.state.flairs.map((flair) => { 
-      return (
-        <div>
-          <p>{flair.name}</p>
-          <img src= {flair.image}/>
-          <p>cost: {flair.cost} points</p>
-          <form action="/flairs" method="POST">
-            <input type='hidden' name='currentUserId' value={this.props.currentUserId}/>
-            <input type='hidden' name='flairId' value={flair.id} />
-            <input type='submit' value='Purchase' />
-          </form>
-        </div>
-      );
+      if (this.props.currentUserRep >= flair.cost) { 
+        return (
+          <div>
+            <p>{flair.name}</p>
+            <img src= {flair.image}/>
+            <p>cost: {flair.cost} points</p>
+            <form action="/flairs" method="POST">
+              <input type='hidden' name='currentUserId' value={this.props.currentUserId}/>
+              <input type='hidden' name='currentUserRep' value={this.props.currentUserRep} />
+              <input type='hidden' name='flairId' value={flair.id} />
+              <input type='hidden' name='flairCost' value={flair.cost} />
+              <input type='submit' value='Purchase' />
+            </form>
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            <p>{flair.name}</p>
+            <img src={flair.image} />
+            <p>cost: {flair.cost} points</p>
+            <p> You can't afford this! </p>
+          </div>
+        );
+      }
     })
 
   return(

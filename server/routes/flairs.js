@@ -12,14 +12,16 @@ function createRouter(knex) {
   });
 
   router.post("/", (req, res) => {
-    console.log(req.body)
+    const newRep = req.body.currentUserRep - req.body.flairCost;
     return knex("user_flairs")
       .insert({
         user_id: req.body.currentUserId,
         flair_id: req.body.flairId
     }).then(() => {
+     return knex("users").where("id", req.body.currentUserId).update("rep", newRep);
+    }).then(() => {
       res.redirect("/");
-    });
+    })
   });
 
 
