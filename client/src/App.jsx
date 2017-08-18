@@ -13,6 +13,7 @@ class App extends React.Component {
     this.state = {
       currentUserId: null,
       currentUsername: "",
+      currentUserRep: null,
       tickers: [
         {
           name: 'AAPL',
@@ -68,7 +69,8 @@ class App extends React.Component {
         console.log(user)
         this.setState({
           currentUserId: user.id,
-          currentUsername: user.username
+          currentUsername: user.username,
+          currentUserRep: user.rep
         });
       });
   }
@@ -79,9 +81,10 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
-        <p>Welcome!!!{this.state.currentUsername}</p>
+        <p>Welcome!!! {this.state.currentUsername}</p>
+        <p>Reps: {this.state.currentUserRep}</p>l
         <Navbar currentUsername={this.state.currentUsername} />
-        <Store currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} />
+        <Store currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep}/>
         <Ticker tickers={this.state.tickers} />
         <Leaders leaders={this.state.leaders} />
         <News newsItems={this.state.newsItems} />
