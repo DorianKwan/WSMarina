@@ -4,13 +4,16 @@ import Ticker from './Ticker.jsx';
 import Leaders from './Leaders.jsx';
 import News from './News.jsx';
 import ChatRooms from './ChatRooms.jsx';
+import Store from './Store.jsx';
 import SiteFooter from './SiteFooter.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: null,
+      currentUserId: null,
+      currentUsername: "",
+      currentUserRep: null,
       tickers: [
         {
           name: 'AAPL',
@@ -65,7 +68,9 @@ class App extends React.Component {
       .then((user) => {
         console.log(user)
         this.setState({
-          currentUser: user.username
+          currentUserId: user.id,
+          currentUsername: user.username,
+          currentUserRep: user.rep
         });
       });
   }
@@ -76,8 +81,10 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
-        <p>Welcome!!!{this.state.currentUser}</p>
-        <Navbar currentUser={this.state.currentUser} />
+        <p>Welcome!!! {this.state.currentUsername}</p>
+        <p>Reps: {this.state.currentUserRep}</p>l
+        <Navbar currentUsername={this.state.currentUsername} />
+        <Store currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep}/>
         <Ticker tickers={this.state.tickers} />
         <Leaders leaders={this.state.leaders} />
         <News newsItems={this.state.newsItems} />

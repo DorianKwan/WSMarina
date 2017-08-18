@@ -16,7 +16,7 @@ const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
 const currentUserRouter = require('./routes/currentUser');
 const logoutRouter = require('./routes/logout');
-
+const flairsRouter = require('./routes/flairs');
 
 app.set('view engine', 'ejs');
 
@@ -55,6 +55,7 @@ app.use('/login', loginRouter(knex));
 app.use('/register', registerRouter(knex));
 app.use('/currentUser', currentUserRouter(knex));
 app.use('/logout', logoutRouter());
+app.use('/flairs', flairsRouter(knex));
 
 // This function broadcasts data to all clients connected to server
 function broadcast(data) {
