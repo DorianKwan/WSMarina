@@ -8,6 +8,6 @@ exports.up = function (knex, Promise) {
 exports.down = function (knex, Promise) {
   return knex.schema.alterTable('users', (table) => {
     table.dropColumn('admin');
-    table.int('rep').defaultTo(5000).alter();
+    table.integer('rep').defaultTo(5000).alter();
   });
 };
