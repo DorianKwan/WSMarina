@@ -26,8 +26,15 @@ class ProfilePage extends React.Component {
     .then((response) => {
       console.log("response ", response);
       return response.json();
-    }).then(function(data) { 
-      console.log("data ", data);
+    }).then((userInfo) => { 
+      this.setState({
+        image: userInfo.image,
+        bio: userInfo.bio,
+        username: userInfo.username,
+        rep: userInfo.rep,
+        email: userInfo.email,
+        flairs: this.props.currentUserFlairs        
+      });
     }).catch(function(error){ 
       console.log("error ", error); 
     });
