@@ -6,6 +6,7 @@ import News from './News.jsx';
 import ChatRooms from './ChatRooms.jsx';
 import Store from './Store.jsx';
 import SiteFooter from './SiteFooter.jsx';
+import ChatList from './ChatList.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -97,6 +98,7 @@ class App extends React.Component {
         <Leaders leaders={this.state.leaders} />
         <News newsItems={this.state.newsItems} />
         <ChatRooms chatRooms={this.state.chatRooms} currentUsername={this.state.currentUsername} currentUserFlairs={flairs}/>  
+        <ChatList currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId}/>
         <form action="/logout" method="POST">
           <input type='submit' value='Logout' />
         </form>

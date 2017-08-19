@@ -19,6 +19,7 @@ const logoutRouter = require('./routes/logout');
 const flairsRouter = require('./routes/flairs');
 const currentUserFlairsRouter = require('./routes/currentUserFlairs');
 const leadersRouter = require('./routes/leaders');
+const chatListRouter = require('./routes/ChatList');
 
 app.set('view engine', 'ejs');
 
@@ -59,6 +60,7 @@ app.use('/logout', logoutRouter());
 app.use('/flairs', flairsRouter(knex));
 app.use('/currentUserFlairs', currentUserFlairsRouter(knex));
 app.use('/leaders', leadersRouter(knex));
+app.use('/chatList', chatListRouter(knex));
 
 function broadcast(data) {
   if (data.type === "userCount") {
