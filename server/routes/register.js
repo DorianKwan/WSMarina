@@ -44,11 +44,9 @@ function createRouter(knex) {
         res.redirect("/");
       });
 
-        req.session.show_register = true;
-        req.flash('errors', err.message);
-        res.redirect('/');
-
-      });
+    req.session.show_register = true;
+    req.flash('errors', err.message);
+    res.redirect('/');
 
     knex('users')
       .select(1)
