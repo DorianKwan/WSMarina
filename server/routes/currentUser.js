@@ -10,9 +10,9 @@ function createRouter(knex) {
         id: req.session.user_id
       })
       .limit(1)
-    .then((userInfo) => {
-      res.send(userInfo[0]);
-    });
+      .then((userInfo) => {
+        res.send(userInfo[0]);
+      });
   });
   return router;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 
 class Leaders extends React.Component {
   constructor(){
-    super()
+    super();
     this.state = {
       leaders: []
     }
@@ -22,7 +22,7 @@ class Leaders extends React.Component {
       })
       .then((leaders) => {
         this.setState({
-          leaders: leaders
+          leaders
         });
       });
   }
@@ -35,7 +35,7 @@ class Leaders extends React.Component {
     const leaders = this.state.leaders.map((leader) => { 
       position++;
       return (
-        <div>
+        <div key={leader.username}>
           {position}. {leader.username} [reps: {leader.rep}]
         </div>
       );
