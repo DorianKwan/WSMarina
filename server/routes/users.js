@@ -1,5 +1,4 @@
 const express = require("express");
-const pry = require("pryjs");
 
 function createRouter(knex) {
   const router = express.Router();
