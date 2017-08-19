@@ -43,9 +43,9 @@ function createRouter(knex) {
         }
 
       }).catch((err) => {
-      req.flash('errors', err.message);
-      res.redirect("/");
-    });
+        req.flash('errors', err.message);
+        res.redirect("/");
+      });
 
     // Check if email is already being used
     const matchProvidedEmail = knex("users")
