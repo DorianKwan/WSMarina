@@ -16,23 +16,7 @@ class App extends React.Component {
       currentUsername: "",
       currentUserRep: null,
       currentUserFlairs: [],
-      tickers: [
-        {
-          name: 'AAPL',
-        },
-        {
-          name: 'GOOG',
-        },
-        {
-          name: 'AMZN',
-        },
-        {
-          name: 'MSFT',
-        },
-        {
-          name: 'FB',
-        },
-      ],
+      tickers: [],
       chatRooms: [],
       newsItems: [],
       leaders: []
