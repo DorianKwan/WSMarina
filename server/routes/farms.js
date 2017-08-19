@@ -7,13 +7,6 @@ function createRouter(knex) {
 
     const { slot_01, slot_02, slot_03, slot_04, slot_05 } = req.body;
 
-    // Check if user input exists
-    if (!slot_01 || !slot_02 || !slot_03 || !slot_04 || !slot_05) {
-      req.flash("errors", "Please select a ticker for each input field.");
-      res.redirect("/");
-      return;
-    }
-
     // Update farm slots
     knex("farms")
       .where({
@@ -26,9 +19,11 @@ function createRouter(knex) {
         slot_04,
         slot_05
       })
+      .then(function(values){
+        res.json({result: "Record updated."});
+      })
       .catch((err) => {
-        req.flash('errors', err.message);
-        res.redirect("/");
+        res.json({"error": "Error has occured."});
       });
   });
 
@@ -42,8 +37,7 @@ function createRouter(knex) {
         res.send(slots[0]);
       })
       .catch(error => {
-        console.log(error);
-        res.json({ status: 422, msg: 'Request to DB failed.' });
+        res.json({ status: 422, msg: 'Error has occured on GET request to database.' });
       });
   });
   return router;
