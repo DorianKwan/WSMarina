@@ -19,7 +19,7 @@ class ProfilePage extends React.Component {
   }
 
   getUserInfo() {
-    fetch("/users", {
+    fetch("/profile", {
       method: "GET",
       credentials: 'include'
     })
@@ -46,7 +46,7 @@ class ProfilePage extends React.Component {
     const bio = event.target.elements[1].value;
     const body = JSON.stringify({image: image, bio: bio});
 
-    fetch("/users", {
+    fetch("/profile", {
       method: "PUT",
       credentials: 'include',
       headers: {

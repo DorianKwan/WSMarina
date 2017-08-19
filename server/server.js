@@ -16,7 +16,7 @@ const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
 const currentUserRouter = require('./routes/currentUser');
 const logoutRouter = require('./routes/logout');
-const usersRouter = require('./routes/users');
+const profileRouter = require('./routes/profile');
 
 const flairsRouter = require('./routes/flairs');
 const currentUserFlairsRouter = require('./routes/currentUserFlairs');
@@ -60,7 +60,7 @@ app.use('/currentUser', currentUserRouter(knex));
 app.use('/logout', logoutRouter());
 app.use('/flairs', flairsRouter(knex));
 app.use('/currentUserFlairs', currentUserFlairsRouter(knex));
-app.use('/users', usersRouter(knex));
+app.use('/profile', profileRouter(knex));
 app.use('/leaders', leadersRouter(knex));
 
 function broadcast(data) {
