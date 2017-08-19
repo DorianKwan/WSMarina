@@ -22,15 +22,18 @@ function createRouter(knex) {
     console.log("router connection:", req.body);
     console.log("req.session ", req.session.user_id);
     knex("users")
-      .where({
-        id: req.session.user_id
-      }).select({ bio, image, rep, username })
-        .then(res.json({test:'success getting user info'}))
-        .catch(e => {
-          console.log(e);
-          res.json({ status: 422, msg: 'cannot get from db' });
-        })
-  });
+    .select("bio", "image", "rep", "username", "email")
+    .where({
+      id: req.session.user_id
+    }).then((userInfo) => {
+        console.log("test",userInfo)
+        res.send(userInfo[0]);
+      })
+      .catch(e => {
+        console.log(e);
+        res.json({ status: 422, msg: 'cannot get from db' });
+      })
+});
   return router;
 }
 
