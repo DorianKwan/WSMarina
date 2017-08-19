@@ -9,9 +9,9 @@ function createRouter(knex) {
     // Check if user input exists
     if (!req.body.email || !req.body.password) {
       req.flash("errors", "Email or password cannot be empty.");
-			res.redirect("/");
-			return;
-		}
+      res.redirect("/");
+      return;
+    }
 
     // Check if user email is already being used
     knex("users")
@@ -45,13 +45,13 @@ function createRouter(knex) {
       }).then((user) => {
 
       // Set cookie to reflect logged in status and redirect to users page
-      req.session.user_id = user.id;
-      res.redirect('/');
+        req.session.user_id = user.id;
+        res.redirect('/');
 
-    }).catch((err) => {
-      req.flash('errors', err.message);
-      res.redirect("/");
-    });
+      }).catch((err) => {
+        req.flash('errors', err.message);
+        res.redirect("/");
+      });
   });
 
   return router;
