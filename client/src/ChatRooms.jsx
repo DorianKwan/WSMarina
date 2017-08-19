@@ -9,6 +9,7 @@ class ChatRooms extends Component {
     super(props);
     this.state = {
       currentUser:"",
+      currentUserFlairs: "",
       userCount: 0,
       messages: [
         {
@@ -81,15 +82,16 @@ class ChatRooms extends Component {
 
   componentWillReceiveProps(){
       this.setState({
-        currentUser : this.props.currentUsername
+        currentUser : this.props.currentUsername,
+        currentUserFlairs: this.props.currentUserFlairs
       })
     }
   render() {
     return (
       <div>
         <ChatNav userCount={this.state.userCount} />
-        <MessageList messages={this.state.messages} />
-        <ChatBar username={this.state.currentUser} sendMessage={this.state.sendMessage} buttonSendMessage={this.state.buttonSendMessage} clearHistory={this.state.clearHistory} />
+        <MessageList messages={this.state.messages} flairs={this.state.currentUserFlairs} />
+        <ChatBar username={this.state.currentUser}  sendMessage={this.state.sendMessage} buttonSendMessage={this.state.buttonSendMessage} clearHistory={this.state.clearHistory} />
       </div>
     );
   }
