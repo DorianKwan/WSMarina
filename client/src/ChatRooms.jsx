@@ -72,12 +72,11 @@ class ChatRooms extends Component {
       socket: io.connect("http://localhost:3000")
     };
     const self = this
-    this.socket = io.connect("http://localhost:3000");
-    this.socket.on('data', function (msg) {
+    this.state.socket.on('data', function (msg) {
       const newMessage = JSON.parse(msg);
       self.setState({ userCount: newMessage.content })
     }) 
-    this.socket.on('message', function (msg) {
+    this.state.socket.on('message', function (msg) {
       const newMessage = JSON.parse(msg);
       const messages = self.state.messages.concat(newMessage);
       switch (newMessage.type) {
