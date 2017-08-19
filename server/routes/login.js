@@ -46,6 +46,7 @@ function createRouter(knex) {
 
       // Set cookie to reflect logged in status and redirect to users page
       req.session.user_id = user.id;
+      req.session.on_register = false;
       res.redirect('/');
 
     }).catch((err) => {

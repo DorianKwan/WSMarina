@@ -48,7 +48,7 @@ app.get('/', (req, res) => {
       bundleURL
     });
   } else {
-    res.render('index');
+    res.render('index', { show_register: req.session.show_register });
   }
 });
 
