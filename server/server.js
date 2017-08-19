@@ -20,6 +20,7 @@ const usersRouter = require('./routes/users');
 
 const flairsRouter = require('./routes/flairs');
 const currentUserFlairsRouter = require('./routes/currentUserFlairs');
+const leadersRouter = require('./routes/leaders');
 
 app.set('view engine', 'ejs');
 
@@ -40,7 +41,6 @@ app.use(express.static('public'));
 // Middleware for req.flash messages
 app.use((req, res, next) => {
   res.locals.errors = req.flash('errors');
-  res.locals.info = req.flash('info');
   next();
 });
 
@@ -50,7 +50,7 @@ app.get('/', (req, res) => {
       bundleURL
     });
   } else {
-    res.render('index');
+    res.render('index', { show_register: req.session.show_register });
   }
 });
 
@@ -61,44 +61,63 @@ app.use('/logout', logoutRouter());
 app.use('/flairs', flairsRouter(knex));
 app.use('/currentUserFlairs', currentUserFlairsRouter(knex));
 app.use('/users', usersRouter(knex));
+app.use('/leaders', leadersRouter(knex));
 
-// This function broadcasts data to all clients connected to server
 function broadcast(data) {
-  io.sockets.emit('data', data);
+  if (data.type === "userCount") {
+    console.log("test10", data)
+    io.sockets.emit('data', JSON.stringify(data));
+  } else {
+    console.log("test20", data)
+    io.sockets.emit('message', JSON.stringify(data));
+  }
 }
 
-// This function checks number of users connected to server and passes noOfClients to broadcast function
-function numberOfClients() {
-  const noOfClients = io.engine.clientsCount;
-  console.log("no of clients", noOfClients);
-  const clients = io.sockets.clients();
-  broadcast(JSON.stringify({ type: "clientCount", number: noOfClients }));
+let userCount = 0;
+
+function createMessage() {
+  return {
+    id: uuidv4(),
+    color: "chatty",
+    content: userCount,
+    type: "userCount",
+    username: "Chatty"
+  };
+}
+
+function generateColor() {
+  const hexChars = "0123456789ABCDEF";
+  let hex = "#";
+
+  for (var i = 0; i < 6; i++) {
+    hex += hexChars.charAt(Math.floor(Math.random() * hexChars.length));
+  }
+
+  return hex;
 }
 
 io.on("connection", (socket) => {
-  console.log('Client connected');
-  numberOfClients();
+  console.log("Client connected");
+  const color = generateColor();
+  userCount++;
+  broadcast(createMessage());
 
-  // Each message recieved will given a random id
-  socket.on('message', (message) => {
-    let messageRecieved = JSON.parse(message);
+  socket.on('message', (msg) => {
+    const message = JSON.parse(msg);
+    message.id = uuidv4();
+    message.color = color;
 
-    console.log(messageRecieved);
-    switch (messageRecieved.type) {
-    case "incomingNotification":
-    case "incomingMessage":
-      messageRecieved.id = uuidv4();
-      broadcast(JSON.stringify(messageRecieved));
-      break;
-    default:
-      throw new Error("Unknown event type " + message.type);
+    if (message.type === "nameChange") {
+      message.color = "chatty";
     }
+
+    broadcast(message);
   });
 
-  // Set up a callback for when a client closes the socket. This usually means they closed their broioer.
   socket.on('disconnecting', () => {
-    console.log('Client disconnected');
-    numberOfClients();
+    console.log("Client disconnected");
+    userCount--;
+    broadcast(JSON.stringify(createMessage()));
   });
 });
 

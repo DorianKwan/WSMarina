@@ -55,8 +55,17 @@ button:hover {
   display: none;
 }
 
+.errors-infos {
+  color: red;
+}
+
 form {
   margin: 0;
+}
+
+.gold-button {
+  color: rgb(233,182,50);
+  background-color: rgba(200,200,200,.1);
 }
 
 h1 {
@@ -76,17 +85,36 @@ input {
   width: 95%;
 }
 
+input:focus {
+  border-color: rgb(233,182,50);
+}
+
+input::-webkit-input-placeholder {
+  color: rgba(255,255,255,.57);
+}
+
+input:-moz-placeholder { /* Firefox 18- */
+  color: rgba(255,255,255,.57);
+}
+
+input::-moz-placeholder {  /* Firefox 19+ */
+  color: rgba(255,255,255,.57);
+}
+
+input:-ms-input-placeholder {
+  color: rgba(255,255,255,.57);
+}
+
 .main {
-  background-color: rgba(0,0,0,.5);
+  background-color: rgba(0,0,0,.6);
   display: table;
   margin: auto;
   padding: 1em 2em;
-  text-align: center;
-  width: 200px;
-
   position: relative;
+  text-align: center;
   top: 50%;
   transform: translateY(-50%);
+  width: 200px;
 }
 
 section.form {
