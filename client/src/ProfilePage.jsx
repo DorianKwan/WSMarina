@@ -74,6 +74,7 @@ class ProfilePage extends React.Component {
         <p> email {this.state.email}</p>
         <p> username {this.state.username}</p>
         <p>image {this.state.image}</p>
+        <p> bio {this.state.bio}</p>
       </form>
       </div>
     );
