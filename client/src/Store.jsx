@@ -2,7 +2,7 @@ import React from 'react';
 
 class Store extends React.Component {
   constructor(){
-    super()
+    super();
     this.state = {
       flairs: []
     }
@@ -22,7 +22,7 @@ class Store extends React.Component {
       })
       .then((flairs) => {
         this.setState({
-          flairs: flairs
+          flairs
         });
       });
   }
