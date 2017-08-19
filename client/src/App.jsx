@@ -5,6 +5,7 @@ import Leaders from './Leaders.jsx';
 import News from './News.jsx';
 import ChatRooms from './ChatRooms.jsx';
 import Store from './Store.jsx';
+import Farm from './Farm.jsx';
 import SiteFooter from './SiteFooter.jsx';
 
 class App extends React.Component {
@@ -96,6 +97,7 @@ class App extends React.Component {
         <Ticker tickers={this.state.tickers} />
         <Leaders leaders={this.state.leaders} />
         <News newsItems={this.state.newsItems} />
+        <Farm defaultValue={this.state.tickers} />
         <ChatRooms chatRooms={this.state.chatRooms} />  
         <form action="/logout" method="POST">
           <input type='submit' value='Logout' />
