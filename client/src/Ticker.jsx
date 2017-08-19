@@ -21,7 +21,16 @@ class Ticker extends Component {
     setInterval(this.tickerFeed, 60000);
   }
 
-  checkTicker() {
+  checkTicker(input) {
+    const tickers = {
+      tickers: [
+        {name: input[0]},
+        {name: input[1]},
+        {name: input[2]},
+        {name: input[3]},
+        {name: input[4]}
+      ]
+    }
     const tickers = { tickers: [{ name: 'DRYS' }, { name: 'TSLA' }, { name: 'CLS' }, { name: 'CDTI' }, { name: 'NLST' }] };
     this.tickerFeed(tickers);
   }
@@ -69,7 +78,21 @@ class Ticker extends Component {
     return (
       <section id="tickers">
         { stocks }
-        <button onClick={ this.checkTicker }>ChangeTickers</button>
+            <label> Slot 1:
+              <input type="text" placeholder="Slot 1" value={this.state.tickers[0].name} onChange={this.handleChange.bind(this)} />
+            </label><br />
+            <label> Slot 2:
+              <input type="text" placeholder="Slot 2" value={this.state.tickers[1].name} onChange={this.handleChange.bind(this)}/>
+            </label><br />
+            <label> Slo 3:
+              <input type="text" placeholder="Slot 3" value={this.state.tickers[2].name} onChange={this.handleChange.bind(this)} />
+            </label><br />
+            <label> Slot 4:
+              <input type="text" placeholder="Slot 4" value={this.state.tickers[3].name} onChange={this.handleChange.bind(this)}/>
+            </label><br />
+            <label> Slot 5:
+              <input type="text" placeholder="Slot 5" value={this.state.tickers[4].name} onChange={this.handleChange.bind(this)} />
+            </label><br />
       </section>
     );
   }
