@@ -22,20 +22,13 @@ class Ticker extends Component {
   }
 
   checkTicker() {
-    this.setState = {
-      tickers: [
-        { name: 'DRYS'},
-        { name: 'DRIO'},
-        { name: 'NLST'},
-        { name: 'CDTI'},
-        { name: 'CLS'}
-      ]
-    }
+    const tickers = { tickers: [{ name: 'DRYS' }, { name: 'TSLA' }, { name: 'CLS' }, { name: 'CDTI' }, { name: 'NLST' }] };
+    this.tickerFeed(tickers);
   }
 
-  tickerFeed() {
-    const alphaVantageKey = 'Your vantage key here';
-    const data = this.state || this.props;
+  tickerFeed(input) {
+    const alphaVantageKey = 'Your api key here';
+    const data = input || this.state || this.props;
     Promise.all(
       data.tickers.map((item, index) => {
         return fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${item.name}&outputsize=full&apikey=${alphaVantageKey}`)
@@ -61,7 +54,7 @@ class Ticker extends Component {
         tickers
       });
     }).catch(function(error) {
-          console.log(error);
+        console.log(error);
     })
   }
 
