@@ -3,7 +3,7 @@ const express = require("express");
 function createRouter(knex) {
   const router = express.Router();
 
-  router.put("/farms", (req, res) => {
+  router.put("/", (req, res) => {
 
     const { slot_01, slot_02, slot_03, slot_04, slot_05 } = req.body;
 
@@ -32,7 +32,7 @@ function createRouter(knex) {
       });
   });
 
-  router.get("/farms", (req, res) => {
+  router.get("/", (req, res) => {
     knex("farms")
       .where({
         user_id: req.session.user_id
