@@ -16,11 +16,17 @@ class App extends React.Component {
       currentUsername: "",
       currentUserRep: null,
       currentUserFlairs: [],
-      tickers: [],
+      userFarm: [],
       chatRooms: [],
       newsItems: [],
       leaders: []
     };
+  }
+
+  componentDidMount(){
+    this.findCurrentUser();
+    this.findCurrentUserFlairs();
+    this.setFarm();
   }
 
   findCurrentUser() {
@@ -60,9 +66,29 @@ class App extends React.Component {
       });
     });
   }
-  componentDidMount(){
-    this.findCurrentUser();
-    this.findCurrentUserFlairs();
+
+  setFarm() {
+    fetch("/farms", {
+      credentials: 'include',
+      headers: {
+        "Accept": "application/json"
+      }
+    })
+    .then((response) => {
+      return response.json();
+    }).then((slots) => {
+      this.setState({ 
+        farm: [ 
+          { name: slots.slot_01 },
+          { name: slots.slot_02 },
+          { name: slots.slot_03 },
+          { name: slots.slot_04 },
+          { name: slots.slot_05 }
+        ]
+      });
+    }).catch((error) => { 
+      console.log("error: ", error); 
+    });
   }
 
   render() {
