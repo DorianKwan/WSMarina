@@ -75,7 +75,7 @@ class App extends React.Component {
       });
     });
   }
-  componentDidMount(){
+  componentWillMount(){
     this.findCurrentUser();
     this.findCurrentUserFlairs();
   }
@@ -96,7 +96,7 @@ class App extends React.Component {
         <Ticker tickers={this.state.tickers} />
         <Leaders leaders={this.state.leaders} />
         <News newsItems={this.state.newsItems} />
-        <ChatRooms chatRooms={this.state.chatRooms} />  
+        <ChatRooms chatRooms={this.state.chatRooms} currentUsername={this.state.currentUsername} />  
         <form action="/logout" method="POST">
           <input type='submit' value='Logout' />
         </form>

@@ -5,15 +5,10 @@ import MessageList from "./chatroom/MessageList.jsx";
 import ChatBar from "./chatroom/ChatBar.jsx";
 
 class ChatRooms extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      currentUser: {
-        name: ""
-      },
-      lastUser: {
-        name: ""
-      },
+      currentUser:"",
       userCount: 0,
       messages: [
         {
@@ -27,7 +22,7 @@ class ChatRooms extends Component {
       sendMessage: (content) => {
         if (content.keyCode === 13) {
           const newMessage = {
-            username: this.state.currentUser.name || "Anonymous",
+            username: this.state.currentUser,
             content: content.target.value,
             type: "textMessage"
           };
@@ -40,7 +35,7 @@ class ChatRooms extends Component {
       },
       buttonSendMessage: () => {
         const newMessage = {
-          username: this.state.currentUser.name || "Anonymous",
+          username: this.state.currentUser,
           content: document.getElementsByClassName("chatBar-message")[0].value,
           type: "textMessage"
         };
@@ -48,22 +43,6 @@ class ChatRooms extends Component {
         if (newMessage.content) {
           this.state.socket.emit('message', JSON.stringify(newMessage));
           document.getElementsByClassName("chatBar-message")[0].value = "";
-        }
-      },
-      setUser: (content) => {
-        const currentUser = this.state.currentUser;
-        const newUser = { name: content.target.value };
-
-        if (currentUser.name !== newUser.name) {
-          const message = {
-            username: "Chatty",
-            content: `${currentUser.name || "Anonymous"} has set username to ${newUser.name || "Anonymous"}`,
-            type: "nameChange"
-          };
-
-          this.state.socket.emit('message', JSON.stringify(message))
-          this.setState({ lastUser: currentUser });
-          this.setState({ currentUser: newUser });
         }
       },
       clearHistory: () => {
@@ -84,9 +63,6 @@ class ChatRooms extends Component {
           self.state.notificationSound.play();
           self.setState({ messages: messages });
           break;
-        case "nameChange":
-          self.setState({ messages: messages });
-          break;
       }
       if (newMessage.type === "textMessage") {
         this.state.notificationSound.play();
@@ -103,12 +79,17 @@ class ChatRooms extends Component {
   //   }, 3000);
   // }
 
+  componentWillReceiveProps(){
+      this.setState({
+        currentUser : this.props.currentUsername
+      })
+    }
   render() {
     return (
       <div>
         <ChatNav userCount={this.state.userCount} />
         <MessageList messages={this.state.messages} />
-        <ChatBar username={this.state.currentUser.name} sendMessage={this.state.sendMessage} setUser={this.state.setUser} buttonSendMessage={this.state.buttonSendMessage} clearHistory={this.state.clearHistory} />
+        <ChatBar username={this.state.currentUser} sendMessage={this.state.sendMessage} buttonSendMessage={this.state.buttonSendMessage} clearHistory={this.state.clearHistory} />
       </div>
     );
   }

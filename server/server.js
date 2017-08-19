@@ -62,10 +62,8 @@ app.use('/leaders', leadersRouter(knex));
 
 function broadcast(data) {
   if (data.type === "userCount") {
-    console.log("test10", data)
     io.sockets.emit('data', JSON.stringify(data));
   } else {
-    console.log("test20", data)
     io.sockets.emit('message', JSON.stringify(data));
   }
 }
@@ -103,10 +101,6 @@ io.on("connection", (socket) => {
     const message = JSON.parse(msg);
     message.id = uuidv4();
     message.color = color;
-
-    if (message.type === "nameChange") {
-      message.color = "chatty";
-    }
 
     broadcast(message);
   });
