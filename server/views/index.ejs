@@ -19,44 +19,52 @@
     </video>
 
     <div class="main">
-      <section class="form signin">
-        <form action="/login" method="post">
-          <button disabled><i class="fa fa-ship" aria-hidden="true"></i></button>
-          <% include partials/_errors %>
-          <br><br>
+      <% if (show_register) { %>
+        <section class="form signin display-none">
+      <% } else { %>
+        <section class="form signin">
+      <% } %>
+          <form action="/login" method="post">
+            <button disabled><i class="fa fa-ship" aria-hidden="true"></i></button>
+            <% include partials/_errors %>
+            <br><br>
 
-          <input id="login-email" name="email" placeholder="Email">
-          <br><br>
+            <input id="login-email" name="email" placeholder="Email">
+            <br><br>
 
-          <input id="login-password" name="password" type="password" placeholder="Password">
-          <br><br>
+            <input id="login-password" name="password" type="password" placeholder="Password">
+            <br><br>
 
-          <button class="switch-to-signup">Register</button><button class="gold-button">Submit</button>
-        </form>
-      </section>
+            <button class="switch-to-signup">Register</button><button class="gold-button">Submit</button>
+          </form>
+        </section>
 
-      <section class="form signup display-none">
-        <form action="/register" method="post">
-          <button disabled><i class="fa fa-ship" aria-hidden="true"></i></button>
-          <% include partials/_errors %>
-          <input id="register-username" name="username" placeholder="Username">
-          <br><br>
+      <% if (show_register) { %>
+        <section class="form signup">
+      <% } else { %>
+        <section class="form signup display-none">
+      <% } %>
+          <form action="/register" method="post">
+            <button disabled><i class="fa fa-ship" aria-hidden="true"></i></button>
+            <% include partials/_errors %>
+            <input id="register-username" name="username" placeholder="Username">
+            <br><br>
 
-          <input id="register-email" name="email" placeholder="Email">
-          <br><br>
+            <input id="register-email" name="email" placeholder="Email">
+            <br><br>
 
-          <input id="register-password" name="password" type="password" placeholder="Password">
-          <br><br>
+            <input id="register-password" name="password" type="password" placeholder="Password">
+            <br><br>
 
-          <input id="register-password_confirmation" name="password_confirmation" type="password" placeholder="Confirm Password">
-          <br><br>
+            <input id="register-password_confirmation" name="password_confirmation" type="password" placeholder="Confirm Password">
+            <br><br>
 
-          <input id="register-date_of_birth" name="date_of_birth" type="date">
-          <br><br>
+            <input id="register-date_of_birth" name="date_of_birth" type="date">
+            <br><br>
 
-          <button class="switch-to-signin">Sign in</button><button class="gold-button">Submit</button>
-        </form>
-      </section>
+            <button class="switch-to-signin">Sign in</button><button class="gold-button">Submit</button>
+          </form>
+        </section>
     </div>
   </div>
 </body>
