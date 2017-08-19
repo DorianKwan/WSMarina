@@ -6,7 +6,10 @@ class ProfilePage extends React.Component {
     this.state = {
       image:'',
       bio:'',
-      data:{}
+      username:'',
+      rep:'',
+      email:'',
+      flairs:''
     }
     this.onSubmit = this.handleSubmit.bind(this);
   }
