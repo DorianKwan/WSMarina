@@ -73,7 +73,7 @@ class ProfilePage extends React.Component {
         <input type="submit" />
         <p> email {this.state.email}</p>
         <p> username {this.state.username}</p>
-        <p>image {this.state.image}</p>
+        <p>image <img src={this.state.image}/></p>
         <p> bio {this.state.bio}</p>
       </form>
       </div>
