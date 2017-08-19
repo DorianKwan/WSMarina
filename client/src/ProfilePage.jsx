@@ -15,7 +15,7 @@ class ProfilePage extends React.Component {
   }
 
   componentDidMount() {
-    getUserInfo(); 
+    this.getUserInfo(); 
   }
 
   getUserInfo() {
@@ -71,6 +71,9 @@ class ProfilePage extends React.Component {
         <input type="text" placeholder="image" ref="image"/>
         <input type="text" placeholder="bio" ref="bio"/>
         <input type="submit" />
+        <p> email {this.state.email}</p>
+        <p> username {this.state.username}</p>
+        <p>image {this.state.image}</p>
       </form>
       </div>
     );

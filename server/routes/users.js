@@ -1,4 +1,5 @@
 const express = require("express");
+const pry = require("pryjs");
 
 function createRouter(knex) {
   const router = express.Router();
@@ -22,10 +23,11 @@ function createRouter(knex) {
     console.log("router connection:", req.body);
     console.log("req.session ", req.session.user_id);
     knex("users")
-    .select("bio", "image", "rep", "username", "email")
     .where({
       id: req.session.user_id
-    }).then((userInfo) => {
+    })
+    .select("bio", "image", "rep", "username", "email")
+    .then((userInfo) => {
         console.log("test",userInfo)
         res.send(userInfo[0]);
       })
