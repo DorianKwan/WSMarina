@@ -34,7 +34,7 @@ class Store extends React.Component {
     const flairs = this.state.flairs.map((flair) => { 
       if (this.props.currentUserRep >= flair.cost) { 
         return (
-          <div>
+          <div key={ flair.id }>
             <p>{flair.name}</p>
             <img src= {flair.image} height="100" width="100" />
             <p>cost: {flair.cost} points</p>
@@ -49,7 +49,7 @@ class Store extends React.Component {
         );
       } else {
         return (
-          <div>
+          <div key={ flair.id }>
             <p>{flair.name}</p>
             <img src={flair.image} height="100" width="100" />
             <p>cost: {flair.cost} points</p>
