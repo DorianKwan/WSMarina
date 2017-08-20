@@ -1,21 +1,21 @@
 import React from 'react';
 
 class ProfilePage extends React.Component {
-  constructor(props){
-    super(props); 
+  constructor(props) {
+    super(props);
     this.state = {
-      image:'',
-      bio:'',
-      username:'',
-      rep:'',
-      email:'',
-      flairs:''
+      image: '',
+      bio: '',
+      username: '',
+      rep: '',
+      email: '',
+      flairs: ''
     }
     this.onSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    this.getUserInfo(); 
+    this.getUserInfo();
   }
 
   getUserInfo() {
@@ -23,28 +23,28 @@ class ProfilePage extends React.Component {
       method: "GET",
       credentials: 'include'
     })
-    .then((response) => {
-      console.log("response ", response);
-      return response.json();
-    }).then((userInfo) => { 
-      this.setState({
-        image: userInfo.image,
-        bio: userInfo.bio,
-        username: userInfo.username,
-        rep: userInfo.rep,
-        email: userInfo.email,
-        flairs: this.props.currentUserFlairs        
+      .then((response) => {
+        console.log("response ", response);
+        return response.json();
+      }).then((userInfo) => {
+        this.setState({
+          image: userInfo.image,
+          bio: userInfo.bio,
+          username: userInfo.username,
+          rep: userInfo.rep,
+          email: userInfo.email,
+          flairs: this.props.currentUserFlairs
+        });
+      }).catch(function (error) {
+        console.log("error ", error);
       });
-    }).catch(function(error){ 
-      console.log("error ", error); 
-    });
   }
 
   handleSubmit(event) {
     event.preventDefault();
     const image = event.target.elements[0].value;
     const bio = event.target.elements[1].value;
-    const body = JSON.stringify({image: image, bio: bio});
+    const body = JSON.stringify({ image: image, bio: bio });
 
     fetch("/profile", {
       method: "PUT",
@@ -56,27 +56,47 @@ class ProfilePage extends React.Component {
       },
       body: body
     })
-    .then((response) => {
-      return response.json()
-    }).then((body) => {
-      console.log(body);
-    });
+      .then((response) => {
+        return response.json()
+      }).then((body) => {
+        console.log(body);
+      });
   }
 
   render() {
     return (
-      <div>
-        <p> profile page</p>
-        <form onSubmit={this.onSubmit}>
-        <input type="text" placeholder="image" ref="image"/>
-        <input type="text" placeholder="bio" ref="bio"/>
-        <input type="submit" />
-        <p> email {this.state.email}</p>
-        <p> username {this.state.username}</p>
-        <p> rep {this.state.rep}</p>        
-        <p>image <img src={this.state.image}/></p>
-        <p> bio {this.state.bio}</p>
-      </form>
+      <div className="user-profile">
+        <h1> Profile Information</h1>
+        <img className="user-avatar" src={this.state.image} />
+        <div className="username">{this.state.username}</div>
+        <div className="bio">{this.state.bio}</div>
+        <div className="personal-data">
+          <span class="profile-details">Profile Details</span>
+        </div>
+        <div className="details-table">
+          <tr>
+            <td>Email</td>
+            <td>{this.state.email}</td>
+          </tr>
+          <tr>
+            <td>Reputation</td>
+            <td>{this.state.rep}</td>
+          </tr>
+          <tr>
+            {/* flairs need to be rendered and/or selectable */}
+            <td>Flairs</td>
+            <td>{this.state.flairs}</td>
+          </tr>
+        </div>
+        {/* edit profile should only be visible when user_id matches visiting user */}
+        {/* no defaults set for img and both forms are forced to be entered */}
+        <div className="edit-profile">
+          <form onSubmit={this.onSubmit}>
+            <input type="text" placeholder="image" ref="image" />
+            <input type="text" placeholder="bio" ref="bio" />
+            <input type="submit"/>
+          </form>
+        </div>
       </div>
     );
   }
