@@ -6,10 +6,20 @@ class Farm extends React.Component {
     this.onSubmit = this.handleSubmit.bind(this);
     this.getFarmInfo = this.getFarmInfo.bind(this);
     this.resetFarm = this.resetFarm.bind(this);
+    this.resetFarmCollect = this.resetFarmCollect.bind(this);
   }
 
   componentDidMount() {
     this.getFarmInfo();
+  }
+
+  resetFarmCollect() {
+    const currentDate = new Date; 
+    const currentTime = currentDate.toTimeString().slice(0, 5);
+    if (currentTime === "04:00") {
+      this.resetFarm();
+    }
+    return;
   }
 
   resetFarm() {
