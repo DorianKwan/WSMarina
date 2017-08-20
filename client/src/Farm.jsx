@@ -5,10 +5,41 @@ class Farm extends React.Component {
     super(props);
     this.onSubmit = this.handleSubmit.bind(this);
     this.getFarmInfo = this.getFarmInfo.bind(this);
+    this.resetFarm = this.resetFarm.bind(this);
   }
 
   componentDidMount() {
     this.getFarmInfo();
+  }
+
+  resetFarm() {
+    const url = "/reset"
+    const farm = {
+      slot_01: this.props.defaultValue[0].name,
+      slot_02: this.props.defaultValue[1].name,
+      slot_03: this.props.defaultValue[2].name,
+      slot_04: this.props.defaultValue[3].name,
+      slot_05: this.props.defaultValue[4].name
+    }
+    const body = JSON.stringify(farm);
+
+    fetch(url, {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Content-Length": new Buffer(body).length
+      },
+      body: body
+    })
+    .then((response) => {
+      return response.text();
+    }).then((text) => {
+      this.props.setFarm();
+    }).catch((error) => {
+      console.log(error);
+    });
   }
 
   getFarmInfo() {
@@ -94,6 +125,12 @@ class Farm extends React.Component {
             <input id="slot_05" type="text" ref="slot_05" />
             <br />
             <input type="submit" />
+          </form>
+        </div>
+        <br />
+        <div>
+          <form onSubmit={this.resetFarm}>
+            <input type="submit" value="Reset Farm" />
           </form>
         </div>
       </section>
