@@ -82,11 +82,6 @@ class ProfilePage extends React.Component {
             <td>Reputation</td>
             <td>{this.state.rep}</td>
           </tr>
-          <tr>
-            {/* flairs need to be rendered and/or selectable */}
-            <td>Flairs</td>
-            <td>{this.state.flairs}</td>
-          </tr>
         </div>
         {/* edit profile should only be visible when user_id matches visiting user */}
         {/* no defaults set for img and both forms are forced to be entered */}
