@@ -16,7 +16,7 @@ class App extends React.Component {
       currentUsername: "",
       currentUserRep: null,
       currentUserFlairs: [],
-      userFarm: [1,2,4,5,6],
+      userFarm: [1,2,3,4,5],
       chatRooms: [],
       newsItems: [],
       leaders: []
