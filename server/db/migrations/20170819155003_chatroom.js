@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
     table.string('name').unique().notNullable();
     table.integer("user_id");
     table.foreign("user_id").references("id").inTable("users");
-    table.boolean('isActive').defaultTo(true);
+    table.boolean('isActive').defaultTo(false);
     table.timestamps(true, true);
   });
 };

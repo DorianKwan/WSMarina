@@ -6,6 +6,7 @@ class ChatList extends React.Component {
     this.state = {
       ChatList: []
     }
+    this.onSubmit = this.handleSubmit.bind(this);
   }
   getChatList() {
     //For Localhost use the below url
@@ -27,9 +28,31 @@ class ChatList extends React.Component {
       });
   }
   componentDidMount() {
-    console.log("currentUser", this.props.currentUsername)
-    console.log("currentUserId", this.props.currentUserId)
     this.getChatList();
+  }
+  
+  handleSubmit(event) {
+    // event.preventDefault();
+    const chatname = event.target.elements[0].value;
+    const body = JSON.stringify({ chatname: chatname, currentUserId: this.props.currentUserId });
+    const url = "/chatList"
+      fetch(url, {      
+        method: "POST",
+        credentials: 'include',
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Content-Length": new Buffer(body).length},
+          body: body
+        }).then((response) => {
+          return response.json()
+        }).then((newchatlist) => {
+          console.log("new chat list:", newchatlist)
+          this.setState({
+            chatList: newchatlist
+          })
+          console.log(this.state)
+        })
   }
 
   render() {
@@ -37,15 +60,19 @@ class ChatList extends React.Component {
     const ChatList = this.state.ChatList.map((chatList) => {
       position++;
       return (
-        // <div key={leader.username}>
-        //   {position}. {leader.username} [reps: {leader.rep}]
-        // </div>
+        <div key={chatList.name}>
+          {position}. {chatList.name}
+        </div>
       );
     });
 
     return (
       <div className="ChatList">
         <p>ChatList</p>
+        <form onSubmit={this.onSubmit}>
+          <input type="text" placeholder="Name your Chat topic!" />
+          <button>"Create"</button>
+        </form>
         {ChatList}
       </div>
     );
