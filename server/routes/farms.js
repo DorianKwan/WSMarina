@@ -27,6 +27,20 @@ function createRouter(knex) {
       });
   });
 
+  router.post("/", (req, res) => {
+
+    const { currentUserId, currentUserRep, open, currentPrice, index, ticker } = req.body;
+    const slot = `slot_0${index + 1}`;
+
+    const newRep = currentPrice > open ? Number(currentUserRep) + 250 : Number(currentUserRep) + 100;
+    return knex("users")
+      .where("id", currentUserId)
+      .update("rep", newRep)
+      .then(() => {
+        res.redirect("/");
+      });
+  });
+
   router.get("/", (req, res) => {
     knex("farms")
       .where({
