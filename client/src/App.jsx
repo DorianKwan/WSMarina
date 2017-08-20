@@ -93,7 +93,7 @@ class App extends React.Component {
         <p>Welcome!!! {this.state.currentUsername} {flairs}</p>
         <p>Reps: {this.state.currentUserRep}</p>
         <Navbar currentUsername={this.state.currentUsername} />
-        <Store currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep}/>
+        <Store className="store" currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep}/>
         <Ticker tickers={this.state.tickers} />
         <Leaders leaders={this.state.leaders} />
         <News newsItems={this.state.newsItems} />
