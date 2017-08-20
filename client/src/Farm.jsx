@@ -22,11 +22,11 @@ class Farm extends React.Component {
       return response.json();
     }).then((slots) => {
       this.setState({
-        slot_01: slots.slot_01.name,
-        slot_02: slots.slot_02.name,
-        slot_03: slots.slot_03.name,
-        slot_04: slots.slot_04.name,
-        slot_05: slots.slot_05.name
+        slot_01: { name: slots.slot_01.name, collected_at: slots.slot_01.collected_at },
+        slot_02: { name: slots.slot_02.name, collected_at: slots.slot_02.collected_at },
+        slot_03: { name: slots.slot_03.name, collected_at: slots.slot_03.collected_at },
+        slot_04: { name: slots.slot_04.name, collected_at: slots.slot_04.collected_at },
+        slot_05: { name: slots.slot_05.name, collected_at: slots.slot_05.collected_at }
       });
     }).catch((error) => { 
       console.log("error: ", error); 
