@@ -27,8 +27,6 @@ class Message extends Component {
   }
 
   renderUsername() {
-    console.log("test if flairs gets set",this.state.flairs)
-    console.log("test if username gets set", this.state.currentUsername)
     switch (this.props.color) {
       case "chatty":
         return (<span className="message-username" style={{ color: "#19c5eb" }}>{this.state.currentUsername}{this.state.flairs}</span>);
