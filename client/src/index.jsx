@@ -1,3 +1,6 @@
+// Load up the store styles
+require("../styles/application.scss");
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App.jsx';
