@@ -13,22 +13,46 @@ class Ticker extends Component {
   constructor(props) {
     super(props);
     this.tickerFeed = this.tickerFeed.bind(this);
-    this.checkTicker = this.checkTicker.bind(this);
+    this.getTickers - this.getTickers.bind(this);
   }
 
   componentDidMount() {
-    this.tickerFeed();
+    this.getTickers();
     setInterval(this.tickerFeed, 60000);
   }
 
-  checkTicker() {
-    const tickers = { tickers: [{ name: 'DRYS' }, { name: 'TSLA' }, { name: 'CLS' }, { name: 'CDTI' }, { name: 'NLST' }] };
-    this.tickerFeed(tickers);
+  componentWillReceiveProps() {
+    this.getTickers();
+    this.tickerFeed();
   }
 
-  tickerFeed(input) {
+  getTickers() {
+    fetch("/farms", {
+      credentials: 'include',
+      headers: {
+        "Accept": "application/json"
+      }
+    })
+    .then((response) => {
+      return response.json();
+    }).then((slots) => {
+      this.setState({
+        tickers: [
+          { name: slots.slot_01 },
+          { name: slots.slot_02 },
+          { name: slots.slot_03 },
+          { name: slots.slot_04 },
+          { name: slots.slot_05 },
+        ]
+      });
+    }).catch((error) => { 
+      console.log("error: ", error); 
+    });
+  }
+
+  tickerFeed() {
     const alphaVantageKey = 'Your api key here';
-    const data = input || this.state || this.props;
+    const data = this.state || this.props;
     Promise.all(
       data.tickers.map((item, index) => {
         return fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${item.name}&outputsize=full&apikey=${alphaVantageKey}`)
@@ -52,7 +76,7 @@ class Ticker extends Component {
       });
       this.setState({
         tickers
-      });
+      }); 
     }).catch(function(error) {
         console.log(error);
     })
@@ -60,16 +84,26 @@ class Ticker extends Component {
 
   render() {
     const data = this.state || this.props; // Is this necessary? For now it will only pass state if tickerFeed is broken
-    const stocks = data.tickers.map(stock => {
+    const stocks = data.tickers.map((stock, index) => {
       return (
-        <div key={ stock.name }>{ stock.name } | ${ stock.price } | { stock.percentChange }% </div>
+        <div key={ stock.name }>
+          <form action="/farms" method="POST" >
+            <input name="index" type="hidden" value={index} />
+            <input name="ticker" type="hidden" value={stock.name} />
+            <input name="currentUserRep" type="hidden" value={this.props.currentUserRep} />
+            <input name="currentUserId" type="hidden" value={this.props.currentUserId} />
+            <input name="open" type="hidden" value={stock.open} />
+            <input name="currentPrice" type="hidden" value={stock.price} />
+            <div>{ stock.name } | ${ stock.price } | { stock.percentChange }%</div>
+            <input type="submit" />
+          </form>
+        </div>
       )
     });
 
     return (
       <section id="tickers">
         { stocks }
-        <button onClick={ this.checkTicker }>ChangeTickers</button>
       </section>
     );
   }
