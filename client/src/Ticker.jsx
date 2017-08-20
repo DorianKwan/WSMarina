@@ -84,23 +84,32 @@ class Ticker extends Component {
     })
   }
 
-render() {
+  render() {
     const data = this.state || this.props; // Is this necessary? For now it will only pass state if tickerFeed is broken
     const stocks = data.tickers.map((stock, index) => {
-      return (
-        <div key={ stock.name }>
-          <form action="/farms" method="POST" >
-            <input name="index" type="hidden" value={index} />
-            <input name="ticker" type="hidden" value={stock.name} />
-            <input name="currentUserRep" type="hidden" value={this.props.currentUserRep} />
-            <input name="currentUserId" type="hidden" value={this.props.currentUserId} />
-            <input name="open" type="hidden" value={stock.open} />
-            <input name="currentPrice" type="hidden" value={stock.price} />
+      if (stock.collected_at === null) {
+        return (
+            <div key={ stock.name }>
+              <form action="/farms" method="POST" >
+                <input name="index" type="hidden" value={index} />
+                <input name="ticker" type="hidden" value={stock.name} />
+                <input name="currentUserRep" type="hidden" value={this.props.currentUserRep} />
+                <input name="currentUserId" type="hidden" value={this.props.currentUserId} />
+                <input name="open" type="hidden" value={stock.open} />
+                <input name="currentPrice" type="hidden" value={stock.price} />
+                <div>{ stock.name } | ${ stock.price } | { stock.percentChange }%</div>
+                <input type="submit" value="Collect !" />
+              </form>
+            </div>
+          )
+      } else {
+        return (
+          <div key={ stock.name }>
             <div>{ stock.name } | ${ stock.price } | { stock.percentChange }%</div>
-            <input type="submit" />
-          </form>
-        </div>
-      )
+          </div>
+        )
+      }
+
     });
 
     return (
