@@ -33,7 +33,6 @@ class ProfilePage extends React.Component {
           username: userInfo.username,
           rep: userInfo.rep,
           email: userInfo.email,
-          flairs: this.props.currentUserFlairs
         });
       }).catch(function (error) {
         console.log("error ", error);
