@@ -24,7 +24,6 @@ class ProfilePage extends React.Component {
       credentials: 'include'
     })
       .then((response) => {
-        console.log("response ", response);
         return response.json();
       }).then((userInfo) => {
         this.setState({
@@ -59,7 +58,6 @@ class ProfilePage extends React.Component {
       .then((response) => {
         return response.json()
       }).then((body) => {
-        console.log(body);
       });
   }
 
