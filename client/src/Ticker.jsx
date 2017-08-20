@@ -62,15 +62,17 @@ class Ticker extends Component {
     const data = this.state || this.props; // Is this necessary? For now it will only pass state if tickerFeed is broken
     const stocks = data.tickers.map(stock => {
       return (
-        <div key={ stock.name }>{ stock.name } | ${ stock.price } | { stock.percentChange }% </div>
+        <span key={ stock.name }>{ stock.name } | ${ stock.price } | { stock.percentChange }% </span>
       )
     });
 
     return (
-      <section id="tickers">
-        { stocks }
-        <button onClick={ this.checkTicker }>ChangeTickers</button>
-      </section>
+      <div className="ticker">
+        <section id="tickers">
+          <marquee>{ stocks }</marquee>
+          <button onClick={ this.checkTicker }>ChangeTickers</button>
+        </section>
+      </div>
     );
   }
 }

@@ -85,9 +85,9 @@ class App extends React.Component {
     return (
       <div className="app">
         <Navbar currentUsername={this.state.currentUsername} currentUserRep={this.state.currentUserRep} currentUserFlairs={this.state.currentUserFlairs} />
-        <Store className="store" currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep} />
         <Ticker tickers={this.state.tickers} />
         <Leaders leaders={this.state.leaders} />
+        <Store className="store" currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep} />
         <News newsItems={this.state.newsItems} />
         <Farm defaultValue={this.state.tickers} />
         <ChatRooms chatRooms={this.state.chatRooms} />  
