@@ -33,8 +33,8 @@ class ProfilePage extends React.Component {
           rep: userInfo.rep,
           email: userInfo.email,
         });
-      }).catch((error) => {
-        console.log("error ", error);
+      }).catch((err) => {
+        console.log("error ", err);
       });
   }
 
@@ -55,9 +55,9 @@ class ProfilePage extends React.Component {
       body: body
     })
       .then((response) => {
-        return response.json()
-      }).catch((error) => {
-        console.log("error ", error);
+        return response.json();
+      }).catch((err) => {
+        console.log("error ", err);
       });
   }
 
