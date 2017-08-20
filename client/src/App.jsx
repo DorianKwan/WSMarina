@@ -90,10 +90,10 @@ class App extends React.Component {
 
     return (
       <div className="app">
+        <Navbar currentUsername={this.state.currentUsername} />        
         <p>Welcome!!! {this.state.currentUsername} {flairs}</p>
         <p>Reps: {this.state.currentUserRep}</p>
-        <Navbar currentUsername={this.state.currentUsername} />
-        {/* <Store className="store" currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep}/>
+        <Store className="store" currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep}/>
         <Ticker tickers={this.state.tickers} />
         <Leaders leaders={this.state.leaders} />
         <News newsItems={this.state.newsItems} />
@@ -101,7 +101,7 @@ class App extends React.Component {
         <ChatRooms chatRooms={this.state.chatRooms} />  
         <form action="/logout" method="POST">
           <input type='submit' value='Logout' />
-        </form> */}
+        </form>
       </div>
     );
   }

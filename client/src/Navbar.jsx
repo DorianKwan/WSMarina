@@ -4,18 +4,18 @@ class Navbar extends React.Component {
   render() {
     return (
       <div className="navbar">
-        <ul className="brand-name">
-          <li>WS MARINA</li>
-            
-        </ul>
-        <ul>
-          {/* <span><img src="https://d30y9cdsu7xlg0.cloudfront.net/png/8089-200.png" classname="icon" /></span> */}
-          <li><a>PROFILE</a></li>
-          <li><a>FARM</a></li>
-          <li><a>BETS</a></li>
-          <li><a>STORE</a></li>
-          <li><a>HOME</a></li>          
-        </ul>
+        <header>
+          <nav>
+            <ul>
+              <li><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Anchor_pictogram_yellow.svg/845px-Anchor_pictogram_yellow.svg.png" id="logo" /></li>
+              <li><a>PROFILE</a></li>
+              <li><a>FARM</a></li>
+              <li><a>BETS</a></li>
+              <li><a>STORE</a></li>
+              <li><a>HOME</a></li>          
+            </ul>
+          </nav>
+        </header>
       </div>
     );
   }
