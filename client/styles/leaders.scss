@@ -1,0 +1,45 @@
+.leaders {
+	margin: 30px;
+
+	h2 {
+	margin: 0;
+	padding: 0;
+	}
+
+	ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	}
+
+	li {
+	border-bottom: 1px solid #ccc;
+	}
+
+	li:last-child {
+	border: none;
+	}
+
+	li {
+	text-decoration: none;
+	color: #000;
+
+	-webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+	-moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+	-o-transition: font-size 0.3s ease, background-color 0.3s ease;
+	-ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+	transition: font-size 0.3s ease, background-color 0.3s ease;
+	display: block;
+	width: 200px;
+	}
+
+	li :hover {
+	color: white;
+	border-bottom-right-radius: 50px;
+	border-top-right-radius: 50px;
+	padding: 5px;
+	font-size: 30px;
+	width: 500px;
+	background: lightseagreen;
+	}
+}

@@ -1,0 +1,22 @@
+.navbar {
+	background-color: black;
+	color: white;
+	width: 100%;
+	height: 80px;
+
+	.logo {
+	  margin: 10px;
+	}
+
+	.welcome {
+		position: absolute;
+		top: 20px;
+	  right: 20px;
+	}
+
+	.currentUserReps {
+		position: absolute;
+		top: 60px;
+		right: 20px;
+	}
+}

@@ -82,20 +82,12 @@ class App extends React.Component {
   }
 
   render() {
-    const flairs = this.state.currentUserFlairs.map((flair) => { 
-      return (
-        <img src= {flair.image} height="30" width="30" />
-      );
-    });
-
     return (
       <div className="app">
-        <p>Welcome!!! {this.state.currentUsername} {flairs}</p>
-        <p>Reps: {this.state.currentUserRep}</p>
-        <Navbar currentUsername={this.state.currentUsername} />
-        <Store className="store" currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep}/>
+        <Navbar currentUsername={this.state.currentUsername} currentUserRep={this.state.currentUserRep} currentUserFlairs={this.state.currentUserFlairs} />
         <Ticker tickers={this.state.tickers} />
         <Leaders leaders={this.state.leaders} />
+        <Store className="store" currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep} />
         <News newsItems={this.state.newsItems} />
         <Farm defaultValue={this.state.tickers} />
         <ChatRooms chatRooms={this.state.chatRooms} />  
