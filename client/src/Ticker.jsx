@@ -67,11 +67,9 @@ class Ticker extends Component {
     });
 
     return (
-      <div className="ticker">
-        <section id="tickers">
+      <div className="tickers">
           <marquee>{ stocks }</marquee>
-          <button onClick={ this.checkTicker }>ChangeTickers</button>
-        </section>
+          <button onClick={ this.checkTicker }>Change Tickers</button>
       </div>
     );
   }
