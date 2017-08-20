@@ -1,15 +1,16 @@
 .products {
-  display:         flex;
-  flex-direction:  row;
-  flex-wrap:       wrap;
+  // display: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-around;
 
   .product {
     background-color: white;
-    flex:      1;
+    flex: 1;
     max-width: 180px;
     // so that footer within can be positioned absolutely
-    position:  relative;
+    position: relative;
 
     border:        1px solid #ccc;
     border-radius: 5px;
