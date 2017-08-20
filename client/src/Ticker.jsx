@@ -16,7 +16,7 @@ class Ticker extends Component {
     this.getTickers - this.getTickers.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.getTickers();
     setInterval(this.tickerFeed, 60000);
   }
