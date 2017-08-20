@@ -12,11 +12,11 @@ function createRouter(knex) {
       .where({
         user_id: req.session.user_id
       })
-      .update("slot_01", JSON.stringify({name: slot_01, collected_at: null}))
-      .update("slot_02", JSON.stringify({name: slot_02, collected_at: null}))
-      .update("slot_03", JSON.stringify({name: slot_03, collected_at: null}))
-      .update("slot_04", JSON.stringify({name: slot_04, collected_at: null}))
-      .update("slot_05", JSON.stringify({name: slot_05, collected_at: null}))
+      .update("slot_01", JSON.stringify({name: slot_01.name, collected_at: slot_01.collected_at}))
+      .update("slot_02", JSON.stringify({name: slot_02.name, collected_at: slot_02.collected_at}))
+      .update("slot_03", JSON.stringify({name: slot_03.name, collected_at: slot_03.collected_at}))
+      .update("slot_04", JSON.stringify({name: slot_04.name, collected_at: slot_04.collected_at}))
+      .update("slot_05", JSON.stringify({name: slot_05.name, collected_at: slot_05.collected_at}))
       .then(function(values){
         res.json({result: "Record updated."});
       })
