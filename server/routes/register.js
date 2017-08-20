@@ -44,9 +44,9 @@ function createRouter(knex) {
         res.redirect("/");
       });
 
-    req.session.show_register = true;
-    req.flash('errors', err.message);
-    res.redirect('/');
+    // req.session.show_register = true;
+    // req.flash('errors', "An error has occured");
+    // res.redirect('/');
 
     knex('users')
       .select(1)
@@ -82,9 +82,10 @@ function createRouter(knex) {
           .limit(1);
 
       }).then((rows) => {
-
+        
+        const user = rows[0].id;
         // Set cookie to indicate logged in status and redirect to users page
-        req.session.user_id = rows[0].id;
+        req.session.user_id = user;
         req.session.show_register = false;
         return user;
 

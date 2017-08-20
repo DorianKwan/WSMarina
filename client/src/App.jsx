@@ -18,27 +18,17 @@ class App extends React.Component {
       currentUsername: "",
       currentUserRep: null,
       currentUserFlairs: [],
-      tickers: [
-        {
-          name: 'AAPL',
-        },
-        {
-          name: 'GOOG',
-        },
-        {
-          name: 'AMZN',
-        },
-        {
-          name: 'MSFT',
-        },
-        {
-          name: 'FB',
-        },
-      ],
+      userFarm: [1,2,3,4,5],
       chatRooms: [],
       newsItems: [],
       leaders: []
     };
+  }
+
+  componentDidMount(){
+    this.findCurrentUser();
+    this.findCurrentUserFlairs();
+    this.setFarm();
   }
 
   findCurrentUser() {
@@ -78,28 +68,42 @@ class App extends React.Component {
       });
     });
   }
-  componentDidMount(){
-    this.findCurrentUser();
-    this.findCurrentUserFlairs();
+
+  setFarm() {
+    const url = "/farms";
+
+    fetch(url, {
+      credentials: 'include',
+      headers: {
+        "Accept": "application/json"
+      }
+    })
+    .then((response) => {
+      return response.json();
+    }).then((slots) => {
+      this.setState({ 
+        userFarm: [ 
+          { name: slots.slot_01.name },
+          { name: slots.slot_02.name },
+          { name: slots.slot_03.name },
+          { name: slots.slot_04.name },
+          { name: slots.slot_05.name }
+        ]
+      });
+    }).catch((error) => { 
+      console.log("error: ", error); 
+    });
   }
 
   render() {
-    const flairs = this.state.currentUserFlairs.map((flair) => { 
-      return (
-        <img src= {flair.image} height="30" width="30" />
-      );
-    });
-
     return (
       <div className="app">
-        <p>Welcome!!! {this.state.currentUsername} {flairs}</p>
-        <p>Reps: {this.state.currentUserRep}</p>
-        <Navbar currentUsername={this.state.currentUsername} />
-        <Store className="store" currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep}/>
-        <Ticker tickers={this.state.tickers} />
+        <Navbar currentUsername={this.state.currentUsername} currentUserRep={this.state.currentUserRep} currentUserFlairs={this.state.currentUserFlairs} />
+        <Ticker tickers={this.state.userFarm} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep} />
         <Leaders leaders={this.state.leaders} />
+        <Store className="store" currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep} />
         <News newsItems={this.state.newsItems} />
-        <Farm defaultValue={this.state.tickers} />
+        <Farm defaultValue={this.state.userFarm} setFarm={this.setFarm.bind(this)} />
         <ChatRooms chatRooms={this.state.chatRooms} />  
         <form action="/logout" method="POST">
           <input type='submit' value='Logout' />

@@ -22,6 +22,7 @@ const flairsRouter = require('./routes/flairs');
 const currentUserFlairsRouter = require('./routes/currentUserFlairs');
 const leadersRouter = require('./routes/leaders');
 const farmsRouter = require('./routes/farms');
+const farmResetRouter = require('./routes/farmReset');
 
 app.set('view engine', 'ejs');
 
@@ -64,6 +65,7 @@ app.use('/currentUserFlairs', currentUserFlairsRouter(knex));
 app.use('/profile', profileRouter(knex));
 app.use('/leaders', leadersRouter(knex));
 app.use('/farms', farmsRouter(knex));
+app.use('/reset', farmResetRouter(knex));
 
 function broadcast(data) {
   if (data.type === "userCount") {
