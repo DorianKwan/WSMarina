@@ -81,11 +81,11 @@ class App extends React.Component {
     }).then((slots) => {
       this.setState({ 
         userFarm: [ 
-          { name: slots.slot_01 },
-          { name: slots.slot_02 },
-          { name: slots.slot_03 },
-          { name: slots.slot_04 },
-          { name: slots.slot_05 }
+          { name: slots.slot_01.name },
+          { name: slots.slot_02.name },
+          { name: slots.slot_03.name },
+          { name: slots.slot_04.name },
+          { name: slots.slot_05.name }
         ]
       });
     }).catch((error) => { 
