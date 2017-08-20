@@ -7,6 +7,7 @@ class Farm extends React.Component {
     this.getFarmInfo = this.getFarmInfo.bind(this);
     this.resetFarm = this.resetFarm.bind(this);
     this.resetFarmCollect = this.resetFarmCollect.bind(this);
+    setInterval(this.resetFarmCollect, 60000);
   }
 
   componentDidMount() {
