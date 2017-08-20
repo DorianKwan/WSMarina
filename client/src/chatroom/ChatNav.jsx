@@ -1,23 +1,14 @@
+import React, { Component } from 'react';
 
-import React, { Component } from "react";
-
+// Class chatNav renders nav-bar of page which includes logo and count of online users
 class ChatNav extends Component {
-  renderUserCount() {
-    switch (this.props.userCount) {
-      case 1:
-        return (<span className="user-count">1 user online</span>);
-      default:
-        return (<span className="user-count">{this.props.userCount} users online</span>);
-    }
-  }
-
   render() {
     return (
       <nav className="chatNav">
-        <a href="/" className="chatNav-brand">Chatty</a>
-        {this.renderUserCount()}
+        <a href="/" className="chatNav-brand">W.S Marina </a>
+        <span className="online-users">{this.props.clientCount} users online</span>
       </nav>
-    );
+    )
   }
 }
 

@@ -3,8 +3,15 @@ const express = require("express");
 function createRouter(knex) {
   const router = express.Router();
 
-  router.post("/", (req, res) => {
+  router.get("/", (req, res) => {
+    knex('chatroomusers')
+      .select("*")
+      .then((chatroomInfo) => {
+        res.send(chatroomInfo);
+      });
+  });
 
+  router.post("/", (req, res) => {
     knex('chatroomusers')
       .select("*")
       .where({ user_id: req.body.currentUserId })

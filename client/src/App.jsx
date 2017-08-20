@@ -97,7 +97,7 @@ class App extends React.Component {
         <Ticker tickers={this.state.tickers} />
         <Leaders leaders={this.state.leaders} />
         <News newsItems={this.state.newsItems} />
-        <ChatRooms chatRooms={this.state.chatRooms} currentUsername={this.state.currentUsername} currentUserFlairs={flairs}/>  
+        <ChatRooms chatRooms={this.state.chatRooms} currentUserId={this.state.currentUserId} currentUsername={this.state.currentUsername} currentUserFlairs={flairs}/>  
         <ChatList currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId}/>
         <form action="/logout" method="POST">
           <input type='submit' value='Logout' />

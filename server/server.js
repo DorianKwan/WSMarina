@@ -64,57 +64,45 @@ app.use('/leaders', leadersRouter(knex));
 app.use('/chatList', chatListRouter(knex));
 app.use('/joinChat', joinChatRouter(knex));
 
-function broadcast(data) {
-  if (data.type === "userCount") {
-    io.sockets.emit('data', JSON.stringify(data));
-  } else {
-    io.sockets.emit('message', JSON.stringify(data));
-  }
-}
-
-let userCount = 0;
-
-function createMessage() {
-  return {
-    id: uuidv4(),
-    color: "chatty",
-    content: userCount,
-    type: "userCount",
-    username: "Chatty"
-  };
-}
-
-function generateColor() {
-  const hexChars = "0123456789ABCDEF";
-  let hex = "#";
-
-  for (var i = 0; i < 6; i++) {
-    hex += hexChars.charAt(Math.floor(Math.random() * hexChars.length));
-  }
-
-  return hex;
-}
 
 io.on("connection", (socket) => {
-  console.log("Client connected");
-  const color = generateColor();
-  userCount++;
-  broadcast(createMessage());
+  console.log('Client connected');
+  numberOfClients();
 
-  socket.on('message', (msg) => {
-    const message = JSON.parse(msg);
-    message.id = uuidv4();
-    message.color = color;
-
-    broadcast(message);
+  // Each message recieved will given a random id
+  socket.on('message', function incoming(message) {
+    let messageRecieved = JSON.parse(message);
+    console.log(messageRecieved)
+    switch (messageRecieved.type) {
+      case "incomingMessage":
+        messageRecieved.id = uuidv4();
+        broadcast(JSON.stringify(messageRecieved));
+        break;
+      default:
+        throw new Error("Unknown event type " + message.type);
+    }
   });
 
+  // Set up a callback for when a client closes the socket. This usually means they closed their broioer.
   socket.on('disconnecting', () => {
-    console.log("Client disconnected");
-    userCount--;
-    broadcast(JSON.stringify(createMessage()));
+    console.log('Client disconnected');
+    numberOfClients();
   });
 });
+
+
+// This function broadcasts data to all clients connected to server
+function broadcast(data) {
+  io.sockets.emit('data', data);
+}
+
+// This function checks number of users connected to server and passes noOfClients to broadcast function
+function numberOfClients() {
+  const noOfClients = io.engine.clientsCount
+  console.log("no of clients", noOfClients)
+  const clients = io.sockets.clients()
+  broadcast(JSON.stringify({ type: "clientCount", number: noOfClients }));
+}
 
 server.listen(process.env.PORT || 3000, () => {
   const address = server.address();
