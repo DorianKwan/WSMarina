@@ -36,18 +36,20 @@ class Farm extends React.Component {
   handleSubmit(event) {
     event.preventDefault(); // ASK MENTOR FOR HELP! REMIND KAI
   
-    const slot_01 = event.target.elements[0].value || this.props.defaultValue[0].name;
-    const slot_02 = event.target.elements[1].value || this.props.defaultValue[1].name;
-    const slot_03 = event.target.elements[2].value || this.props.defaultValue[2].name;
-    const slot_04 = event.target.elements[3].value || this.props.defaultValue[3].name;
-    const slot_05 = event.target.elements[4].value || this.props.defaultValue[4].name;
-    const body = JSON.stringify({
-      slot_01,
-      slot_02,
-      slot_03,
-      slot_04,
-      slot_05
-    });
+    const ticker_01 = event.target.elements[0].value || this.props.defaultValue[0].name;
+    const ticker_02 = event.target.elements[1].value || this.props.defaultValue[1].name;
+    const ticker_03 = event.target.elements[2].value || this.props.defaultValue[2].name;
+    const ticker_04 = event.target.elements[3].value || this.props.defaultValue[3].name;
+    const ticker_05 = event.target.elements[4].value || this.props.defaultValue[4].name;
+    const farmSlots = {
+      slot_01: { name: ticker_01, collected_at: this.state.slot_01.collected_at },
+      slot_02: { name: ticker_02, collected_at: this.state.slot_02.collected_at },
+      slot_03: { name: ticker_03, collected_at: this.state.slot_03.collected_at },
+      slot_04: { name: ticker_04, collected_at: this.state.slot_04.collected_at },
+      slot_05: { name: ticker_05, collected_at: this.state.slot_05.collected_at }
+    }
+
+    const body = JSON.stringify(farmSlots);
 
     fetch("/farms", {
       method: "PUT",
