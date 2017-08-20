@@ -1,0 +1,19 @@
+.tickers {
+  color: black; 
+  top: 500px;
+
+  marquee {
+    margin: 10px;
+
+    :hover {
+      color: lightseagreen;
+      font-size: 30px;
+    }
+  }
+
+  button {
+    color: white;
+    background-color: black;
+    width: 100px;
+  }
+}
