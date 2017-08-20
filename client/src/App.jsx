@@ -16,7 +16,7 @@ class App extends React.Component {
       currentUsername: "",
       currentUserRep: null,
       currentUserFlairs: [],
-      userFarm: [],
+      userFarm: [1,2,4,5,6],
       chatRooms: [],
       newsItems: [],
       leaders: []
@@ -68,7 +68,9 @@ class App extends React.Component {
   }
 
   setFarm() {
-    fetch("/farms", {
+    const url = "/farms";
+
+    fetch(url, {
       credentials: 'include',
       headers: {
         "Accept": "application/json"
@@ -78,7 +80,7 @@ class App extends React.Component {
       return response.json();
     }).then((slots) => {
       this.setState({ 
-        farm: [ 
+        userFarm: [ 
           { name: slots.slot_01 },
           { name: slots.slot_02 },
           { name: slots.slot_03 },
@@ -104,10 +106,10 @@ class App extends React.Component {
         <p>Reps: {this.state.currentUserRep}</p>
         <Navbar currentUsername={this.state.currentUsername} />
         <Store currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep}/>
-        <Ticker tickers={this.state.tickers} />
+        <Ticker tickers={this.state.userFarm} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep} />
         <Leaders leaders={this.state.leaders} />
         <News newsItems={this.state.newsItems} />
-        <Farm defaultValue={this.state.tickers} />
+        <Farm defaultValue={this.state.userFarm} setFarm={this.setFarm.bind(this)} />
         <ChatRooms chatRooms={this.state.chatRooms} />  
         <form action="/logout" method="POST">
           <input type='submit' value='Logout' />
