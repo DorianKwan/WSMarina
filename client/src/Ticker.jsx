@@ -38,11 +38,11 @@ class Ticker extends Component {
     }).then((slots) => {
       this.setState({
         tickers: [
-          { name: slots.slot_01 },
-          { name: slots.slot_02 },
-          { name: slots.slot_03 },
-          { name: slots.slot_04 },
-          { name: slots.slot_05 },
+          { name: slots.slot_01.name, collected_at: slots.slot_01.collected_at },
+          { name: slots.slot_02.name, collected_at: slots.slot_02.collected_at },
+          { name: slots.slot_03.name, collected_at: slots.slot_03.collected_at },
+          { name: slots.slot_04.name, collected_at: slots.slot_04.collected_at },
+          { name: slots.slot_05.name, collected_at: slots.slot_05.collected_at },
         ]
       });
     }).catch((error) => { 
@@ -59,14 +59,16 @@ class Ticker extends Component {
         .then((resp) => resp.json());
       })
     ).then(all => {
-      const tickers = all.map(data => {
+      const tickers = all.map((data, index) => {
         const realTimeStockPrices = data['Time Series (Daily)'];
         for (let time in realTimeStockPrices) {
           const price = round(realTimeStockPrices[time]['4. close'], 2);
           const open = round(realTimeStockPrices[time]['1. open'], 2);
           const percentChange = round(calculatePercentChange(price, open), 2);
+          const collected_at = this.state.tickers[index].collected_at;
 
           return {
+            collected_at,
             name: data['Meta Data']['2. Symbol'],
             open,
             price,
@@ -82,7 +84,7 @@ class Ticker extends Component {
     })
   }
 
-  render() {
+render() {
     const data = this.state || this.props; // Is this necessary? For now it will only pass state if tickerFeed is broken
     const stocks = data.tickers.map((stock, index) => {
       return (
