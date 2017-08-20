@@ -6,9 +6,9 @@ function createRouter(knex) {
   router.get("/", (req, res) => {
     knex("flairs")
       .select('*')
-    .then((flairs) => {
-      res.send(flairs);
-    });
+      .then((flairs) => {
+        res.send(flairs);
+      });
   });
 
   router.post("/", (req, res) => {
@@ -17,11 +17,11 @@ function createRouter(knex) {
       .insert({
         user_id: req.body.currentUserId,
         flair_id: req.body.flairId
-    }).then(() => {
-     return knex("users").where("id", req.body.currentUserId).update("rep", newRep);
-    }).then(() => {
-      res.redirect("/");
-    })
+      }).then(() => {
+        return knex("users").where("id", req.body.currentUserId).update("rep", newRep);
+      }).then(() => {
+        res.redirect("/");
+      });
   });
 
 

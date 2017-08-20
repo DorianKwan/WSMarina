@@ -8,9 +8,9 @@ function createRouter(knex) {
       .select("username", "rep")
       .orderBy("rep", "desc")
       .limit(10)
-    .then((leaders) => {
-      res.send(leaders);
-    });
+      .then((leaders) => {
+        res.send(leaders);
+      });
   });
   return router;
 }

@@ -5,6 +5,7 @@ import Leaders from './Leaders.jsx';
 import News from './News.jsx';
 import ChatRooms from './ChatRooms.jsx';
 import Store from './Store.jsx';
+import Farm from './Farm.jsx';
 import SiteFooter from './SiteFooter.jsx';
 import ProfilePage from './ProfilePage.jsx';
 
@@ -94,10 +95,11 @@ class App extends React.Component {
         <p>Welcome!!! {this.state.currentUsername} {flairs}</p>
         <p>Reps: {this.state.currentUserRep}</p>
         <Navbar currentUsername={this.state.currentUsername} />
-        <Store currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep}/>
+        <Store className="store" currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep}/>
         <Ticker tickers={this.state.tickers} />
         <Leaders leaders={this.state.leaders} />
         <News newsItems={this.state.newsItems} />
+        <Farm defaultValue={this.state.tickers} />
         <ChatRooms chatRooms={this.state.chatRooms} />  
         <form action="/logout" method="POST">
           <input type='submit' value='Logout' />
