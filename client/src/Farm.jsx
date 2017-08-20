@@ -34,7 +34,7 @@ class Farm extends React.Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault();
+    event.preventDefault(); // ASK MENTOR FOR HELP! REMIND KAI
   
     const slot_01 = event.target.elements[0].value || this.props.defaultValue[0].name;
     const slot_02 = event.target.elements[1].value || this.props.defaultValue[1].name;
@@ -62,6 +62,7 @@ class Farm extends React.Component {
     .then((response) => {
       return response.text();
     }).then((text) => {
+      this.props.setFarm();
       this.getFarmInfo();
     }).catch((error) => {
       console.log(error);
@@ -70,28 +71,30 @@ class Farm extends React.Component {
 
   render() {
     return (
-      <div>
-        <span className="farm-title"></span>
-        <span>Choose your farm !</span>
-        <form onSubmit={this.onSubmit}>
-          <label for="slot_01">Current Value: { this.props.defaultValue[0].name }</label>
-          <input id="slot_01" type="text" ref="slot_01" />
-          <br />
-          <label for="slot_02">Current Value: { this.props.defaultValue[1].name }</label>
-          <input id="slot_02" type="text" ref="slot_02" />
-          <br />
-          <label for="slot_03">Current Value: { this.props.defaultValue[2].name }</label>
-          <input id="slot_03" type="text" ref="slot_03" />
-          <br />
-          <label for="slot_04">Current Value: { this.props.defaultValue[3].name }</label>
-          <input id="slot_04" type="text" ref="slot_04" />
-          <br />
-          <label for="slot_05">Current value: { this.props.defaultValue[4].name }</label>
-          <input id="slot_05" type="text" ref="slot_05" />
-          <br />
-        <input type="submit" />
-      </form>
-      </div>
+      <section>
+        <div>
+          <span className="farm-title"></span>
+          <span>Choose your farm !</span>
+          <form onSubmit={this.onSubmit}>
+            <label>Current Value: { this.props.defaultValue[0].name }</label>
+            <input id="slot_01" type="text" ref="slot_01" />
+            <br />
+            <label>Current Value: { this.props.defaultValue[1].name }</label>
+            <input id="slot_02" type="text" ref="slot_02" />
+            <br />
+            <label>Current Value: { this.props.defaultValue[2].name }</label>
+            <input id="slot_03" type="text" ref="slot_03" />
+            <br />
+            <label>Current Value: { this.props.defaultValue[3].name }</label>
+            <input id="slot_04" type="text" ref="slot_04" />
+            <br />
+            <label>Current value: { this.props.defaultValue[4].name }</label>
+            <input id="slot_05" type="text" ref="slot_05" />
+            <br />
+            <input type="submit" />
+          </form>
+        </div>
+      </section>
     );
   }
 }
