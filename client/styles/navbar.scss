@@ -1,4 +1,13 @@
 .navbar {
-    background-color: black;
-    color: white;
+	background-color: black;
+	color: white;
+	width: 100%;
+
+	.logo {
+	  margin: 0;
+	}
+}
+
+.logo {
+	margin-bottom: 0;
 }

@@ -11,8 +11,9 @@ class Navbar extends React.Component {
 
     return (
       <div className="navbar">
-        <p>Welcome!!! {this.props.currentUsername} {flairs}</p>
-        <p>Reps: {this.props.currentUserRep}</p>
+        <h1 className="logo">W.S. Marina</h1>
+        <span>Welcome!!! {this.props.currentUsername} {flairs}</span>
+        <span>Reps: {this.props.currentUserRep}</span>
       </div>
     );
   }
