@@ -104,17 +104,17 @@ class Ticker extends Component {
           )
       } else {
         return (
-          <div key={ stock.name }>
-            <div>{ stock.name } | ${ stock.price } | { stock.percentChange }%</div>
-          </div>
+          <span key={ stock.name }>
+            { stock.name } | ${ stock.price } | { stock.percentChange }%
+          </span>
         )
       }
 
     });
 
     return (
-      <section id="tickers">
-        { stocks }
+      <section className="tickers">
+        <marquee>{ stocks }</marquee>
       </section>
     );
   }

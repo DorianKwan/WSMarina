@@ -115,7 +115,7 @@ class Farm extends React.Component {
 
   render() {
     return (
-      <section>
+      <section className="farm">
         <div>
           <span className="farm-title"></span>
           <span>Choose your farm !</span>
