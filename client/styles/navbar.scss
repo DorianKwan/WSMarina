@@ -1,35 +1,57 @@
 .navbar{
+  margin: 0;
   padding: 0;
   position: absolute;
   top: 0;
   width: 100%;
 
   ul {
+    background-color: #333;
     list-style-type: none;
     margin: 0;
-    padding: 0;
     overflow: hidden;
-    background-color: #333;
-}
+    padding-left: 15px;
+    padding-right: 15px;
 
-li {
+    .brand-name {
+      font-size: 1.4em;      
+      // padding-top: 15px;
+    }
+  }
+  ul.brand-name{
     float: left;
-}
+  }
 
-li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
+  li {
+      float: right;
+      border-bottom: none;
+      font-size: 1.4em;
+  }
 
-a:hover:not(.active) {
-    background-color: #111;
-}
+  li a {
+      color: #fff;
+      display: block;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      transition: .3s background-color;
+  }
+  li img {
+    float: left;
+  }
 
-.active {
-background-color:#4CAF50;
-}
+  // img {
+  //   height: 48px;
+  //   width: 48px;
+  // }
+  
+
+  a:hover:not(.active) {
+      background-color: #111;
+  }
+
+  .active {
+  background-color:#4CAF50;
+  }
   
 }
