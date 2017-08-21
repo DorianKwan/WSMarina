@@ -18,6 +18,30 @@ function createRouter(knex) {
       });
   });
 
+  router.put("/", (req, res) => {
+
+    const { created_at, start_price, ticker } = req.body;
+    const user_id = req.session.user_id;
+
+    // Intialize bet by updating created_at and start_price columns
+    knex("bets")
+      .where({
+        user_id,
+        ticker
+      })
+      .update("created_at", created_at)
+      .update("start_price", start_price)
+      .then(() => {
+        console.log("Updated");
+        res.json({result: "Record updated."});
+      })
+      .catch((err) => {
+        console.log("error occured", err);
+        res.json({result: err});
+      });
+  });
+
+
   router.post("/", (req, res) => {
 
     const { ticker, wager, direction } = req.body;
