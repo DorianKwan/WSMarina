@@ -3,10 +3,11 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 .navbar {
 	background-color: #12171C;
 	font-size: 1.4em;
-	// height: 55px;
+
 	.nav-left {
 		float: left;
 	}
+
 	#site-name:hover {
 		color: #e8d4d8;
 	}
@@ -20,9 +21,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 	a:hover {
 		color :#1fc8db;
-	}
-	.nav-right {
-		display: inline;
 	}
 
 }
