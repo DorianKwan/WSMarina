@@ -7,6 +7,8 @@ import ChatRooms from './ChatRooms.jsx';
 import Store from './Store.jsx';
 import Farm from './Farm.jsx';
 import SiteFooter from './SiteFooter.jsx';
+import ProfilePage from './ProfilePage.jsx';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -111,7 +113,7 @@ class App extends React.Component {
 
     return (
       <div className="app">
-        <Navbar />
+        <Navbar currentUsername={this.state.currentUsername} currentUserRep={this.state.currentUserRep} currentUserFlairs={this.state.currentUserFlairs} />
         <Leaders leaders={this.state.leaders} currentUserFlairs={this.state.currentUserFlairs} currentUserTitle={this.state.currentUserTitle} currentUsername={this.state.currentUsername} currentUserRep={this.state.currentUserRep} />
         <div className="features">
           <Ticker tickers={this.state.userFarm} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep} />
@@ -123,6 +125,7 @@ class App extends React.Component {
             <input type='submit' value='Logout' />
           </form>
         </div>
+        <ProfilePage currentUser={this.state.currentUser} />
       </div>
     );
   }

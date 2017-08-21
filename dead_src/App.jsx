@@ -20,6 +20,9 @@ export default React.createClass({
           <li>
             <NavLink to="/register">Register</NavLink>
           </li>
+          <li>
+            <NavLink to="/ProfilePage">Profile</NavLink>
+          </li>
         </ul>
         {this.props.children}
       </div>
