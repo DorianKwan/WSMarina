@@ -4,11 +4,13 @@ function createRouter(knex) {
   const router = express.Router();
   router.get("/", (req, res) => {
 
+    const user_id = req.session.user_id;
+
     knex("bets")
-      .where("user_id", req.session.user_id)
+      .where({ user_id })
       .select("ticker", "wager", "direction")
       .then((bets) => {
-        res.send(bets[0]);
+        res.send(bets);
       })
       .catch((err) => {
         console.log(err);
