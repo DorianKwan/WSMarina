@@ -1,28 +1,11 @@
-.userProfile {
-  background: white;
+.user-profile {
+  color: black;
   border-radius: 10px;
-	height: 250px;
-	padding: 10px;
-	
-	#currentUserImage {
-		height: 50px;
-		width: 50px;
-	}
+  height: 250px;
+  width: 500px;
+  padding: 10px;
 
-	#currentUserTitle {
-		font-size: 20px;
-	}
-
-	#currentUsername {
-		font-size: 20px;
-	}
-
-	#currentUserFlairs {
-		padding: 20px;
-
-	}
-
-	#currentUserReps {
-
-	}
+  input {
+    color: black;
+  }
 }

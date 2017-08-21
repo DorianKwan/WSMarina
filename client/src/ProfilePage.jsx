@@ -64,7 +64,7 @@ class ProfilePage extends React.Component {
   render() {
     return (
       <div className="user-profile">
-        <h1> Profile Information</h1>
+        <h1>Profile</h1>
         <img className="user-avatar" src={this.state.image} />
         <div className="username">{this.state.username}</div>
         <div className="bio">{this.state.bio}</div>
@@ -85,8 +85,8 @@ class ProfilePage extends React.Component {
         {/* no defaults set for img and both forms are forced to be entered */}
         <div className="edit-profile">
           <form onSubmit={this.onSubmit}>
-            <input type="text" placeholder="image" ref="image" />
-            <input type="text" placeholder="bio" ref="bio" />
+            <input type="file" name="image" accept="image/*" />
+            <input type="text" placeholder="Tell us about yourself" />
             <input type="submit"/>
           </form>
         </div>
