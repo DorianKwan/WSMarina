@@ -16,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "knex": "^0.13.0"
+    "knex": "^0.13.0",
+    "pryjs": "^1.0.3"
   }
 }
