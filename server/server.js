@@ -83,37 +83,39 @@ function getChatrooms(data, cb){
 }
 
 function createNameSpace(chatroomId) {
-  const group = io.of('/group-' + chatroomId);
-  group.on('connection', (socket) => {
-    console.log('Client connected');
-    const noOfClients = io.engine.clientsCount;
-    console.log("no of clients", noOfClients);
-    const clients = io.sockets.clients();
-    group.emit('data',JSON.stringify({ type: "clientCount", number: noOfClients }));
-    
-    socket.on('message', (message) => {
-    let messageRecieved = JSON.parse(message);
-    console.log("message recieved", messageRecieved);
-    switch (messageRecieved.type) {
-      case "incomingMessage":
-        messageRecieved.id = uuidv4();
-        group.emit('data', JSON.stringify(messageRecieved));
-        // broadcast(JSON.stringify(messageRecieved));
-        break;
-      default:
-        throw new Error("Unknown event type " + message.type);
-    }
-  });
-
-  // Set up a callback for when a client closes the socket. This usually means they closed their broioer.
-    socket.on('disconnecting', () => {
-      console.log('Client disconnected');
-      const noOfClients = io.engine.clientsCount
-      console.log("no of clients", noOfClients)
-      const clients = io.sockets.clients()
-      group.emit('data', JSON.stringify({ type: "clientCount", number: noOfClients }))
+  if (!io.nsps["/group-" + chatroomId]) {
+    const group = io.of('/group-' + chatroomId);
+    group.on('connection', (socket) => {
+      console.log('Client connected');
+      const noOfClients = io.engine.clientsCount;
+      console.log("no of clients", noOfClients);
+      const clients = io.sockets.clients();
+      group.emit('data',JSON.stringify({ type: "clientCount", number: noOfClients }));
+      
+      socket.on('message', (message) => {
+      let messageRecieved = JSON.parse(message);
+      console.log("message recieved", messageRecieved);
+      switch (messageRecieved.type) {
+        case "incomingMessage":
+          messageRecieved.id = uuidv4();
+          group.emit('data', JSON.stringify(messageRecieved));
+          // broadcast(JSON.stringify(messageRecieved));
+          break;
+        default:
+          throw new Error("Unknown event type " + message.type);
+      }
     });
-  });
+
+    // Set up a callback for when a client closes the socket. This usually means they closed their broioer.
+      socket.on('disconnecting', () => {
+        console.log('Client disconnected');
+        const noOfClients = io.engine.clientsCount
+        console.log("no of clients", noOfClients)
+        const clients = io.sockets.clients()
+        group.emit('data', JSON.stringify({ type: "clientCount", number: noOfClients }))
+      });
+    });
+  }
 }
 
 
