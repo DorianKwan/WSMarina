@@ -10,8 +10,7 @@ class ChatRooms extends Component {
     super(props);
     // clientCount represents the number of users connected to server
     this.state = {
-      currentUser: "",
-      currentUserId: "",
+      chatname: "",
       currentUserFlairs: "",
       messages: [],
       clientCount: 0,
@@ -32,9 +31,14 @@ class ChatRooms extends Component {
       return response.json();
     }).then((chatroomusers) => {
       console.log("info of chatroomid and its users:", chatroomusers);
-      this.setState({
-        chatroomusers: chatroomusers
+
+      chatroomusers.forEach((obj) => {
+        if (obj.user_id === this.props.currentUserId)
+          return this.setState({
+            chatname: obj.name
+          })
       })
+    
       const self = this;
       this.createNameSpace(chatroomusers, self)
     });
@@ -81,7 +85,7 @@ class ChatRooms extends Component {
   render() {
     return (
       <div>
-        <ChatNav clientCount={this.state.clientCount} />
+        <ChatNav clientCount={this.state.clientCount} chatname={this.state.chatname} />
         <MessageList messages={this.state.messages} type={this.state.type} currentUser={this.props.currentUsername} />
         <ChatBar currentUser={this.props.currentUsername}  onNewPost={this.onNewPost} />
       </div>
