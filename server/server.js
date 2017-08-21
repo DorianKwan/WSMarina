@@ -23,7 +23,7 @@ const currentUserFlairsRouter = require('./routes/currentUserFlairs');
 const leadersRouter = require('./routes/leaders');
 const farmsRouter = require('./routes/farms');
 const farmResetRouter = require('./routes/farmReset');
-const betsRouter = require('./router/bets');
+const betsRouter = require('./routes/bets');
 
 app.set('view engine', 'ejs');
 
