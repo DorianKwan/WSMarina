@@ -8,6 +8,7 @@ import Store from './Store.jsx';
 import Farm from './Farm.jsx';
 import SiteFooter from './SiteFooter.jsx';
 import ProfilePage from './ProfilePage.jsx';
+import Bets from './Bets.jsx';
 
 
 class App extends React.Component {
@@ -104,6 +105,7 @@ class App extends React.Component {
         <Store className="store" currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep} />
         <News newsItems={this.state.newsItems} />
         <Farm defaultValue={this.state.userFarm} setFarm={this.setFarm.bind(this)} />
+        <Bets />
         <ChatRooms chatRooms={this.state.chatRooms} />  
         <form action="/logout" method="POST">
           <input type='submit' value='Logout' />
