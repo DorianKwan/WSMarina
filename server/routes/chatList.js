@@ -25,10 +25,9 @@ function createRouter(knex) {
   });
 
   router.put("/", (req, res) => {
-    console.log("entered Delete route")
     return knex("chatrooms")
     .update({isActive: false})
-    .where({id: req.body.chatroomId})
+      .where({ id: req.body.chatroomId, user_id: req.body.currentUserId})
     .then(() => {
       res.redirect("/")
     })
