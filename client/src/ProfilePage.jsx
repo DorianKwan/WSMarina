@@ -69,7 +69,7 @@ class ProfilePage extends React.Component {
         <div className="username">{this.state.username}</div>
         <div className="bio">{this.state.bio}</div>
         <div className="personal-data">
-          <span class="profile-details">Profile Details</span>
+          <span className="profile-details">Profile Details</span>
         </div>
         <div className="details-table">
           <tr>
