@@ -62,21 +62,43 @@ app.use('/flairs', flairsRouter(knex));
 app.use('/currentUserFlairs', currentUserFlairsRouter(knex));
 app.use('/leaders', leadersRouter(knex));
 app.use('/chatList', chatListRouter(knex));
-app.use('/joinChat', joinChatRouter(knex));
+app.use('/joinChat', joinChatRouter(knex, getChatrooms, createNameSpace));
 
 
-io.on("connection", (socket) => {
-  console.log('Client connected');
-  numberOfClients();
+function getChatrooms(data, cb){
+  let listOfOnlineChatrooms = [];
+  data.forEach((room) => {
+    listOfOnlineChatrooms.push(room.chatroom_id);
+  })
 
-  // Each message recieved will given a random id
-  socket.on('message', function incoming(message) {
+  listOfOnlineChatrooms = listOfOnlineChatrooms.filter(function (elem, index, self) {
+    return index == self.indexOf(elem);
+  })
+
+  console.log("list of chatrooms", listOfOnlineChatrooms);
+
+  listOfOnlineChatrooms.forEach((chatroomId) => {
+    cb(chatroomId);
+  })
+}
+
+function createNameSpace(chatroomId) {
+  const group = io.of('/group-' + chatroomId);
+  group.on('connection', (socket) => {
+    console.log('Client connected');
+    const noOfClients = io.engine.clientsCount;
+    console.log("no of clients", noOfClients);
+    const clients = io.sockets.clients();
+    group.emit('data',JSON.stringify({ type: "clientCount", number: noOfClients }));
+    
+    socket.on('message', (message) => {
     let messageRecieved = JSON.parse(message);
-    console.log(messageRecieved)
+    console.log("message recieved", messageRecieved);
     switch (messageRecieved.type) {
       case "incomingMessage":
         messageRecieved.id = uuidv4();
-        broadcast(JSON.stringify(messageRecieved));
+        group.emit('data', JSON.stringify(messageRecieved));
+        // broadcast(JSON.stringify(messageRecieved));
         break;
       default:
         throw new Error("Unknown event type " + message.type);
@@ -84,25 +106,30 @@ io.on("connection", (socket) => {
   });
 
   // Set up a callback for when a client closes the socket. This usually means they closed their broioer.
-  socket.on('disconnecting', () => {
-    console.log('Client disconnected');
-    numberOfClients();
+    socket.on('disconnecting', () => {
+      console.log('Client disconnected');
+      const noOfClients = io.engine.clientsCount
+      console.log("no of clients", noOfClients)
+      const clients = io.sockets.clients()
+      group.emit('data', JSON.stringify({ type: "clientCount", number: noOfClients }))
+    });
   });
-});
-
-
-// This function broadcasts data to all clients connected to server
-function broadcast(data) {
-  io.sockets.emit('data', data);
 }
+
+
+// USE THIS TO DRY CODE LATER
+// This function broadcasts data to all clients connected to server 
+// function broadcast(data) {
+//   io.sockets.emit('data', data);
+// }
 
 // This function checks number of users connected to server and passes noOfClients to broadcast function
-function numberOfClients() {
-  const noOfClients = io.engine.clientsCount
-  console.log("no of clients", noOfClients)
-  const clients = io.sockets.clients()
-  broadcast(JSON.stringify({ type: "clientCount", number: noOfClients }));
-}
+// function numberOfClients() {
+//   const noOfClients = io.engine.clientsCount
+//   console.log("no of clients", noOfClients)
+//   const clients = io.sockets.clients()
+//   broadcast(JSON.stringify({ type: "clientCount", number: noOfClients }));
+// }
 
 server.listen(process.env.PORT || 3000, () => {
   const address = server.address();

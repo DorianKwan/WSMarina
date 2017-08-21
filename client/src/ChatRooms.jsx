@@ -15,6 +15,7 @@ class ChatRooms extends Component {
       currentUserFlairs: "",
       messages: [],
       clientCount: 0,
+      socket: null
     }
 
     this.onNewPost = this.onNewPost.bind(this);
@@ -28,23 +29,48 @@ class ChatRooms extends Component {
     })
   }
 
-  componentDidMount() {
-    const self = this;
-    this.socket = io.connect("http://localhost:3000");
-    this.socket.on('data', function (event) {
-      let messageRecieved = JSON.parse(event);
-      console.log("message Recieved", messageRecieved)
-      switch (messageRecieved.type) {
-        // If incoming data has clientCount type, clientCount in state will be updated
-        case "clientCount":
-          self.setState({ clientCount: messageRecieved.number });
-          break
-        // Messages in state will be updated to include messageRecieved
-        case "incomingMessage":
-          let allMessages = self.state.messages.concat(messageRecieved);
-          self.setState({ messages: allMessages });
-          break;
+  createNameSpace(chatroomusers, self) {
+    chatroomusers.forEach((chatroom) => {
+      if (chatroom.user_id === this.state.currentUserId) {
+        this.setState({
+          socket: io.connect(`http://localhost:3000/group-${chatroom.chatroom_id}`)
+        })
+        this.state.socket.on('data', function (event) {
+          let messageRecieved = JSON.parse(event);
+          console.log("message Recieved", messageRecieved)
+          switch (messageRecieved.type) {
+            // If incoming data has clientCount type, clientCount in state will be updated
+            case "clientCount":
+              self.setState({ clientCount: messageRecieved.number });
+              break
+            // Messages in state will be updated to include messageRecieved
+            case "incomingMessage":
+              let allMessages = self.state.messages.concat(messageRecieved);
+              self.setState({ messages: allMessages });
+              break;
+          }
+        })
       }
+      return
+    })
+  }
+
+  componentDidMount() {
+    const url = "/joinChat";
+    fetch(url, {
+      credentials: 'include',
+      headers: {
+        "Accept": "application/json"
+      }
+    }).then((response) => {
+      return response.json();
+    }).then((chatroomusers) => {
+      console.log("info of chatroomid and its users:", chatroomusers);
+      this.setState({
+        chatroomusers: chatroomusers
+      })
+      const self = this;
+      this.createNameSpace(chatroomusers, self)
     });
   }
 
@@ -54,7 +80,10 @@ class ChatRooms extends Component {
     const newMessage = { username: this.state.currentUser, content: content, currentUserFlairs: this.state.currentUserFlairs};
     const currentUser = this.state.currentUser;
     newMessage.type = "incomingMessage";
-    this.socket.emit('message', JSON.stringify(newMessage));
+    console.log("socket is:",this.state.socket)
+    console.log("the message sent is", newMessage)
+    const nsp = this.state.socket
+    nsp.emit('message', JSON.stringify(newMessage));
   }
 
   // Render page and pass in data from props

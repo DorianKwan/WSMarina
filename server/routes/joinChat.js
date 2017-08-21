@@ -1,12 +1,13 @@
 const express = require("express");
 
-function createRouter(knex) {
+function createRouter(knex, getChatrooms, createNameSpace) {
   const router = express.Router();
-
+  const app = express(); 
   router.get("/", (req, res) => {
     knex('chatroomusers')
       .select("*")
       .then((chatroomInfo) => {
+        getChatrooms(chatroomInfo, createNameSpace)
         res.send(chatroomInfo);
       });
   });
