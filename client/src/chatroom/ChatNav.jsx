@@ -6,6 +6,7 @@ class ChatNav extends Component {
     return (
       <nav className="chatNav">
         <a href="/" className="chatNav-brand">W.S Marina </a>
+        <a>Topic: {this.props.chatname} </a>
         <span className="online-users">{this.props.clientCount} users online</span>
       </nav>
     )
