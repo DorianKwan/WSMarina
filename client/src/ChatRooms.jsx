@@ -21,17 +21,28 @@ class ChatRooms extends Component {
     this.onNewPost = this.onNewPost.bind(this);
   }
 
-  componentWillReceiveProps() {
-    this.setState({
-      currentUser: this.props.currentUsername,
-      currentUserFlairs: this.props.currentUserFlairs,
-      currentUserId: this.props.currentUserId
-    })
+  componentDidMount() {
+    const url = "/joinChat";
+    fetch(url, {
+      credentials: 'include',
+      headers: {
+        "Accept": "application/json"
+      }
+    }).then((response) => {
+      return response.json();
+    }).then((chatroomusers) => {
+      console.log("info of chatroomid and its users:", chatroomusers);
+      this.setState({
+        chatroomusers: chatroomusers
+      })
+      const self = this;
+      this.createNameSpace(chatroomusers, self)
+    });
   }
 
   createNameSpace(chatroomusers, self) {
     chatroomusers.forEach((chatroom) => {
-      if (chatroom.user_id === this.state.currentUserId) {
+      if (chatroom.user_id === this.props.currentUserId) {
         this.setState({
           socket: io.connect(`http://localhost:3000/group-${chatroom.chatroom_id}`)
         })
@@ -55,30 +66,10 @@ class ChatRooms extends Component {
     })
   }
 
-  componentDidMount() {
-    const url = "/joinChat";
-    fetch(url, {
-      credentials: 'include',
-      headers: {
-        "Accept": "application/json"
-      }
-    }).then((response) => {
-      return response.json();
-    }).then((chatroomusers) => {
-      console.log("info of chatroomid and its users:", chatroomusers);
-      this.setState({
-        chatroomusers: chatroomusers
-      })
-      const self = this;
-      this.createNameSpace(chatroomusers, self)
-    });
-  }
-
   // This function will send content & currentUser to server
   // This message will have an incomingMessage type
   onNewPost(content) {
-    const newMessage = { username: this.state.currentUser, content: content, currentUserFlairs: this.state.currentUserFlairs};
-    const currentUser = this.state.currentUser;
+    const newMessage = { username: this.props.currentUsername, content: content, currentUserFlairs: this.props.currentUserFlairs};
     newMessage.type = "incomingMessage";
     console.log("socket is:",this.state.socket)
     console.log("the message sent is", newMessage)
@@ -91,8 +82,8 @@ class ChatRooms extends Component {
     return (
       <div>
         <ChatNav clientCount={this.state.clientCount} />
-        <MessageList messages={this.state.messages} type={this.state.type} currentUser={this.state.currentUser} />
-        <ChatBar currentUser={this.state.currentUser}  onNewPost={this.onNewPost} />
+        <MessageList messages={this.state.messages} type={this.state.type} currentUser={this.props.currentUsername} />
+        <ChatBar currentUser={this.props.currentUsername}  onNewPost={this.onNewPost} />
       </div>
     );
   }

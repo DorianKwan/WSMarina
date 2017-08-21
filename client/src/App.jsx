@@ -114,6 +114,10 @@ class App extends React.Component {
 
   render() {
 
+    const flairs = this.state.currentUserFlairs.map((flair) => {
+      return flair.image;
+    }); 
+
     return (
       <div className="app">
         <Navbar currentUsername={this.state.currentUsername} currentUserRep={this.state.currentUserRep} currentUserFlairs={this.state.currentUserFlairs} />
@@ -123,7 +127,7 @@ class App extends React.Component {
           <Store className="store" currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep} />
           <News newsItems={this.state.newsItems} />
           <Farm defaultValue={this.state.userFarm} setFarm={this.setFarm.bind(this)} />
-          <ChatRooms chatRooms={this.state.chatRooms} currentUserId={this.state.currentUserId} currentUsername={this.state.currentUsername} />
+          <ChatRooms chatRooms={this.state.chatRooms} currentUserId={this.state.currentUserId} currentUsername={this.state.currentUsername} currentUserFlairs={flairs} />
           <ChatList currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId}/>
           <form action="/logout" method="POST">
             <input type='submit' value='Logout' />
