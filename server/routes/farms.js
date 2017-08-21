@@ -17,7 +17,7 @@ function createRouter(knex) {
       .update("slot_03", JSON.stringify({name: slot_03.name, collected_at: slot_03.collected_at}))
       .update("slot_04", JSON.stringify({name: slot_04.name, collected_at: slot_04.collected_at}))
       .update("slot_05", JSON.stringify({name: slot_05.name, collected_at: slot_05.collected_at}))
-      .then(function(values){
+      .then(() => {
         res.json({result: "Record updated."});
       })
       .catch((err) => {
