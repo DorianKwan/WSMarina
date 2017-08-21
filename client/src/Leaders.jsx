@@ -43,7 +43,7 @@ class Leaders extends React.Component {
     
     const flairs = this.props.currentUserFlairs.map((flair) => { 
       return (
-        <img src= {flair.image} height="30" width="30" />
+        <img src={flair.image} height="30" width="30" />
       );
     }); 
 

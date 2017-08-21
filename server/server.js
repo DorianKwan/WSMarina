@@ -21,6 +21,8 @@ const profileRouter = require('./routes/profile');
 const flairsRouter = require('./routes/flairs');
 const currentUserFlairsRouter = require('./routes/currentUserFlairs');
 const leadersRouter = require('./routes/leaders');
+const chatListRouter = require('./routes/chatList');
+const joinChatRouter = require('./routes/joinChat');
 const farmsRouter = require('./routes/farms');
 const farmResetRouter = require('./routes/farmReset');
 
@@ -64,66 +66,79 @@ app.use('/flairs', flairsRouter(knex));
 app.use('/currentUserFlairs', currentUserFlairsRouter(knex));
 app.use('/profile', profileRouter(knex));
 app.use('/leaders', leadersRouter(knex));
+app.use('/chatList', chatListRouter(knex));
+app.use('/joinChat', joinChatRouter(knex, getChatrooms, createNameSpace));
 app.use('/farms', farmsRouter(knex));
 app.use('/reset', farmResetRouter(knex));
 
-function broadcast(data) {
-  if (data.type === "userCount") {
-    console.log("test10", data)
-    io.sockets.emit('data', JSON.stringify(data));
-  } else {
-    console.log("test20", data)
-    io.sockets.emit('message', JSON.stringify(data));
+
+function getChatrooms(data, cb){
+  let listOfOnlineChatrooms = [];
+  data.forEach((room) => {
+    listOfOnlineChatrooms.push(room.chatroom_id);
+  })
+
+  listOfOnlineChatrooms = listOfOnlineChatrooms.filter(function (elem, index, self) {
+    return index == self.indexOf(elem);
+  })
+
+  console.log("list of chatrooms", listOfOnlineChatrooms);
+
+  listOfOnlineChatrooms.forEach((chatroomId) => {
+    cb(chatroomId);
+  })
+}
+
+function createNameSpace(chatroomId) {
+  if (!io.nsps["/group-" + chatroomId]) {
+    const group = io.of('/group-' + chatroomId);
+    group.on('connection', (socket) => {
+      console.log('Client connected');
+      const noOfClients = io.engine.clientsCount;
+      console.log("no of clients", noOfClients);
+      const clients = io.sockets.clients();
+      group.emit('data',JSON.stringify({ type: "clientCount", number: noOfClients }));
+      
+      socket.on('message', (message) => {
+      let messageRecieved = JSON.parse(message);
+      console.log("message recieved", messageRecieved);
+      switch (messageRecieved.type) {
+        case "incomingMessage":
+          messageRecieved.id = uuidv4();
+          group.emit('data', JSON.stringify(messageRecieved));
+          // broadcast(JSON.stringify(messageRecieved));
+          break;
+        default:
+          throw new Error("Unknown event type " + message.type);
+      }
+    });
+
+    // Set up a callback for when a client closes the socket. This usually means they closed their broioer.
+      socket.on('disconnecting', () => {
+        console.log('Client disconnected');
+        const noOfClients = io.engine.clientsCount
+        console.log("no of clients", noOfClients)
+        const clients = io.sockets.clients()
+        group.emit('data', JSON.stringify({ type: "clientCount", number: noOfClients }))
+      });
+    });
   }
 }
 
-let userCount = 0;
 
-function createMessage() {
-  return {
-    id: uuidv4(),
-    color: "chatty",
-    content: userCount,
-    type: "userCount",
-    username: "Chatty"
-  };
-}
+// USE THIS TO DRY CODE LATER
+// This function broadcasts data to all clients connected to server 
+// function broadcast(data) {
+//   io.sockets.emit('data', data);
+// }
 
-function generateColor() {
-  const hexChars = "0123456789ABCDEF";
-  let hex = "#";
-
-  for (var i = 0; i < 6; i++) {
-    hex += hexChars.charAt(Math.floor(Math.random() * hexChars.length));
-  }
-
-  return hex;
-}
-
-io.on("connection", (socket) => {
-  console.log("Client connected");
-  const color = generateColor();
-  userCount++;
-  broadcast(createMessage());
-
-  socket.on('message', (msg) => {
-    const message = JSON.parse(msg);
-    message.id = uuidv4();
-    message.color = color;
-
-    if (message.type === "nameChange") {
-      message.color = "chatty";
-    }
-
-    broadcast(message);
-  });
-
-  socket.on('disconnecting', () => {
-    console.log("Client disconnected");
-    userCount--;
-    broadcast(JSON.stringify(createMessage()));
-  });
-});
+// This function checks number of users connected to server and passes noOfClients to broadcast function
+// function numberOfClients() {
+//   const noOfClients = io.engine.clientsCount
+//   console.log("no of clients", noOfClients)
+//   const clients = io.sockets.clients()
+//   broadcast(JSON.stringify({ type: "clientCount", number: noOfClients }));
+// }
 
 server.listen(process.env.PORT || 3000, () => {
   const address = server.address();

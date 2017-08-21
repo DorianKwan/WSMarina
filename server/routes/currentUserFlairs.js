@@ -6,10 +6,11 @@ function createRouter(knex) {
   router.get("/", (req, res) => {
     knex('flairs')
       .select("image")
-      .join('user_flairs', {'flairs.id': 'user_flairs.flair_id'})
-      .then((flairs) => {
-        res.send(flairs);
-      });
+      .join('user_flairs', {'flairs.id':'user_flairs.flair_id'})
+      .where({user_id: req.session.user_id})
+    .then((flairs) => {
+      res.send(flairs);
+    });
   });
 
   return router;

@@ -1,117 +1,91 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import ChatNav from "./chatroom/ChatNav.jsx";
-import MessageList from "./chatroom/MessageList.jsx";
-import ChatBar from "./chatroom/ChatBar.jsx";
+import ChatNav from './chatroom/ChatNav.jsx';
+import MessageList from './chatroom/MessageList.jsx';
+import ChatBar from './chatroom/ChatBar.jsx';
 
+// Class App recieves response from server and renders components from Chatbar, NavBar, MessageList and Messages
 class ChatRooms extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    // clientCount represents the number of users connected to server
     this.state = {
-      currentUser: {
-        name: ""
-      },
-      lastUser: {
-        name: ""
-      },
-      userCount: 0,
-      messages: [
-        {
-          id: 0,
-          color: "chatty",
-          content: "Welcome to W.S. Marina!",
-          username: "Kai",
-        }
-      ],
-      notificationSound: new Audio("https://notificationsounds.com/message-tones/get-outta-here-505/download/mp3"),
-      sendMessage: (content) => {
-        if (content.keyCode === 13) {
-          const newMessage = {
-            username: this.state.currentUser.name || "Anonymous",
-            content: content.target.value,
-            type: "textMessage"
-          };
+      currentUser: "",
+      currentUserId: "",
+      currentUserFlairs: "",
+      messages: [],
+      clientCount: 0,
+      socket: null
+    }
 
-          if (newMessage.content) {
-            this.state.socket.emit('message', JSON.stringify(newMessage));
-            content.target.value = "";
-          }
-        }
-      },
-      buttonSendMessage: () => {
-        const newMessage = {
-          username: this.state.currentUser.name || "Anonymous",
-          content: document.getElementsByClassName("chatBar-message")[0].value,
-          type: "textMessage"
-        };
+    this.onNewPost = this.onNewPost.bind(this);
+  }
 
-        if (newMessage.content) {
-          this.state.socket.emit('message', JSON.stringify(newMessage));
-          document.getElementsByClassName("chatBar-message")[0].value = "";
-        }
-      },
-      setUser: (content) => {
-        const currentUser = this.state.currentUser;
-        const newUser = { name: content.target.value };
-
-        if (currentUser.name !== newUser.name) {
-          const message = {
-            username: "Chatty",
-            content: `${currentUser.name || "Anonymous"} has set username to ${newUser.name || "Anonymous"}`,
-            type: "nameChange"
-          };
-
-          this.state.socket.emit('message', JSON.stringify(message))
-          this.setState({ lastUser: currentUser });
-          this.setState({ currentUser: newUser });
-        }
-      },
-      clearHistory: () => {
-        this.setState({ messages: [] });
-      },
-      socket: io.connect("http://localhost:3000")
-    };
-    const self = this
-    this.state.socket.on('data', function (msg) {
-      const newMessage = JSON.parse(msg);
-      self.setState({ userCount: newMessage.content })
-    }) 
-    this.state.socket.on('message', function (msg) {
-      const newMessage = JSON.parse(msg);
-      const messages = self.state.messages.concat(newMessage);
-      switch (newMessage.type) {
-        case "textMessage":
-          self.state.notificationSound.play();
-          self.setState({ messages: messages });
-          break;
-        case "nameChange":
-          self.setState({ messages: messages });
-          break;
+  componentDidMount() {
+    const url = "/joinChat";
+    fetch(url, {
+      credentials: 'include',
+      headers: {
+        "Accept": "application/json"
       }
-      if (newMessage.type === "textMessage") {
-        this.state.notificationSound.play();
-      }
+    }).then((response) => {
+      return response.json();
+    }).then((chatroomusers) => {
+      console.log("info of chatroomid and its users:", chatroomusers);
+      this.setState({
+        chatroomusers: chatroomusers
+      })
+      const self = this;
+      this.createNameSpace(chatroomusers, self)
     });
   }
 
-  // componentDidMount() {
-  //   console.log("Simulating incoming message");
-  //   setTimeout(() => {
-  //     const newMessage = { id: 3, username: "Michelle", content: "Hello there!"} ;
-  //     const messages = this.state.messages.concat(newMessage);
-  //     this.setState({ messages: messages });
-  //   }, 3000);
-  // }
+  createNameSpace(chatroomusers, self) {
+    chatroomusers.forEach((chatroom) => {
+      if (chatroom.user_id === this.props.currentUserId) {
+        this.setState({
+          socket: io.connect(`http://localhost:3000/group-${chatroom.chatroom_id}`)
+        })
+        this.state.socket.on('data', function (event) {
+          let messageRecieved = JSON.parse(event);
+          console.log("message Recieved", messageRecieved)
+          switch (messageRecieved.type) {
+            // If incoming data has clientCount type, clientCount in state will be updated
+            case "clientCount":
+              self.setState({ clientCount: messageRecieved.number });
+              break
+            // Messages in state will be updated to include messageRecieved
+            case "incomingMessage":
+              let allMessages = self.state.messages.concat(messageRecieved);
+              self.setState({ messages: allMessages });
+              break;
+          }
+        })
+      }
+      return
+    })
+  }
 
+  // This function will send content & currentUser to server
+  // This message will have an incomingMessage type
+  onNewPost(content) {
+    const newMessage = { username: this.props.currentUsername, content: content, currentUserFlairs: this.props.currentUserFlairs};
+    newMessage.type = "incomingMessage";
+    console.log("socket is:",this.state.socket)
+    console.log("the message sent is", newMessage)
+    const nsp = this.state.socket
+    nsp.emit('message', JSON.stringify(newMessage));
+  }
+
+  // Render page and pass in data from props
   render() {
     return (
       <div>
-        <ChatNav userCount={this.state.userCount} />
-        <MessageList messages={this.state.messages} />
-        <ChatBar username={this.state.currentUser.name} sendMessage={this.state.sendMessage} setUser={this.state.setUser} buttonSendMessage={this.state.buttonSendMessage} clearHistory={this.state.clearHistory} />
+        <ChatNav clientCount={this.state.clientCount} />
+        <MessageList messages={this.state.messages} type={this.state.type} currentUser={this.props.currentUsername} />
+        <ChatBar currentUser={this.props.currentUsername}  onNewPost={this.onNewPost} />
       </div>
     );
   }
 }
-
 export default ChatRooms;

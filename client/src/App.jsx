@@ -7,6 +7,7 @@ import ChatRooms from './ChatRooms.jsx';
 import Store from './Store.jsx';
 import Farm from './Farm.jsx';
 import SiteFooter from './SiteFooter.jsx';
+import ChatList from './ChatList.jsx';
 import ProfilePage from './ProfilePage.jsx';
 
 
@@ -27,9 +28,11 @@ class App extends React.Component {
   }
 
   componentDidMount(){
+    this.setFarm();
+  }
+  componentWillMount(){
     this.findCurrentUser();
     this.findCurrentUserFlairs();
-    this.setFarm();
   }
 
   findCurrentUser() {
@@ -46,11 +49,11 @@ class App extends React.Component {
     }).then((user) => {
         let title;
         if(user.rep < 1000) {
-          title = "Peasant";
+          title = "Ant";
         } else if(user.rep <= 5000) {
           title = "Farmer";
         } else if (user.rep > 5000 && user.rep <= 50000 ) {
-          title = "King";
+          title = "Citizen";
         } else if (user.rep > 50000 && user.rep <= 100000 ) {
           title = "Big Boss";
         } else {
@@ -111,6 +114,10 @@ class App extends React.Component {
 
   render() {
 
+    const flairs = this.state.currentUserFlairs.map((flair) => {
+      return flair.image;
+    }); 
+
     return (
       <div className="app">
         <Navbar currentUsername={this.state.currentUsername} currentUserRep={this.state.currentUserRep} currentUserFlairs={this.state.currentUserFlairs} />
@@ -120,7 +127,8 @@ class App extends React.Component {
           <Store className="store" currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep} />
           <News newsItems={this.state.newsItems} />
           <Farm defaultValue={this.state.userFarm} setFarm={this.setFarm.bind(this)} />
-          <ChatRooms chatRooms={this.state.chatRooms} />  
+          <ChatRooms chatRooms={this.state.chatRooms} currentUserId={this.state.currentUserId} currentUsername={this.state.currentUsername} currentUserFlairs={flairs} />
+          <ChatList currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId}/>
           <form action="/logout" method="POST">
             <input type='submit' value='Logout' />
           </form>

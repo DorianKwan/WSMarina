@@ -1,33 +1,30 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-
+// Class Message renders new message
 class Message extends Component {
-  renderMessage() {
-    switch (this.props.type) {
-      case "nameChange":
-        return (<span className="message-content system-message">{this.props.content}</span>);
-      default:
-        return (<span className="message-content">{this.props.content}</span>);
-    }
-  }
-
-  renderUsername() {
-    switch (this.props.color) {
-      case "chatty":
-        return (<span className="message-username" style={{ color: "#19c5eb" }}>{this.props.username}</span>);
-      default:
-        return (<span className="message-username" style={{ color: this.props.color }}>{this.props.username}</span>);
-    }
-  }
-
   render() {
-    return (
-      <div className="message">
-        {this.renderUsername()}
-        {this.renderMessage()}
-      </div>
-    );
+
+    const flairs = this.props.message.currentUserFlairs.map((flair) => {
+      return(
+        <img src={flair} height="30" width="30" />
+      )
+    })
+    switch (this.props.message.type) {
+      // If incomingMessage, render message with username and messsage content
+      case "incomingMessage":
+        return (
+          <div className="message">
+            <span className="message-username">{this.props.message.username}</span>
+            <span className="message-userFlairs">{flairs} &ensp;</span>
+            <span className="message-content">{this.props.message.content}</span>
+          </div>
+        );
+        break;
+      default:
+        console.log("Error in message");
+        return (<div></div>);
+        break;
+    }
   }
 }
-
 export default Message;
