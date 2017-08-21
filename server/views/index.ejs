@@ -18,6 +18,11 @@
       <source src="/videos/login-background-fade.mp4" type="video/mp4">
     </video>
 
+    <div class="topbar">
+      <span class="title"> W.S. Marina</span>
+      <button class="switch-to-signin">Sign in</button>
+      <button class="switch-to-signup">Register</button>
+    </div>
     <div class="main">
       <% if (show_register) { %>
         <section class="form signin display-none">
@@ -35,7 +40,7 @@
             <input id="login-password" name="password" type="password" placeholder="Password">
             <br><br>
 
-            <button class="switch-to-signup">Register</button><button class="gold-button">Submit</button>
+            <button class="gold-button">Login</button>
           </form>
         </section>
 
@@ -62,7 +67,7 @@
             <input id="register-date_of_birth" name="date_of_birth" type="date">
             <br><br>
 
-            <button class="switch-to-signin">Sign in</button><button class="gold-button">Submit</button>
+           <button class="gold-button">Register</button>
           </form>
         </section>
     </div>
