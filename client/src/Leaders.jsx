@@ -36,14 +36,27 @@ class Leaders extends React.Component {
       position++;
       return (
         <div>
-          {position}. {leader.username} : {leader.rep} reps
+          &ensp; {position}. {leader.username} : {leader.rep} reps
         </div>
       );
     });
     
+    const flairs = this.props.currentUserFlairs.map((flair) => { 
+      return (
+        <img src= {flair.image} height="30" width="30" />
+      );
+    }); 
+
     return (
       <div className="leaders">
-        <h2>Top 10 Leaders</h2>
+        <section className="userProfile">
+          <img id="currentUserImage" src="https://pbs.twimg.com/profile_images/831993825635745796/HnVmB0-k.jpg" />
+          <div id="currentUsername"> {this.props.currentUsername}</div> 
+          <div id="currentUserFlairs">{flairs}</div>
+          <div id="currentUserTitle">{this.props.currentUserTitle}</div> 
+          <div id="currentUserReps">Reps: {this.props.currentUserRep}</div>
+        </section>
+        <section className="leaderTitle">Top 10 Leaders</section>
         <ul>
           <li>{leaders}</li>
         </ul>
