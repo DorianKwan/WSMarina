@@ -1,0 +1,28 @@
+.userProfile {
+  background: white;
+  border-radius: 10px;
+	height: 250px;
+	padding: 10px;
+	
+	#currentUserImage {
+		height: 50px;
+		width: 50px;
+	}
+
+	#currentUserTitle {
+		font-size: 20px;
+	}
+
+	#currentUsername {
+		font-size: 20px;
+	}
+
+	#currentUserFlairs {
+		padding: 20px;
+
+	}
+
+	#currentUserReps {
+
+	}
+}

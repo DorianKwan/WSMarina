@@ -17,6 +17,7 @@ class App extends React.Component {
       currentUserId: null,
       currentUsername: "",
       currentUserRep: null,
+      currentUserTitle: "",
       currentUserFlairs: [],
       userFarm: [1,2,3,4,5],
       chatRooms: [],
@@ -43,10 +44,23 @@ class App extends React.Component {
     }).then((response) => {
       return response.json();
     }).then((user) => {
+        let title;
+        if(user.rep < 1000) {
+          title = "Peasant";
+        } else if(user.rep <= 5000) {
+          title = "Farmer";
+        } else if (user.rep > 5000 && user.rep <= 50000 ) {
+          title = "King";
+        } else if (user.rep > 50000 && user.rep <= 100000 ) {
+          title = "Big Boss";
+        } else {
+          title = "Big Baller";
+        }
         this.setState({
           currentUserId: user.id,
           currentUsername: user.username,
-          currentUserRep: user.rep
+          currentUserRep: user.rep,
+          currentUserTitle: title
         });
     });
   }
@@ -96,18 +110,21 @@ class App extends React.Component {
   }
 
   render() {
+
     return (
       <div className="app">
         <Navbar currentUsername={this.state.currentUsername} currentUserRep={this.state.currentUserRep} currentUserFlairs={this.state.currentUserFlairs} />
-        <Ticker tickers={this.state.userFarm} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep} />
-        <Leaders leaders={this.state.leaders} />
-        <Store className="store" currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep} />
-        <News newsItems={this.state.newsItems} />
-        <Farm defaultValue={this.state.userFarm} setFarm={this.setFarm.bind(this)} />
-        <ChatRooms chatRooms={this.state.chatRooms} />  
-        <form action="/logout" method="POST">
-          <input type='submit' value='Logout' />
-        </form>
+        <Leaders leaders={this.state.leaders} currentUserFlairs={this.state.currentUserFlairs} currentUserTitle={this.state.currentUserTitle} currentUsername={this.state.currentUsername} currentUserRep={this.state.currentUserRep} />
+        <div className="features">
+          <Ticker tickers={this.state.userFarm} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep} />
+          <Store className="store" currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep} />
+          <News newsItems={this.state.newsItems} />
+          <Farm defaultValue={this.state.userFarm} setFarm={this.setFarm.bind(this)} />
+          <ChatRooms chatRooms={this.state.chatRooms} />  
+          <form action="/logout" method="POST">
+            <input type='submit' value='Logout' />
+          </form>
+        </div>
         <ProfilePage currentUser={this.state.currentUser} />
       </div>
     );
