@@ -21,37 +21,49 @@ function createRouter(knex) {
   router.post("/", (req, res) => {
 
     const { ticker, wager, direction } = req.body;
+    const user_id = req.session.user_id;
 
     // Check if user entered ticker, wager, direction
-    if (!ticker || !wager || direction === null) {
+    if (!ticker || !wager) {
       req.flash('errors', 'Input fields cannot be empty');
     }
 
     // Check if a bet is already placed on selected ticker
     knex("bets")
       .select(1)
-      .where("user_id", req.session.user_id)
+      .where({ user_id })
       .limit(1)
       .then((bets) => {
 
         if (bets.length) {
-          return Promise.reject({
-            message: 'A bet for this stock has already been placed'
-          });
+          if (bets[0].ticker === ticker) {
+            return Promise.reject({
+              message: 'A bet for this stock has already been placed'
+            });
+          }
         }
         
-      }).then(() => {
+      })
+      .then(() => {
 
-        knex("bets")
-          .insert({
-            ticker,
-            wager,
-            direction
+        return knex.insert({
+          ticker,
+          wager,
+          direction,
+          user_id
+        }).into("bets")
+          .catch((err) => {
+            console.log("error in the insert", err);
           });
 
-      }).catch((err) => {
+      })
+      .then(() => {
+        res.redirect("/");
+      })
+      .catch((err) => {
         req.flash('errors', err.message);
         res.redirect("/");
+        console.log("error", err.message);
       });
 
   });
