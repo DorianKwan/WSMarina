@@ -30,7 +30,7 @@ class News extends React.Component {
   } 
 
   postArticles() {
-    const newsApiKey = 'your api key';
+    const newsApiKey = 'your newsapi key here';
     fetch(`https://newsapi.org/v1/articles?source=bloomberg&sortBy=top&apiKey=${newsApiKey}`)
       .then((resp) => resp.json())
       .then(news => {
@@ -72,10 +72,13 @@ class News extends React.Component {
 
     const articles = this.state.articles.map(article => {
       return (
-        <div key={ article.title }>
-          <a href={ article.url }><img src={ article.image } alt="Click for Full Article" style={{ width: "300px" }}/></a>  <a className="article-title" href={ article.url } style={{ color: "white" }}>{ article.title }</a> 
+        <div className="eachArticle" key={ article.title }>
+          <a href={ article.url }>
+            <img src={ article.image } alt="Click for Full Article" />
+          </a>
+          <a className="article-title" href={ article.url }>{ article.title }</a> 
           <p>{ article.description }</p>
-          <span><small>Written by:{ article.author }</small></span>
+          <span><small>Written by: { article.author }</small></span>
         </div>
       );
     });

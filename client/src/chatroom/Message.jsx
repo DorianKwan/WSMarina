@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 
 // Class Message renders new message
 class Message extends Component {
+
+  uuid() {
+    return Math.random().toString(36).substr(2, 6);
+  }
+
   render() {
 
     const flairs = this.props.message.currentUserFlairs.map((flair) => {
       return(
-        <img src={flair} height="30" width="30" />
+        <img key={this.uuid()} src={flair} height="30" width="30" />
       )
     })
     switch (this.props.message.type) {

@@ -10,8 +10,35 @@ body {
 }
 
 /* Everything below is ordered alphabetically */
+.title {
+  font-size: 20px;
+  left: 15px;
+  padding: 25px;
+  position: absolute;
+  top: 10px;
+}
 
-button {
+.fa.fa-anchor {
+  color: white;
+}
+
+.switch-to-signin {
+  font-size: 14px;
+  position: absolute;
+  right: 85px;
+  top: 35px;
+  width: 90px;
+}
+
+.switch-to-signup {
+  font-size: 14px;
+  position: absolute;
+  right: 32px;
+  top: 35px;
+  width: 60px;
+}
+
+ button {
   background-color: rgba(200,200,200,0);
   border-bottom: none;
   color: white;
@@ -19,10 +46,9 @@ button {
   width: 40%
 }
 
-button:hover {
-  background-color: rgba(200,200,200,.3);
-  border-bottom: 1px solid rgba(255,255,255,.38);
-}
+ button:hover {
+  cursor: pointer;
+}  
 
 #container {
   width: 100%;

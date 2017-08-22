@@ -20,9 +20,9 @@
     </video>
 
     <div class="topbar">
-      <span class="title"> W.S. Marina</span>
-      <button class="switch-to-signin">Sign in</button>
-      <button class="switch-to-signup">Register</button>
+      <span class="title">W . S . &ensp; M A R I N A</span>
+      <button class="switch-to-signin">LOGIN &ensp;/</button>
+      <button class="switch-to-signup">REGISTER</button>
     </div>
     <div class="main">
       <% if (show_register) { %>
@@ -31,7 +31,7 @@
         <section class="form signin">
       <% } %>
           <form action="/login" method="post">
-            <button disabled><i class="fa fa-ship" aria-hidden="true"></i></button>
+            <i class="fa fa-anchor" aria-hidden="true"></i>
             <% include partials/_errors %>
             <br><br>
 
@@ -51,8 +51,9 @@
         <section class="form signup display-none">
       <% } %>
           <form action="/register" method="post">
-            <button disabled><i class="fa fa-ship" aria-hidden="true"></i></button>
+            <i class="fa fa-anchor" aria-hidden="true"></i>
             <% include partials/_errors %>
+            <br></br>
             <input id="register-username" name="username" placeholder="Username">
             <br><br>
 

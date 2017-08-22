@@ -15,8 +15,8 @@ const customStyles = {
 };
  
 class ProfileModal extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
  
     this.state = {
       modalIsOpen: false
@@ -43,7 +43,7 @@ class ProfileModal extends React.Component {
   render() {
     return (
       <span>
-        <button onClick={this.openModal}>PROFILE</button>
+        <button onClick={this.openModal}>PROFILE &ensp; &ensp; /</button>
         <Modal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
@@ -53,7 +53,7 @@ class ProfileModal extends React.Component {
         >
           <h1>Profile</h1>
           <button onClick={this.closeModal}>❌</button>
-          <ProfilePage />
+          <ProfilePage currentUserFlairs={this.props.currentUserFlairs} />
         </Modal>
       </span>
     );
