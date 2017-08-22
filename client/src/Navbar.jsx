@@ -7,11 +7,11 @@ class Navbar extends React.Component {
   render() { 
     return (
       <div className="navbar">
-        <span id="logo">W.S. MARINA</span>
+        <span id="logo">W . S . &ensp; M A R I N A</span>
         <form action="/logout" method="POST">
             <input className="logout" type='submit' value='LOGOUT' />
         </form>
-        <ProfileModal />
+        <ProfileModal currentUserFlairs={this.props.currentUserFlairs}/>
         <FarmModal defaultValue={this.props.defaultValue} setFarm={this.props.setFarm} />
         <StoreModal currentUsername={this.props.currentUsername} currentUserId={this.props.currentUserId} currentUserRep={this.props.currentUserRep} />
       </div>

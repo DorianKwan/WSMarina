@@ -71,7 +71,11 @@ class Bets extends Component {
   }
 
   getTickerPrice(list) {
+<<<<<<< HEAD
     const alphaVantageKey = 'Your api key here';
+=======
+    const alphaVantageKey = 'your api key here';
+>>>>>>> master
 
     Promise.all(
       list.bets.map((bet) => {
