@@ -27,6 +27,7 @@ const farmsRouter = require('./routes/farms');
 const farmResetRouter = require('./routes/farmReset');
 const betsRouter = require('./routes/bets');
 const payoutRouter = require('./routes/betPayout');
+const bloombergRouter = require('./routes/bloomberg');
 
 app.set('view engine', 'ejs');
 
@@ -168,6 +169,7 @@ app.use('/farms', farmsRouter(knex));
 app.use('/reset', farmResetRouter(knex));
 app.use('/bets', betsRouter(knex));
 app.use('/payout', payoutRouter(knex));
+app.use('/api/newsapi/bloomberg', bloombergRouter());
 
 // USE THIS TO DRY CODE LATER
 // This function broadcasts data to all clients connected to server 
