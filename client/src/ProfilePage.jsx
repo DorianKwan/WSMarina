@@ -70,7 +70,7 @@ class ProfilePage extends React.Component {
     const flairId = event.target.elements[0].value;
     const id = event.target.elements[1].value;
     const userId = event.target.elements[2].value;
-    const url = "/currentUserFlairs"
+    const url = "/currentUserFlairs";
     const body = JSON.stringify({ flairId: flairId, userId: userId, id: id });
     fetch(url, {
       method: "DELETE",
@@ -81,13 +81,13 @@ class ProfilePage extends React.Component {
         "Content-Length": new Buffer(body).length
       },
       body: body
-    })
+    });
   }
 
   render() {
 
     const flairs = this.props.currentUserFlairs.map((flair) => { 
-      console.log(flair)
+
       return (
         <div>
           <img key={this.uuid()} id="flairImage" src={flair.image} height="20" width="20" />
