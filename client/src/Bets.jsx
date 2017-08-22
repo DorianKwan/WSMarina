@@ -71,7 +71,7 @@ class Bets extends Component {
   }
 
   getTickerPrice(list) {
-    const alphaVantageKey = 'YW6PCYJ22Y79AP56';
+    const alphaVantageKey = 'Your api key here';
 
     Promise.all(
       list.bets.map((bet) => {
@@ -84,15 +84,14 @@ class Bets extends Component {
     ).then(all => {
       const bets = all.map((data, index) => {
         const realTimeStockPrices = data['Time Series (Daily)'];
-
         for (let time in realTimeStockPrices) {
-
-          const ticker = list.bets[index].ticker;
-          const wager = list.bets[index].wager;
+          const { ticker, wager } = list.bets[index];
           const direction = list.bets[index].direction ? "Bull" : "Bear";
           const currentPrice = round(realTimeStockPrices[time]['4. close'], 2);
           const start_price = list.bets[index].start_price || currentPrice;
           const percentChange = round(calculatePercentChange(start_price, currentPrice), 2);
+          const collected_at = list.bets[index].collected_at || null;
+          const payout = list.bets[index].payout || null;
           if (!list.bets[index].created_at) {
             this.initializeBet(list.bets[index], currentPrice);
           }
@@ -102,7 +101,9 @@ class Bets extends Component {
             wager,
             direction,
             start_price,
-            percentChange
+            percentChange,
+            collected_at,
+            payout
           }
         }
       })
@@ -137,7 +138,7 @@ class Bets extends Component {
       } else {
         return (
           <div key={bet.ticker}>
-            <p>{ bet.ticker } | { bet.wager } | { bet.direction } | ${ bet.start_price } | { bet.percentChange }%</p>
+            <p>{ bet.ticker } | { bet.wager } | { bet.direction } | ${ bet.start_price } | { bet.percentChange }% | { bet.payout }</p>
             <br />
           </div>
         )
