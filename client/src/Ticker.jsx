@@ -1,11 +1,11 @@
-import React, { Component }from 'react';
+import React, { Component } from 'react';
 
 function calculatePercentChange(currentPrice, openingPrice) {
   return currentPrice > openingPrice ? ((currentPrice / openingPrice) - 1) * 100 : ((openingPrice / currentPrice) - 1) * -100;
 }
 
 function round(number, decimals) {
-    return Number(Math.round(number + 'e' + decimals) + 'e-' + decimals).toFixed(2);
+  return Number(Math.round(number + 'e' + decimals) + 'e-' + decimals).toFixed(2);
 }
 
 class Ticker extends Component {
@@ -19,11 +19,6 @@ class Ticker extends Component {
   componentWillMount() {
     this.getTickers();
     setInterval(this.tickerFeed, 60000);
-  }
-
-  componentWillReceiveProps() {
-    this.getTickers();
-    this.tickerFeed();
   }
 
   getTickers() {
@@ -45,7 +40,11 @@ class Ticker extends Component {
           { name: slots.slot_05.name, collected_at: slots.slot_05.collected_at },
         ]
       });
-    }).catch((error) => { 
+    })
+    .then(() => {
+      this.tickerFeed();
+    })
+    .catch((error) => { 
       console.log("error: ", error); 
     });
   }
@@ -87,14 +86,15 @@ class Ticker extends Component {
   render() {
     const data = this.state || this.props; // Is this necessary? For now it will only pass state if tickerFeed is broken
     const stocks = data.tickers.map((stock, index) => {
+      const isActive = stock.collected_at || undefined;
       if (stock.collected_at === null) {
         return (
             <div key={ stock.name }>
               <form action="/farms" method="POST" >
                 <input name="index" type="hidden" value={index} />
                 <input name="ticker" type="hidden" value={stock.name} />
-                <input name="currentUserRep" type="hidden" value={this.props.currentUserRep} />
-                <input name="currentUserId" type="hidden" value={this.props.currentUserId} />
+                <input name="currentUserRep" type="hidden" value={this.props.currentUserRep || ""} />
+                <input name="currentUserId" type="hidden" value={this.props.currentUserId || ""} />
                 <input name="open" type="hidden" value={stock.open} />
                 <input name="currentPrice" type="hidden" value={stock.price} />
                 <div>{ stock.name } | ${ stock.price } | { stock.percentChange }%</div>
@@ -104,7 +104,7 @@ class Ticker extends Component {
           )
       } else {
         return (
-          <span key={ stock.name }>
+          <span key={ index }>
             { stock.name } | ${ stock.price } | { stock.percentChange }%
           </span>
         )
@@ -114,7 +114,7 @@ class Ticker extends Component {
 
     return (
       <section className="tickers">
-        { stocks }
+        <marquee>{ stocks }</marquee>
       </section>
     );
   }

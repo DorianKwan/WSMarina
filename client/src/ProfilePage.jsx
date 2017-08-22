@@ -17,6 +17,10 @@ class ProfilePage extends React.Component {
   componentDidMount() {
     this.getUserInfo();
   }
+  
+  uuid() {
+    return Math.random().toString(36).substr(2, 6);
+  }
 
   getUserInfo() {
     fetch("/profile", {
@@ -65,7 +69,7 @@ class ProfilePage extends React.Component {
 
     const flairs = this.props.currentUserFlairs.map((flair) => { 
       return (
-        <img id="flairImage" src={flair.image} height="20" width="20" />
+        <img key={this.uuid()} id="flairImage" src={flair.image} height="20" width="20" />
       );
     }); 
 
@@ -73,22 +77,26 @@ class ProfilePage extends React.Component {
         <div className="profilePage">
           <h1>Profile</h1>
           <img className="user-avatar" src={this.state.image} />
-          <tr>
-            <td>Username:</td> 
-            <td>{this.state.username}</td>
-          </tr>
-          <tr>
-            <td>Bio:</td>
-            <td>{this.state.bio}</td>
-          </tr>
-          <tr>
-            <td>Email:</td>
-            <td>{this.state.email}</td>
-          </tr>
-          <tr>
-            <td>Reputation:</td>
-            <td>{this.state.rep}</td>
-          </tr>
+          <table>
+            <tbody>
+              <tr>
+                <td>Username:</td> 
+                <td>{this.state.username}</td>
+              </tr>
+              <tr>
+                <td>Bio:</td>
+                <td>{this.state.bio}</td>
+              </tr>
+              <tr>
+                <td>Email:</td>
+                <td>{this.state.email}</td>
+              </tr>
+              <tr>
+                <td>Reputation:</td>
+                <td>{this.state.rep}</td>
+              </tr>
+            </tbody>
+          </table>
           <div id="currentUserFlairs">Flairs: {flairs}</div>
         {/* edit profile should only be visible when user_id matches visiting user */}
         {/* no defaults set for img and both forms are forced to be entered */}

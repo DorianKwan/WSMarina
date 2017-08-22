@@ -4,7 +4,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   background: black;
   height: 100%;
   left: 0;
-  position: absolute;
+  position: fixed;
   top: 55px;
   width: 230px;
 
@@ -15,7 +15,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   .leaderTitle {
     border-bottom: 1px solid white;
     color: white;
-    font-size: 18px;
+    font-size: 13px;
     margin-bottom: 10px;
     padding: 10px;
     width: 200px;
@@ -23,7 +23,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
   li {
   color: rgb(233,182,50);
-  font-size: 18px;
+  font-size: 15px;
   padding: 10px 0;
   
     #leaderRep {
@@ -31,12 +31,17 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     }
 		
     :hover {
+      color: black;
+      background-color: white;
+      border-bottom-left-radius: 50px;
+      border-top-left-radius: 50px;
+      font-size: 20px;
+      padding: 10px;
+
       #leaderRep {
-        visibility: visible;
-        color: white;
+        color: rgb(233,182,50);
         font-size: 12px;
-        padding: 5px;
-        width: 220px;
+        visibility: visible;
       }
     }
   }

@@ -7,6 +7,15 @@ class Leaders extends React.Component {
       leaders: []
     }
   }
+ 
+  componentDidMount() {
+    this.getLeaders();
+  }
+
+  uuid() {
+    return Math.random().toString(36).substr(2, 6);
+  }
+
   getLeaders() {
     //For Localhost use the below url
     const url = "/leaders";
@@ -16,18 +25,13 @@ class Leaders extends React.Component {
       headers: {
         "Accept": "application/json"
       }
-    })
-      .then((response) => {
+    }).then((response) => {
         return response.json();
-      })
-      .then((leaders) => {
+    }).then((leaders) => {
         this.setState({
           leaders
         });
-      });
-  }
-  componentDidMount() {
-    this.getLeaders();
+    });
   }
 
   render() {
@@ -35,7 +39,7 @@ class Leaders extends React.Component {
     const leaders = this.state.leaders.map((leader) => { 
       position++;
       return (
-        <div className="eachLeader">
+        <div className="eachLeader" key={this.uuid()}>
           &ensp; {position}. {leader.username} <span id="leaderRep">{leader.rep} reps</span>
         </div>
       );

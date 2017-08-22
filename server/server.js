@@ -25,6 +25,8 @@ const chatListRouter = require('./routes/chatList');
 const joinChatRouter = require('./routes/joinChat');
 const farmsRouter = require('./routes/farms');
 const farmResetRouter = require('./routes/farmReset');
+const betsRouter = require('./routes/bets');
+const payoutRouter = require('./routes/betPayout');
 
 app.set('view engine', 'ejs');
 
@@ -70,6 +72,8 @@ app.use('/chatList', chatListRouter(knex));
 app.use('/joinChat', joinChatRouter(knex, getChatrooms, createNameSpace));
 app.use('/farms', farmsRouter(knex));
 app.use('/reset', farmResetRouter(knex));
+app.use('/bets', betsRouter(knex));
+app.use('/payout', payoutRouter(knex));
 
 
 function getChatrooms(data, createNameSpace){

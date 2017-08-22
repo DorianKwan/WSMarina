@@ -40,13 +40,11 @@ function createRouter(knex) {
         }
 
       }).catch((err) => {
+        req.session.show_register = true;
         req.flash('errors', err.message);
         res.redirect("/");
       });
 
-    // req.session.show_register = true;
-    // req.flash('errors', "An error has occured");
-    // res.redirect('/');
 
     knex('users')
       .select(1)
