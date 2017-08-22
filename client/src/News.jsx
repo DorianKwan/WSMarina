@@ -30,7 +30,7 @@ class News extends React.Component {
   } 
 
   postArticles() {
-    const newsApiKey = 'Your newsapi key here';
+    const newsApiKey = 'your api key';
     fetch(`https://newsapi.org/v1/articles?source=bloomberg&sortBy=top&apiKey=${newsApiKey}`)
       .then((resp) => resp.json())
       .then(news => {
