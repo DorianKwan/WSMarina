@@ -21,6 +21,10 @@ class Bets extends Component {
     setInterval(this.getBets, 60000);
   }
 
+  uuid() {
+    return Math.random().toString(36).substr(2, 6);
+  }
+
   getBets() {
     fetch("/bets", {
       credentials: 'include',
@@ -67,7 +71,7 @@ class Bets extends Component {
   }
 
   getTickerPrice(list) {
-    const alphaVantageKey = 'YW6PCYJ22Y79AP56';
+    const alphaVantageKey = 'your api key here';
 
     Promise.all(
       list.bets.map((bet) => {
@@ -117,7 +121,7 @@ class Bets extends Component {
     const bets = data.bets.map((bet, index) => {
       if (!bet.collected_at) {
         return (
-          <div key={bet.ticker}>
+          <div key={this.uuid()}>
             <p>{ bet.ticker } | { bet.wager } | { bet.direction } | ${ bet.start_price } | { bet.percentChange }%</p>
             <br />
             <form action="/payout" method="POST">
@@ -125,7 +129,7 @@ class Bets extends Component {
               <input name="wager" type="hidden" value={bet.wager} />
               <input name="ticker" type="hidden" value={bet.ticker} />
               <input name="direction" type="hidden" value={bet.direction} />
-              <input name="currentUserRep" type="hidden" value={this.props.currentUserRep} />
+              <input name="currentUserRep" type="hidden" value={this.props.currentUserRep || undefined} />
               <input type="submit" value="Collect"/>
             </form>
           </div>
@@ -147,6 +151,7 @@ class Bets extends Component {
         <br />
         <h2>Make a Prediction!</h2>
         <form action="/bets" method="POST">
+          <input name="currentUserRep" type="hidden" value={this.props.currentUserRep || undefined} />
           <label>Enter a Ticker: </label>
           <input name="ticker" />
           <br />
