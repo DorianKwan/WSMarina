@@ -5,7 +5,7 @@ function calculatePercentChange(currentPrice, openingPrice) {
 }
 
 function round(number, decimals) {
-    return Number(Math.round(number + 'e' + decimals) + 'e-' + decimals).toFixed(2);
+  return Number(Math.round(number + 'e' + decimals) + 'e-' + decimals).toFixed(2);
 }
 
 class Ticker extends Component {
@@ -19,11 +19,6 @@ class Ticker extends Component {
   componentWillMount() {
     this.getTickers();
     setInterval(this.tickerFeed, 60000);
-  }
-
-  componentWillReceiveProps() {
-    this.getTickers();
-    this.tickerFeed();
   }
 
   getTickers() {
@@ -45,7 +40,11 @@ class Ticker extends Component {
           { name: slots.slot_05.name, collected_at: slots.slot_05.collected_at },
         ]
       });
-    }).catch((error) => { 
+    })
+    .then(() => {
+      this.tickerFeed();
+    })
+    .catch((error) => { 
       console.log("error: ", error); 
     });
   }
@@ -87,6 +86,7 @@ class Ticker extends Component {
   render() {
     const data = this.state || this.props; // Is this necessary? For now it will only pass state if tickerFeed is broken
     const stocks = data.tickers.map((stock, index) => {
+      const isActive = stock.collected_at || undefined;
       if (stock.collected_at === null) {
         return (
             <div key={ stock.name }>
