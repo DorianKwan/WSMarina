@@ -115,11 +115,28 @@ class Bets extends Component {
 
     const data = this.state || { bets: [{ticker: "Ticker Goes Here", wager: "Amount wagered here", direction: "Bull or Bear", start_price: "9.99", percentChange: "3.45"}]};
     const bets = data.bets.map((bet, index) => {
+      if (!bet.collected_at) {
         return (
           <div key={bet.ticker}>
             <p>{ bet.ticker } | { bet.wager } | { bet.direction } | ${ bet.start_price } | { bet.percentChange }%</p>
+            <br />
+            <form action="/payout" method="POST">
+              <input name="percentChange" type="hidden" value={bet.percentChange} />
+              <input name="wager" type="hidden" value={bet.wager} />
+              <input name="ticker" type="hidden" value={bet.ticker} />
+              <input name="currentUserRep" type="hidden" value={this.props.currentUserRep} />
+              <input type="submit" value="Collect"/>
+            </form>
           </div>
         )
+      } else {
+        return (
+          <div key={bet.ticker}>
+            <p>{ bet.ticker } | { bet.wager } | { bet.direction } | ${ bet.start_price } | { bet.percentChange }%</p>
+            <br />
+          </div>
+        )
+      }
     });
 
     return (
