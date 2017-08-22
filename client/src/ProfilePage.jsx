@@ -1,8 +1,8 @@
 import React from 'react';
 
 class ProfilePage extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       image: '',
       bio: '',
