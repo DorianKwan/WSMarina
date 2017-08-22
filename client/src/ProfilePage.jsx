@@ -66,22 +66,26 @@ class ProfilePage extends React.Component {
         <div className="profilePage">
           <h1>Profile</h1>
           <img className="user-avatar" src={this.state.image} />
-          <tr>
-            <td>Username:</td> 
-            <td>{this.state.username}</td>
-          </tr>
-          <tr>
-            <td>Bio:</td>
-            <td>{this.state.bio}</td>
-          </tr>
-          <tr>
-            <td>Email:</td>
-            <td>{this.state.email}</td>
-          </tr>
-          <tr>
-            <td>Reputation:</td>
-            <td>{this.state.rep}</td>
-          </tr>
+          <table>
+            <tbody>
+              <tr>
+                <td>Username:</td> 
+                <td>{this.state.username}</td>
+              </tr>
+              <tr>
+                <td>Bio:</td>
+                <td>{this.state.bio}</td>
+              </tr>
+              <tr>
+                <td>Email:</td>
+                <td>{this.state.email}</td>
+              </tr>
+              <tr>
+                <td>Reputation:</td>
+                <td>{this.state.rep}</td>
+              </tr>
+            </tbody>
+          </table>
         {/* edit profile should only be visible when user_id matches visiting user */}
         {/* no defaults set for img and both forms are forced to be entered */}
         <div className="edit-profile">

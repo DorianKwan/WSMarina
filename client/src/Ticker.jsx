@@ -1,4 +1,4 @@
-import React, { Component }from 'react';
+import React, { Component } from 'react';
 
 function calculatePercentChange(currentPrice, openingPrice) {
   return currentPrice > openingPrice ? ((currentPrice / openingPrice) - 1) * 100 : ((openingPrice / currentPrice) - 1) * -100;
@@ -93,8 +93,8 @@ class Ticker extends Component {
               <form action="/farms" method="POST" >
                 <input name="index" type="hidden" value={index} />
                 <input name="ticker" type="hidden" value={stock.name} />
-                <input name="currentUserRep" type="hidden" value={this.props.currentUserRep} />
-                <input name="currentUserId" type="hidden" value={this.props.currentUserId} />
+                <input name="currentUserRep" type="hidden" value={this.props.currentUserRep || ""} />
+                <input name="currentUserId" type="hidden" value={this.props.currentUserId || ""} />
                 <input name="open" type="hidden" value={stock.open} />
                 <input name="currentPrice" type="hidden" value={stock.price} />
                 <div>{ stock.name } | ${ stock.price } | { stock.percentChange }%</div>
@@ -104,7 +104,7 @@ class Ticker extends Component {
           )
       } else {
         return (
-          <span key={ stock.name }>
+          <span key={ index }>
             { stock.name } | ${ stock.price } | { stock.percentChange }%
           </span>
         )

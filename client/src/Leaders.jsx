@@ -35,7 +35,7 @@ class Leaders extends React.Component {
     const leaders = this.state.leaders.map((leader) => { 
       position++;
       return (
-        <div>
+        <div key={leader.username}>
           &ensp; {position}. {leader.username} : {leader.rep} reps
         </div>
       );

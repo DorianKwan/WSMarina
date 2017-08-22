@@ -5,6 +5,8 @@ import Leaders from './Leaders.jsx';
 import News from './News.jsx';
 import ChatRooms from './ChatRooms.jsx';
 import SiteFooter from './SiteFooter.jsx';
+import ProfilePage from './ProfilePage.jsx';
+import Bets from './Bets.jsx';
 import ChatList from './ChatList.jsx';
 
 class App extends React.Component {
@@ -148,6 +150,7 @@ class App extends React.Component {
         <div className="features">
           <Ticker tickers={this.state.userFarm} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep} />
           <News newsItems={this.state.newsItems} />
+          <Bets currentUserRep={this.state.currentUserRep} />
           <ChatRooms chatRooms={this.state.chatRooms} currentUserId={this.state.currentUserId} currentUsername={this.state.currentUsername} currentUserFlairs={flairs} />
           <ChatList currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId}/>
         </div>
