@@ -12,10 +12,6 @@ class Leaders extends React.Component {
     this.getLeaders();
   }
 
-  uuid() {
-    return Math.random().toString(36).substr(2, 6);
-  }
-
   getLeaders() {
     //For Localhost use the below url
     const url = "/leaders";
@@ -39,7 +35,7 @@ class Leaders extends React.Component {
     const leaders = this.state.leaders.map((leader) => { 
       position++;
       return (
-        <div className="eachLeader" key={this.uuid()}>
+        <div className="eachLeader" key={leader.username}>
           &ensp; {position}. {leader.username} <span id="leaderRep">{leader.rep} reps</span>
         </div>
       );
