@@ -21,6 +21,20 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     width: 200px;
   }
 
+  #profile-anchor {
+    left: 205px;
+    position: absolute;
+    top: 70px;
+    transform: rotate(310deg);
+  }
+
+  #leader-anchor {
+    left: 205px;
+    position: absolute;
+    top: 224px;
+    transform: rotate(310deg);
+  }
+
   li {
   color: rgb(233,182,50);
   font-size: 15px;
@@ -39,7 +53,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
       padding: 10px;
 
       #leaderRep {
-        color: rgb(233,182,50);
+        color: black;
         font-size: 12px;
         visibility: visible;
       }
