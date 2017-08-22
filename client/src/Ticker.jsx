@@ -51,7 +51,7 @@ class Ticker extends Component {
   }
 
   tickerFeed() {
-    const alphaVantageKey = 'YW6PCYJ22Y79AP56';
+    const alphaVantageKey = 'your api key';
     const data = this.state || this.props;
     Promise.all(
       data.tickers.map((item, index) => {
