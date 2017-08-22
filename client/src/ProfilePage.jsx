@@ -62,6 +62,13 @@ class ProfilePage extends React.Component {
   }
 
   render() {
+
+    const flairs = this.props.currentUserFlairs.map((flair) => { 
+      return (
+        <img id="flairImage" src={flair.image} height="20" width="20" />
+      );
+    }); 
+
     return (
         <div className="profilePage">
           <h1>Profile</h1>
@@ -82,6 +89,7 @@ class ProfilePage extends React.Component {
             <td>Reputation:</td>
             <td>{this.state.rep}</td>
           </tr>
+          <div id="currentUserFlairs">Flairs: {flairs}</div>
         {/* edit profile should only be visible when user_id matches visiting user */}
         {/* no defaults set for img and both forms are forced to be entered */}
         <div className="edit-profile">

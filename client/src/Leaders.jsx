@@ -35,17 +35,11 @@ class Leaders extends React.Component {
     const leaders = this.state.leaders.map((leader) => { 
       position++;
       return (
-        <div>
-          &ensp; {position}. {leader.username} : {leader.rep} reps
+        <div className="eachLeader">
+          &ensp; {position}. {leader.username} <span id="leaderRep">{leader.rep} reps</span>
         </div>
       );
     });
-    
-    const flairs = this.props.currentUserFlairs.map((flair) => { 
-      return (
-        <img src={flair.image} height="20" width="20" />
-      );
-    }); 
     
     return (
       <div className="leaders">
@@ -53,13 +47,9 @@ class Leaders extends React.Component {
         <section className="sideProfile">
           <img id="currentUserImage" src={this.props.currentUserImage} />
           <div id="currentUserTitle">{this.props.currentUserTitle}</div> 
-          <div id="currentUsername">{this.props.currentUsername}</div> 
-          <div id="bio">Bio: {this.props.currentUserBio}</div>
-          <div id="email">Email: {this.props.currentUserEmail}</div>
-          <div id="currentUserFlairs">Flairs: {flairs}</div>
-          <div id="currentUserReps">Reps: {this.props.currentUserRep}</div>
+          <div id="currentUsername">{this.props.currentUsername}</div>
         </section>
-        <section className="leaderTitle">Top 10 Leaders</section>
+        <section className="leaderTitle">TOP 10 LEADERS</section>
         <ul>
           <li>{leaders}</li>
         </ul>

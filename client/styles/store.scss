@@ -34,9 +34,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     }
 
     p.product-cost {
-      background-color: yellowgreen;
+      background-color: black;
       border-top-left-radius: 20px;
       bottom: 0;
+      color: white;
       font-size: 0.7em;
       margin: 0;
       padding: 8px;
@@ -45,7 +46,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     }
     
     p.soldout {
-      background-color: lightseagreen;
+      background-color: rgb(233,182,50);
       border-bottom-right-radius: 20px;
       border-top-left-radius: 4px;
       color: white;

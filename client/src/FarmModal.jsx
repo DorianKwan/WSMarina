@@ -43,7 +43,7 @@ class FarmModal extends React.Component {
   render() {
     return (
       <span>
-        <button onClick={this.openModal}>FARM</button>
+        <button onClick={this.openModal}>FARM &ensp; &ensp; /</button>
         <Modal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}

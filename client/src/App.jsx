@@ -136,14 +136,10 @@ class App extends React.Component {
         setFarm={this.setFarm.bind(this)} 
         currentUserId={this.state.currentUserId} />
         <Leaders 
-        leaders={this.state.leaders} 
-        currentUserFlairs={this.state.currentUserFlairs} 
+        leaders={this.state.leaders}
         currentUserTitle={this.state.currentUserTitle} 
-        currentUsername={this.state.currentUsername} 
-        currentUserRep={this.state.currentUserRep} 
-        currentUserBio={this.state.currentUserBio} 
-        currentUserImage={this.state.currentUserImage} 
-        currentUserEmail={this.state.currentUserEmail} />
+        currentUsername={this.state.currentUsername}
+        currentUserImage={this.state.currentUserImage} />
         
         <div className="features">
           <Ticker tickers={this.state.userFarm} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep} />

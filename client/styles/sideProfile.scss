@@ -1,67 +1,57 @@
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin:0; padding:0; border:0; outline:0; font-size:100%; vertical-align:baseline; background:transparent;} body {line-height: 1;}ol, ul{list-style:none;} blockquote, q{quotes:none;} blockquote:before, blockquote:after, q:before, q:after{content:'';content:none;} :focus{outline:0;} ins{text-decoration:none;} del{text-decoration:line-through;} table{border-collapse:collapse; border-spacing:0;}
 
 .coverPhoto {
-	background: #ccc;
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
+	background: black;
+	border-bottom: 1px solid white;
 	height: 60px;
 	padding: 10px;
 }
 
 .sideProfile {
-  background: #495057;
-	border-bottom-left-radius: 10px;
-	border-bottom-right-radius: 10px;
+	background: black;
 	color: white;
-	height: 150px;
+	height: 300px;
 	padding: 10px;
 	
 	#currentUserImage {
-		border: 2px solid white;
-		border-radius: 10px;
+		border: 1px solid white;
+		border-radius: 50px;
 		height: 70px;
 		position: absolute;
 		top: 40px;
 		width: 70px;
 	}
 
-	#currentUserTitle {
-		color: #495057;
-		font-size: 15px;
+	div#currentUserTitle {
+		color: rgb(233,182,50);
+		font-size: 12px;
 		left: 95px;
 		position: absolute;
 		top: 62px;
 	}
 
-	#currentUsername {
-		font-size: 30px;
-		left: 95px;
+	div#currentUsername {
+		font-size: 25px;
+		left: 85px;
 		position: absolute;
-		top: 85px;
+		top: 90px;
 	}
 
-	#email {
+	div#email {
 		font-size: 12px;
 		position: absolute;
 		top: 130px;
 	}
 
-	#currentUserReps {
+	div#currentUserReps {
 		font-size: 12px;
 		position: absolute;
-		top: 152px;
+		top: 155px;
 	}
 
-	#currentUserFlairs {
-		font-size: 12px;
-		padding-top: 5px;
-		position: absolute;
-		top: 165px;
-	}
-	
-	#bio {
+	div#bio {
 		font-size: 12px;
 		position: absolute;
-		top: 200px;
+		top: 180px;
 	}
 }
