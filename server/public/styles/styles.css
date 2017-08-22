@@ -122,3 +122,11 @@ section.form {
 table {
   width: 100%;
 }
+
+.topbar {
+  z-index: 1000;
+}
+.title {
+  color: white;
+  z-index: 1000;
+}

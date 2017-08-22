@@ -47,10 +47,11 @@ class ChatRooms extends Component {
   createNameSpace(chatroomusers, self) {
     chatroomusers.forEach((chatroom) => {
       if (chatroom.user_id === this.props.currentUserId) {
+        var s = io.connect(`http://localhost:3000/group-${chatroom.chatroom_id}`);
         this.setState({
-          socket: io.connect(`http://localhost:3000/group-${chatroom.chatroom_id}`)
+          socket: s
         })
-        this.state.socket.on('data', function (event) {
+        s.on('data', function (event) {
           let messageRecieved = JSON.parse(event);
           console.log("message Recieved", messageRecieved)
           switch (messageRecieved.type) {
@@ -66,7 +67,6 @@ class ChatRooms extends Component {
           }
         })
       }
-      return
     })
   }
 

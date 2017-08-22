@@ -107,7 +107,7 @@ class App extends React.Component {
           { name: slots.slot_05.name }
         ]
       });
-    }).catch((error) => { 
+    }).catch((error) => {
       console.log("error: ", error); 
     });
   }
@@ -127,7 +127,7 @@ class App extends React.Component {
           <Store className="store" currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep} />
           <News newsItems={this.state.newsItems} />
           <Farm defaultValue={this.state.userFarm} setFarm={this.setFarm.bind(this)} />
-          <ChatRooms chatRooms={this.state.chatRooms} currentUserId={this.state.currentUserId} currentUsername={this.state.currentUsername} currentUserFlairs={flairs} />
+          <ChatRooms currentUserId={this.state.currentUserId} currentUsername={this.state.currentUsername} currentUserFlairs={flairs} />
           <ChatList currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId}/>
           <form action="/logout" method="POST">
             <input type='submit' value='Logout' />
