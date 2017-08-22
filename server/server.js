@@ -60,6 +60,100 @@ app.get('/', (req, res) => {
   }
 });
 
+function getChatrooms(data, createNameSpace){
+  let listOfOnlineChatrooms = [];
+  data.forEach((room) => {
+    listOfOnlineChatrooms.push(room.chatroom_id);
+  });
+
+  listOfOnlineChatrooms = listOfOnlineChatrooms.filter(function (elem, index, self) {
+    return index === self.indexOf(elem);
+  });
+
+  console.log("list of chatrooms", listOfOnlineChatrooms);
+
+  listOfOnlineChatrooms.forEach((chatroomId) => {
+    createNameSpace(chatroomId);
+  });
+}
+
+function createNameSpace(chatroomId) {
+  if (!io.nsps["/group-" + chatroomId]) {
+    const group = io.of('/group-' + chatroomId);
+    group.on('connection', (socket) => {
+      const nspSockets = group.sockets;
+      const noOfClients = Object.keys(nspSockets).length;
+      console.log('Client connected');
+      console.log("no of clients", noOfClients);
+      const clients = io.sockets.clients();
+      group.emit('data', JSON.stringify({ type: "clientCount", number: noOfClients }));
+      
+      socket.on('message', (message) => {
+        let messageRecieved = JSON.parse(message);
+        console.log("message recieved", messageRecieved);
+        switch (messageRecieved.type) {
+        case "incomingMessage":
+          messageRecieved.id = uuidv4();
+          group.emit('data', JSON.stringify(messageRecieved));
+          const botResponse = {
+            username: "",
+            content: "",
+            currentUserFlairs: [],
+            type: 'incomingMessage'
+          };
+          botResponse.id = uuidv4();
+          if (messageRecieved.content.toLowerCase().includes("tilt")){
+            botResponse.username = "Jeremy Holman:";
+            botResponse.content = "Cause you need another yacht";
+            setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
+            // group.emit('data', JSON.stringify(botResponse));
+          } else if (messageRecieved.content.toLowerCase().includes("@jeremy")) {
+            botResponse.username = "Jeremy Holman:";
+            botResponse.content = "Foosball anyone?";
+            setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
+          } else if (messageRecieved.content.toLowerCase().includes("@david")){
+            botResponse.username = "David VanDusen:";
+            botResponse.content = "That's just some syntactical sugar.";
+            setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
+          } else if (messageRecieved.content.toLowerCase().includes("@rosy")){
+            botResponse.username = "Rosy Lee:";
+            botResponse.content = "Plank Club unite!";
+            setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
+          } else if (messageRecieved.content.toLowerCase().includes("@joel")){
+            botResponse.username = "Joel Shinness:";
+            botResponse.content = "I like the Mandolin, can I be your friendolin?";
+            setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
+          } else if (messageRecieved.content.toLowerCase().includes("@don")){
+            botResponse.username = "Don Burks:";
+            botResponse.content = "Alright class is over, now go away.";
+            setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
+          } else if (messageRecieved.content.toLowerCase().includes("@wesley")){
+            botResponse.username = "Wesley Wong:";
+            botResponse.content = "Hey guys!";
+            setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
+          } else if (messageRecieved.content.toLowerCase().includes("@rohit")){
+            botResponse.username = "Rohit Dhand:";
+            botResponse.content = `Hi ${messageRecieved.username}, How are you?`;
+            setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
+          }
+          break;
+        default:
+          throw new Error("Unknown event type " + message.type);
+        }
+      });
+
+      // Set up a callback for when a client closes the socket. This usually means they closed their broioer.
+      socket.on('disconnecting', () => {
+        console.log('Client disconnected');
+        const nspSockets = group.sockets;
+        const noOfClients = Object.keys(nspSockets).length;
+        console.log("no of clients", noOfClients);
+        group.emit('data', JSON.stringify({ type: "clientCount", number: noOfClients }));
+      });
+    });
+  }
+}
+
 app.use('/login', loginRouter(knex));
 app.use('/register', registerRouter(knex));
 app.use('/currentUser', currentUserRouter(knex));
@@ -74,102 +168,6 @@ app.use('/farms', farmsRouter(knex));
 app.use('/reset', farmResetRouter(knex));
 app.use('/bets', betsRouter(knex));
 app.use('/payout', payoutRouter(knex));
-
-
-function getChatrooms(data, createNameSpace){
-  let listOfOnlineChatrooms = [];
-  data.forEach((room) => {
-    listOfOnlineChatrooms.push(room.chatroom_id);
-  })
-
-  listOfOnlineChatrooms = listOfOnlineChatrooms.filter(function (elem, index, self) {
-    return index == self.indexOf(elem);
-  })
-
-  console.log("list of chatrooms", listOfOnlineChatrooms);
-
-  listOfOnlineChatrooms.forEach((chatroomId) => {
-    createNameSpace(chatroomId);
-  })
-}
-
-function createNameSpace(chatroomId) {
-  if (!io.nsps["/group-" + chatroomId]) {
-    const group = io.of('/group-' + chatroomId);
-    group.on('connection', (socket) => {
-      const nspSockets = group.sockets;
-      const noOfClients = Object.keys(nspSockets).length;
-      console.log('Client connected');
-      console.log("no of clients", noOfClients);
-      const clients = io.sockets.clients();
-      group.emit('data',JSON.stringify({ type: "clientCount", number: noOfClients }));
-      
-      socket.on('message', (message) => {
-      let messageRecieved = JSON.parse(message);
-      console.log("message recieved", messageRecieved);
-      switch (messageRecieved.type) {
-        case "incomingMessage":
-          messageRecieved.id = uuidv4();
-          group.emit('data', JSON.stringify(messageRecieved));
-            const botResponse = {
-              username: "",
-              content: "",
-              currentUserFlairs: [],
-              type: 'incomingMessage'
-            }
-            botResponse.id = uuidv4();
-            if (messageRecieved.content.toLowerCase().includes("tilt")){
-              botResponse.username = "Jeremy Holman:";
-              botResponse.content = "Cause you need another yacht"
-            setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
-            // group.emit('data', JSON.stringify(botResponse));
-          } else if (messageRecieved.content.toLowerCase().includes("@jeremy")) {
-              botResponse.username = "Jeremy Holman:";
-              botResponse.content = "Foosball anyone?"
-              setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
-          } else if (messageRecieved.content.toLowerCase().includes("@david")){
-              botResponse.username = "David VanDusen:";
-              botResponse.content = "That's just some syntactical sugar."
-              setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
-          } else if (messageRecieved.content.toLowerCase().includes("@rosy")){
-              botResponse.username = "Rosy Lee:";
-              botResponse.content = "Plank Club unite!"
-              setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
-          } else if (messageRecieved.content.toLowerCase().includes("@joel")){
-              botResponse.username = "Joel Shinness:";
-              botResponse.content = "I like the Mandolin, can I be your friendolin?"
-            setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
-          } else if (messageRecieved.content.toLowerCase().includes("@don")){
-              botResponse.username = "Don Burks:";
-              botResponse.content = "Alright class is over, now go away."
-            setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
-          } else if (messageRecieved.content.toLowerCase().includes("@wesley")){
-              botResponse.username = "Wesley Wong:";
-              botResponse.content = "Hey guys!"
-            setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
-          } else if (messageRecieved.content.toLowerCase().includes("@rohit")){
-              botResponse.username = "Rohit Dhand:";
-              botResponse.content = `Hi ${messageRecieved.username}, How are you?`
-            setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
-          }
-          break;
-        default:
-          throw new Error("Unknown event type " + message.type);
-      }
-    });
-
-    // Set up a callback for when a client closes the socket. This usually means they closed their broioer.
-      socket.on('disconnecting', () => {
-        console.log('Client disconnected');
-        const nspSockets = group.sockets;
-        const noOfClients = Object.keys(nspSockets).length;
-        console.log("no of clients", noOfClients)
-        group.emit('data', JSON.stringify({ type: "clientCount", number: noOfClients }))
-      });
-    });
-  }
-}
-
 
 // USE THIS TO DRY CODE LATER
 // This function broadcasts data to all clients connected to server 
