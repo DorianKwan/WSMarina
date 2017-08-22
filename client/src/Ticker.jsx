@@ -114,7 +114,7 @@ class Ticker extends Component {
 
     return (
       <section className="tickers">
-        <marquee>{ stocks }</marquee>
+        { stocks }
       </section>
     );
   }

@@ -1,19 +1,19 @@
 import React from 'react';
+import ProfileModal from './ProfileModal.jsx';
+import FarmModal from './FarmModal.jsx';
+import StoreModal from './StoreModal.jsx';
 
 class Navbar extends React.Component {
-  render() {
-
-    const flairs = this.props.currentUserFlairs.map((flair) => { 
-      return (
-        <img src= {flair.image} height="30" width="30" />
-      );
-    });
-
+  render() { 
     return (
       <div className="navbar">
-        <h1 className="logo">W.S. Marina</h1>
-        <span className="welcome">Welcome {this.props.currentUsername} {flairs}</span>
-        <span className="currentUserReps">Reps: {this.props.currentUserRep}</span>
+        <span id="logo">W.S. MARINA</span>
+        <form action="/logout" method="POST">
+            <input className="logout" type='submit' value='LOGOUT' />
+        </form>
+        <ProfileModal />
+        <FarmModal defaultValue={this.props.defaultValue} setFarm={this.props.setFarm} />
+        <StoreModal currentUsername={this.props.currentUsername} currentUserId={this.props.currentUserId} currentUserRep={this.props.currentUserRep} />
       </div>
     );
   }

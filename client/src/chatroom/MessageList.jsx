@@ -1,23 +1,28 @@
-
-import React, { Component } from "react";
-
+import React, { Component } from 'react';
 import Message from "./Message.jsx";
 
+// Class MessageList renders all existing messages
 class MessageList extends Component {
-  componentDidUpdate() {
-    window.scrollTo(0, document.querySelector(".messages").scrollHeight);
+  constructor(props) {
+    super(props);
   }
-
   render() {
-    const listMessages = this.props.messages.map(message =>
-      <Message key={message.id} username={message.username} content={message.content} type={message.type} color={message.color} />
-    );
     return (
       <main className="messages">
-        {listMessages}
+        {
+          // Filter ensures that only messages with type incomingMessage gets rendered
+          this.props.messages
+            .filter((m) => m.type === 'incomingMessage')
+            .map(currentMessage => {
+              console.log("currentMessage", currentMessage)
+              return <Message
+                message={currentMessage}
+                key={currentMessage.id}
+              />
+            })
+        }
       </main>
     );
   }
 }
-
 export default MessageList;

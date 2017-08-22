@@ -1,7 +1,13 @@
 // This is the top-level scss file. Import all other files in here.
-@import 'store';
-@import 'navbar';
-@import 'tickers';
-@import 'leaders';
+@import 'chatList';
+@import 'chatRoom';
 @import 'farm';
+@import 'features';
+@import 'leaders';
+@import 'navbar';
+@import 'profilePage';
+@import 'sideProfile';
+@import 'siteFooter';
+@import 'store';
+@import 'tickers';
 

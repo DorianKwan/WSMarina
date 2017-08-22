@@ -1,47 +1,30 @@
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin:0; padding:0; border:0; outline:0; font-size:100%; vertical-align:baseline; background:transparent;} body {line-height: 1;}ol, ul{list-style:none;} blockquote, q{quotes:none;} blockquote:before, blockquote:after, q:before, q:after{content:'';content:none;} :focus{outline:0;} ins{text-decoration:none;} del{text-decoration:line-through;} table{border-collapse:collapse; border-spacing:0;}
 
 .leaders {
-	margin: 30px;
+  background-color: #343a40;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 55px;
+  width: 250px;
 
-	h2 {
-	font-size: 20px;
-	margin-bottom: 10px;
-	}
+  .leaderTitle {
+    color: white;
+    font-size: 20px;
+    margin-top: 50px;
+    padding-left: 10px;
+  }
 
-	ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	}
-
-	li {
-	border-bottom: 1px solid #ccc;
-	}
-
-	li:last-child {
-	border: none;
-	}
-
-	li {
-	text-decoration: none;
-	color: #000;
-
-	-webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
-	-moz-transition: font-size 0.3s ease, background-color 0.3s ease;
-	-o-transition: font-size 0.3s ease, background-color 0.3s ease;
-	-ms-transition: font-size 0.3s ease, background-color 0.3s ease;
-	transition: font-size 0.3s ease, background-color 0.3s ease;
-	display: block;
-	width: 200px;
-	}
-
-	li :hover {
-	color: white;
-	border-bottom-right-radius: 50px;
-	border-top-right-radius: 50px;
-	padding: 5px;
-	font-size: 30px;
-	width: 500px;
-	background: lightseagreen;
-	}
+  li {
+	color: lightseagreen;
+	padding-top: 10px;
+		
+    :hover {
+      background: lightseagreen;
+      color: white;
+      font-size: 20px;
+      padding: 5px;
+      width: 250px;
+    }
+  }
 }
