@@ -21,6 +21,10 @@ class Bets extends Component {
     setInterval(this.getBets, 60000);
   }
 
+  uuid() {
+    return Math.random().toString(36).substr(2, 6);
+  }
+
   getBets() {
     fetch("/bets", {
       credentials: 'include',
@@ -67,7 +71,7 @@ class Bets extends Component {
   }
 
   getTickerPrice(list) {
-    const alphaVantageKey = 'Your api key here';
+    const alphaVantageKey = 'YW6PCYJ22Y79AP56';
 
     Promise.all(
       list.bets.map((bet) => {
@@ -117,7 +121,7 @@ class Bets extends Component {
     const bets = data.bets.map((bet, index) => {
       if (!bet.collected_at) {
         return (
-          <div key={bet.ticker}>
+          <div key={this.uuid()}>
             <p>{ bet.ticker } | { bet.wager } | { bet.direction } | ${ bet.start_price } | { bet.percentChange }%</p>
             <br />
             <form action="/payout" method="POST">
