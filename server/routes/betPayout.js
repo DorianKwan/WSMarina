@@ -27,7 +27,7 @@ function createRouter(knex) {
         ticker
       })
       .update("collected_at", new Date)
-      .update("payout", payout)
+      .update({ payout })
       .then(() => {
 
         // Update user rep 
