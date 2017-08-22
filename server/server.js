@@ -93,8 +93,9 @@ function createNameSpace(chatroomId) {
   if (!io.nsps["/group-" + chatroomId]) {
     const group = io.of('/group-' + chatroomId);
     group.on('connection', (socket) => {
+      const nspSockets = group.sockets;
+      const noOfClients = Object.keys(nspSockets).length;
       console.log('Client connected');
-      const noOfClients = io.engine.clientsCount;
       console.log("no of clients", noOfClients);
       const clients = io.sockets.clients();
       group.emit('data',JSON.stringify({ type: "clientCount", number: noOfClients }));
