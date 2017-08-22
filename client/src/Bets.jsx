@@ -124,6 +124,7 @@ class Bets extends Component {
               <input name="percentChange" type="hidden" value={bet.percentChange} />
               <input name="wager" type="hidden" value={bet.wager} />
               <input name="ticker" type="hidden" value={bet.ticker} />
+              <input name="direction" type="hidden" value={bet.direction} />
               <input name="currentUserRep" type="hidden" value={this.props.currentUserRep} />
               <input type="submit" value="Collect"/>
             </form>
