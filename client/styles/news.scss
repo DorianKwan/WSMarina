@@ -3,9 +3,9 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 .news {
   column-count: 2;
   column-gap: 50px;
-  width: 700px;
   overflow: hidden;
   padding: 20px;
+  width: 700px;
 
   .each-article {
     padding: 10px;
@@ -18,16 +18,16 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     }
 
     .article-content {
-      box-sizing: border-box;
-      position: absolute;
-      box-shadow: 0 19px 38px rgba(black, 0.3), 0 15px 12px rgba(black, 0.2);
       background-color: rgba(0,0,0,0.8);
+      box-sizing: border-box;
+      box-shadow: 0 19px 38px rgba(black, 0.3), 0 15px 12px rgba(black, 0.2);
       height: 90px;
-      width: 300px;
       overflow: hidden;
       padding: 10px;
+      position: absolute;
       transform: translateY(calc(140px));
       transition: transform 0.3s;
+      width: 300px;
 
       a.article-title {
         color: white;
@@ -40,8 +40,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
       }
 
       .article-description {
-        padding-top: 23px;
         color: white;
+        padding-top: 23px;
       }
     }
   
