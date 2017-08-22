@@ -1,0 +1,67 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin:0; padding:0; border:0; outline:0; font-size:100%; vertical-align:baseline; background:transparent;} body {line-height: 1;}ol, ul{list-style:none;} blockquote, q{quotes:none;} blockquote:before, blockquote:after, q:before, q:after{content:'';content:none;} :focus{outline:0;} ins{text-decoration:none;} del{text-decoration:line-through;} table{border-collapse:collapse; border-spacing:0;}
+
+.coverPhoto {
+	background: #ccc;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	height: 60px;
+	padding: 10px;
+}
+
+.sideProfile {
+  background: #495057;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	color: white;
+	height: 150px;
+	padding: 10px;
+	
+	#currentUserImage {
+		border: 2px solid white;
+		border-radius: 10px;
+		height: 70px;
+		position: absolute;
+		top: 40px;
+		width: 70px;
+	}
+
+	#currentUserTitle {
+		color: #495057;
+		font-size: 15px;
+		left: 95px;
+		position: absolute;
+		top: 62px;
+	}
+
+	#currentUsername {
+		font-size: 30px;
+		left: 95px;
+		position: absolute;
+		top: 85px;
+	}
+
+	#email {
+		font-size: 12px;
+		position: absolute;
+		top: 130px;
+	}
+
+	#currentUserReps {
+		font-size: 12px;
+		position: absolute;
+		top: 152px;
+	}
+
+	#currentUserFlairs {
+		font-size: 12px;
+		padding-top: 5px;
+		position: absolute;
+		top: 165px;
+	}
+	
+	#bio {
+		font-size: 12px;
+		position: absolute;
+		top: 200px;
+	}
+}
