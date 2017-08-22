@@ -14,7 +14,7 @@ class ChatList extends React.Component {
   componentDidMount() {
     this.getChatList();
   }
-
+  
   getChatList() {
     //For Localhost use the below url
     const url = "/ChatList";
@@ -35,7 +35,6 @@ class ChatList extends React.Component {
 
   hideChat(event) {
     //For Localhost use the below url
-    console.log("In hideChat function")
     const chatroomId = event.target.elements[0].value;
     const url = "/ChatList";
     const body = JSON.stringify({ chatroomId: chatroomId, currentUserId: this.props.currentUserId });
@@ -100,7 +99,6 @@ class ChatList extends React.Component {
   render() {
     let position = 0;
     const ChatList = this.state.ChatList.map((chatList) => {
-      console.log(chatList.isActive)
       if (chatList.isActive) {
         position++;
         if (chatList.user_id === this.props.currentUserId) {
