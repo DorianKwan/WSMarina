@@ -2,20 +2,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 .tickers {
   color: black; 
-  top: 500px;
+  margin: 10px;
 
-  marquee {
-    margin-top: 10px;
-
-    :hover {
-      color: lightseagreen;
-      font-size: 30px;
-    }
-  }
-
-  button {
-    color: white;
-    background-color: black;
-    width: 100px;
+  :hover {
+    color: lightseagreen;
+    font-size: 30px;
   }
 }

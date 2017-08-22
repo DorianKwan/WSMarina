@@ -2,30 +2,29 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 .leaders {
   background-color: #343a40;
-  position: absolute;
   height: 100%;
-  width: 250px;
   left: 0;
+  position: absolute;
   top: 55px;
+  width: 250px;
 
   .leaderTitle {
     color: white;
-    background-color: #495057;
-    font-size: 15px;
-    margin-bottom: 10px;
-    padding: 20px;
+    font-size: 20px;
+    margin-top: 50px;
+    padding-left: 10px;
   }
 
   li {
 	color: lightseagreen;
 	padding-top: 10px;
 		
-	:hover {
-	  color: white;
-	  padding: 5px;
-	  font-size: 20px;
-	  width: 250px;
-	  background: lightseagreen;
-	}
+    :hover {
+      background: lightseagreen;
+      color: white;
+      font-size: 20px;
+      padding: 5px;
+      width: 250px;
+    }
   }
 }
