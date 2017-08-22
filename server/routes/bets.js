@@ -8,7 +8,7 @@ function createRouter(knex) {
 
     knex("bets")
       .where({ user_id })
-      .select("ticker", "wager", "direction", "created_at", "start_price")
+      .select("ticker", "wager", "direction", "created_at", "start_price", "collected_at", "payout")
       .then((bets) => {
         res.send(bets);
       })
