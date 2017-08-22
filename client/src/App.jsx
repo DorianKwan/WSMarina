@@ -150,8 +150,8 @@ class App extends React.Component {
           <News newsItems={this.state.newsItems} />
           <ChatRooms chatRooms={this.state.chatRooms} currentUserId={this.state.currentUserId} currentUsername={this.state.currentUsername} currentUserFlairs={flairs} />
           <ChatList currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId}/>
-          <SiteFooter />
         </div>
+        <SiteFooter />
       </div>
     );
   }
