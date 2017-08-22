@@ -24,6 +24,7 @@ const leadersRouter = require('./routes/leaders');
 const farmsRouter = require('./routes/farms');
 const farmResetRouter = require('./routes/farmReset');
 const betsRouter = require('./routes/bets');
+const payoutRouter = require('./routes/betPayout');
 
 app.set('view engine', 'ejs');
 
@@ -68,6 +69,7 @@ app.use('/leaders', leadersRouter(knex));
 app.use('/farms', farmsRouter(knex));
 app.use('/reset', farmResetRouter(knex));
 app.use('/bets', betsRouter(knex));
+app.use('/payout', payoutRouter(knex));
 
 function broadcast(data) {
   if (data.type === "userCount") {
