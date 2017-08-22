@@ -21,7 +21,7 @@ class ProfilePage extends React.Component {
   getUserInfo() {
     fetch("/profile", {
       method: "GET",
-      credentials: 'include'
+      credentials: "include"
     })
       .then((response) => {
         return response.json();
@@ -63,24 +63,25 @@ class ProfilePage extends React.Component {
 
   render() {
     return (
-      <div className="user-profile">
-        <h1>Profile</h1>
-        <img className="user-avatar" src={this.state.image} />
-        <div className="username">{this.state.username}</div>
-        <div className="bio">{this.state.bio}</div>
-        <div className="personal-data">
-          <span className="profile-details">Profile Details</span>
-        </div>
-        <div className="details-table">
+        <div className="profilePage">
+          <h1>Profile</h1>
+          <img className="user-avatar" src={this.state.image} />
           <tr>
-            <td>Email</td>
+            <td>Username:</td> 
+            <td>{this.state.username}</td>
+          </tr>
+          <tr>
+            <td>Bio:</td>
+            <td>{this.state.bio}</td>
+          </tr>
+          <tr>
+            <td>Email:</td>
             <td>{this.state.email}</td>
           </tr>
           <tr>
-            <td>Reputation</td>
+            <td>Reputation:</td>
             <td>{this.state.rep}</td>
           </tr>
-        </div>
         {/* edit profile should only be visible when user_id matches visiting user */}
         {/* no defaults set for img and both forms are forced to be entered */}
         <div className="edit-profile">
