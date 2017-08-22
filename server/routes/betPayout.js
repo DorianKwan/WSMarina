@@ -9,9 +9,9 @@ function createRouter(knex) {
     const user_id = req.session.user_id;
     let payout;
     if (direction === "Bull") {
-      payout = percentChange > 0 ? Number(wager) * 2 : Number(wager) * -1;
+      payout = percentChange > 0 ? Number(wager) * 2 : 0;
     } else {
-      payout = percentChange < 0 ? Number(wager) * 2 : Number(wager) * -1;
+      payout = percentChange < 0 ? Number(wager) * 2 : 0;
     }
 
     const rep = Number(currentUserRep) + payout;
