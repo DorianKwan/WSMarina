@@ -7,6 +7,11 @@ class Leaders extends React.Component {
       leaders: []
     }
   }
+
+  uuid() {
+    return Math.random().toString(36).substr(2, 6);
+  }
+
   getLeaders() {
     //For Localhost use the below url
     const url = "/leaders";
@@ -43,7 +48,7 @@ class Leaders extends React.Component {
     
     const flairs = this.props.currentUserFlairs.map((flair) => { 
       return (
-        <img src={flair.image} height="20" width="20" />
+        <img key={this.uuid()} src={flair.image} height="20" width="20" />
       );
     }); 
     
