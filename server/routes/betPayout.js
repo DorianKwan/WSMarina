@@ -16,6 +16,10 @@ function createRouter(knex) {
 
     const rep = Number(currentUserRep) + payout;
 
+    if (payout > 0) {
+      payout = wager;
+    }
+
     // Find bet and update the columns
     knex("bets")
       .where({
