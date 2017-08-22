@@ -72,7 +72,7 @@ app.use('/farms', farmsRouter(knex));
 app.use('/reset', farmResetRouter(knex));
 
 
-function getChatrooms(data, cb){
+function getChatrooms(data, createNameSpace){
   let listOfOnlineChatrooms = [];
   data.forEach((room) => {
     listOfOnlineChatrooms.push(room.chatroom_id);
@@ -85,7 +85,7 @@ function getChatrooms(data, cb){
   console.log("list of chatrooms", listOfOnlineChatrooms);
 
   listOfOnlineChatrooms.forEach((chatroomId) => {
-    cb(chatroomId);
+    createNameSpace(chatroomId);
   })
 }
 

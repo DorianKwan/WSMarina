@@ -116,7 +116,7 @@ class App extends React.Component {
           { name: slots.slot_05.name }
         ]
       });
-    }).catch((error) => { 
+    }).catch((error) => {
       console.log("error: ", error); 
     });
   }

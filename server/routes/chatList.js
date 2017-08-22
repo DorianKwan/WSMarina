@@ -12,18 +12,41 @@ function createRouter(knex) {
   });
 
   router.post("/", (req, res) => {
-    return knex("chatrooms")
-      .insert({
-        name: req.body.chatname,
-        user_id: req.body.currentUserId
-      }).then(() => {
-        return knex("chatrooms")
-          .select("*")
-      }).then((newchatlist) => {
-        res.send(newchatlist)
-      })
+    knex('chatrooms')
+      .select("*")
+      .where({ name: req.body.chatname, isActive: false })
+      .limit(1)
+      .then((chatroom) => {
+        if (chatroom.length) {
+          return knex("chatrooms")
+            .update({ isActive: true, user_id: req.session.user_id })
+            .where({ name: req.body.chatname})
+            .then(() => {
+              res.redirect("/")
+            })
+        } else {
+          return knex("chatrooms")
+            .insert({
+              name: req.body.chatname,
+              user_id: req.body.currentUserId
+            }).then(() => {
+              return knex("chatrooms")
+                .select("*")
+            }).then((newchatlist) => {
+              res.send(newchatlist)
+            })
+        }
+      });
   });
 
+  router.put("/", (req, res) => {
+    return knex("chatrooms")
+    .update({isActive: false})
+      .where({ id: req.body.chatroomId, user_id: req.body.currentUserId})
+    .then(() => {
+      res.redirect("/")
+    })
+  });
 
   return router;
 }
