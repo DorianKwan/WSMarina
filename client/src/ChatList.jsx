@@ -138,7 +138,7 @@ class ChatList extends React.Component {
     });
 
     return (
-      <div className="ChatList">
+      <div className="chatList">
         <p>ChatList</p>
         <form onSubmit={this.onSubmit}>
           <input type="text" placeholder="Name your Chat topic!" />

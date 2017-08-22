@@ -84,7 +84,7 @@ class ChatRooms extends Component {
   // Render page and pass in data from props
   render() {
     return (
-      <div>
+      <div className="chatRoom">
         <ChatNav clientCount={this.state.clientCount} chatname={this.state.chatname} />
         <MessageList messages={this.state.messages} type={this.state.type} currentUser={this.props.currentUsername} />
         <ChatBar currentUser={this.props.currentUsername}  onNewPost={this.onNewPost} />

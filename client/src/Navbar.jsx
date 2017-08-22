@@ -1,14 +1,19 @@
 import React from 'react';
+import ProfileModal from './ProfileModal.jsx';
+import FarmModal from './FarmModal.jsx';
+import StoreModal from './StoreModal.jsx';
 
 class Navbar extends React.Component {
   render() { 
-
     return (
       <div className="navbar">
-        <section className="logo">W.S. MARINA</section>
-        <span id="store">STORE</span>
-        <span id="farm">FARM</span>
-        <span id="bets">BETS</span>
+        <span id="logo">W.S. MARINA</span>
+        <form action="/logout" method="POST">
+            <input className="logout" type='submit' value='LOGOUT' />
+        </form>
+        <ProfileModal />
+        <FarmModal defaultValue={this.props.defaultValue} setFarm={this.props.setFarm} />
+        <StoreModal currentUsername={this.props.currentUsername} currentUserId={this.props.currentUserId} currentUserRep={this.props.currentUserRep} />
       </div>
     );
   }
