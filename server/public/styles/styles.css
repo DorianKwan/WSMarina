@@ -25,7 +25,7 @@ body {
 .switch-to-signin {
   font-size: 14px;
   position: absolute;
-  right: 85px;
+  right: 100px;
   top: 35px;
   width: 90px;
 }
@@ -33,7 +33,7 @@ body {
 .switch-to-signup {
   font-size: 14px;
   position: absolute;
-  right: 32px;
+  right: 49px;
   top: 35px;
   width: 60px;
 }
@@ -79,17 +79,14 @@ body {
   display: none;
 }
 
-.errors-infos {
-  color: red;
-}
-
 form {
   margin: 0;
 }
 
 .gold-button {
-  color: rgb(233,182,50);
   background-color: rgba(200,200,200,.1);
+  color: rgb(233,182,50);
+  font-size: 16px;
 }
 
 h1 {
@@ -105,6 +102,7 @@ input {
   background-color: rgba(0, 0, 0, 0);
   border-bottom: 1px solid rgb(200,200,200);
   color: white;
+  font-size: 16px;
   padding: 3px;
   width: 95%;
 }
@@ -155,4 +153,10 @@ table {
 .title {
   color: white;
   z-index: 1000;
+}
+
+div.errors-infos {
+   color: red;
+   font-size: 12px;
+   padding-top: 10px;
 }
