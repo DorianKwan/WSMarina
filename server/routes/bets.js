@@ -44,7 +44,7 @@ function createRouter(knex) {
 
   router.post("/", (req, res) => {
 
-    const { ticker, wager, direction } = req.body;
+    const { ticker, wager, direction, currentUserRep } = req.body;
     const user_id = req.session.user_id;
 
     // Check if user entered ticker, wager, direction
@@ -82,7 +82,13 @@ function createRouter(knex) {
 
       })
       .then(() => {
-        res.redirect("/");
+        const rep = Number(currentUserRep) - Number(wager);
+        return knex("users")
+          .where({ id: user_id })
+          .update({ rep })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
         req.flash('errors', err.message);
