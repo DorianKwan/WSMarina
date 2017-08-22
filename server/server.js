@@ -117,9 +117,9 @@ function createNameSpace(chatroomId) {
     // Set up a callback for when a client closes the socket. This usually means they closed their broioer.
       socket.on('disconnecting', () => {
         console.log('Client disconnected');
-        const noOfClients = io.engine.clientsCount
+        const nspSockets = group.sockets;
+        const noOfClients = Object.keys(nspSockets).length;
         console.log("no of clients", noOfClients)
-        const clients = io.sockets.clients()
         group.emit('data', JSON.stringify({ type: "clientCount", number: noOfClients }))
       });
     });
