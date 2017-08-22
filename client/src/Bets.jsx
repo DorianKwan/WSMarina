@@ -70,8 +70,18 @@ class Bets extends Component {
     })
   }
 
+  timestampCheck(bet, percentChange) {
+    const today = Date.now();
+    const created_at = Date.parse(bet.created_at);
+    if ((created_at + 86400000) < today) {
+      this.payoutBet(bet, percentChange);
+      return;
+    }
+    return;
+  }
+
   getTickerPrice(list) {
-    const alphaVantageKey = 'your api key here';
+    const alphaVantageKey = 'Your api key here';
 
     Promise.all(
       list.bets.map((bet) => {
@@ -83,18 +93,23 @@ class Bets extends Component {
       })
     ).then(all => {
       const bets = all.map((data, index) => {
+
         const realTimeStockPrices = data['Time Series (Daily)'];
 
         for (let time in realTimeStockPrices) {
 
-          const ticker = list.bets[index].ticker;
-          const wager = list.bets[index].wager;
+          const { ticker, wager, created_at } = list.bets[index];
           const direction = list.bets[index].direction ? "Bull" : "Bear";
           const currentPrice = round(realTimeStockPrices[time]['4. close'], 2);
           const start_price = list.bets[index].start_price || currentPrice;
-          const percentChange = round(calculatePercentChange(start_price, currentPrice), 2);
-          if (!list.bets[index].created_at) {
+          const percentChange = round(calculatePercentChange(Number(start_price), Number(currentPrice)), 2);
+          const collected_at = list.bets[index].collected_at || null;
+          const payout = list.bets[index].payout || null;
+
+          if (!created_at) {
             this.initializeBet(list.bets[index], currentPrice);
+          } else {
+            this.timestampCheck(list.bets[index], percentChange);
           }
 
           return {
@@ -102,7 +117,9 @@ class Bets extends Component {
             wager,
             direction,
             start_price,
-            percentChange
+            percentChange,
+            collected_at,
+            payout
           }
         }
       })
@@ -113,6 +130,37 @@ class Bets extends Component {
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  payoutBet(bet, percentChange) {
+
+    const { ticker, wager, direction } = bet;
+    const currentUserRep = this.props.currentUserRep;
+
+    const body = JSON.stringify({
+      ticker,
+      wager,
+      direction: direction ? "Bull" : "Bear",
+      percentChange,
+      currentUserRep
+    });
+
+    fetch("/payout", {
+      method: "POST",
+      credentials: 'include',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Content-Length": new Buffer(body).length
+      },
+      body,
+    })
+    .then((response) => {
+      return response.text();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   }
 
   render() {
@@ -137,7 +185,7 @@ class Bets extends Component {
       } else {
         return (
           <div key={bet.ticker}>
-            <p>{ bet.ticker } | { bet.wager } | { bet.direction } | ${ bet.start_price } | { bet.percentChange }%</p>
+            <p>{ bet.ticker } | { bet.wager } | { bet.direction } | ${ bet.start_price } | { bet.percentChange }% | { bet.payout }</p>
             <br />
           </div>
         )
