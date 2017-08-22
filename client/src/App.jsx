@@ -105,7 +105,7 @@ class App extends React.Component {
         <Store className="store" currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep} />
         <News newsItems={this.state.newsItems} />
         <Farm defaultValue={this.state.userFarm} setFarm={this.setFarm.bind(this)} />
-        <Bets />
+        <Bets currentUserRep={this.state.currentUserRep} />
         <ChatRooms chatRooms={this.state.chatRooms} />  
         <form action="/logout" method="POST">
           <input type='submit' value='Logout' />
