@@ -25,8 +25,8 @@ function createRouter(knex) {
               return knex("chatrooms")
                 .select("*")
             }).then((newchatlist) => {
-              res.send(newchatlist)
-            })
+              res.send(newchatlist);
+            });
         } else {
           return knex("chatrooms")
             .insert({
@@ -48,9 +48,9 @@ function createRouter(knex) {
       .where({ id: req.body.chatroomId, user_id: req.body.currentUserId})
     .then(() => {
       return knex("chatrooms")
-        .select("*")
+        .select("*");
     }).then((newchatlist) => {
-      res.send(newchatlist)
+      res.send(newchatlist);
     })
   });
 
