@@ -103,24 +103,24 @@ class ChatList extends React.Component {
         position++;
         if (chatList.user_id === this.props.currentUserId) {
           return (
-            <div key={chatList.name}>
-              <span>{position}. {chatList.name}</span>
+            <div className="each-chatList" key={chatList.name}>
+              <span className="chatlist-position">{position}. {chatList.name}</span>
               <span>
-                <form onSubmit={this.joinChat}>
-                  <input type="hidden" name="chatroomid" value={chatList.id}/>
-                  <button>Join Chat</button>
-                </form>
                 <form onSubmit={this.hideChat}>
                   <input type="hidden" name="chatroomid" value={chatList.id} />
-                  <button>Delete Chat</button>
+                  <button id="delete-button">❌</button>
+                </form>
+                <form onSubmit={this.joinChat}>
+                  <input type="hidden" name="chatroomid" value={chatList.id}/>
+                  <button id="join-button">Join Chat</button>
                 </form>
               </span>
             </div>
           );
         } else {
           return (
-            <div key={chatList.name}>
-              <span>{position}. {chatList.name}</span>
+            <div className="each-chatList" key={chatList.name}>
+              <span className="chatlist-position">{position}. {chatList.name}</span>
               <span>
                 <form onSubmit={this.joinChat}>
                   <input type="hidden" name="chatroomid" value={chatList.id} />
@@ -139,10 +139,12 @@ class ChatList extends React.Component {
       <div className="chatList">
         <span id="title">CHAT LIST</span>
         <form onSubmit={this.onSubmit}>
-          <input type="text" placeholder="Name your Chat topic!" />
-          <button>Create</button>
+          <input type="text" placeholder="Name your Chat topic" />
+          <button id="create-chat-button">Create</button>
         </form>
-        {ChatList}
+        <div className="all-chatLists">
+          {ChatList}
+        </div>
       </div>
     );
   }

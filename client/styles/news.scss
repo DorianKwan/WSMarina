@@ -69,9 +69,13 @@ menu li ul li input {
   width: 750px;
 
   .each-article {
+    overflow: hidden;
     padding: 10px;
+    width: 320px;
 
     .article-image {
+      width: 320px;
+      
       img {
         height: 250px;
         width: 320px;
@@ -86,7 +90,7 @@ menu li ul li input {
       overflow: hidden;
       padding: 15px;
       position: absolute;
-      transform: translateY(calc(160px));
+      transform: translateY(calc(156px));
       transition: transform 0.5s;
       width: 320px;
 

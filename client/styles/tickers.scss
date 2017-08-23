@@ -2,34 +2,40 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 .tickers {
   background: rgba(0,0,0,0.6);
+  border-bottom: none;
+  box-shadow: 0 19px 38px rgba(black, 0.3), 0 15px 12px rgba(black, 0.2);
   box-sizing: border-box;
   color: white;
-  color: rgb(233,182,50);
   margin-top: 72px;
   margin-right: 20px;
-  padding: 10px;
+  padding: 20px 30px;
   position: absolute;
   right: 10px;
-  text-align: center;
+  text-align: left;
   width: 350px;
 
   .ticker-info {
-    color: rgb(233,182,50);
+    color: white;
+    padding: 5px;
+
+    &:hover {
+      color: rgb(233,182,50);  
+    }
   }
 
   .ticker-button {
-    border: 1px solid grey;
-    border-radius: 5px;
+    background-color: lightseagreen;
+    border: none;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-    color: grey;
-    float: center;
+    color: white;
+    float: right;
     font-size: 10px;
     margin-left: 10px;
-    padding: 2px;
+    padding: 4px;
     width: 50px;
     
     &:hover {
-      border: 1px solid white;
+      background-color: #14716c;
       color: white;
       cursor: pointer;
     }

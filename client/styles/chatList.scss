@@ -3,27 +3,93 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 .chatList {
   color: white;
   background: rgba(0,0,0,0.6);
+  box-shadow: 0 19px 38px rgba(black, 0.3), 0 15px 12px rgba(black, 0.2);
   box-sizing: border-box;
+  height: 300px;
   margin-right: 20px;
-  overflow: auto;
-  padding: 10px;
+  overflow: scroll;
+  padding: 20px 30px;
   position: absolute;
   right: 10px;
-  top: 270px;
+  top: 302px;
   width: 350px;
 
-  span#title {
-    margin-bottom: 10px;
+  #title {
+    padding: 10px 0;
   }
 
   input {
+    border: none;
+    border-bottom: 1px solid white;
+    position: absolute;
+    font-size: 12px;
     height: 18px;
-    width: 230px;
-    border-color: 1px solid rgb(233,182,50);
+    margin-right: 10px;
+    margin-top: 5px;
+    width: 190px;
+    
+    &:focus {
+      border-color: 1px solid rgb(233,182,50);
+    }
   }
 
-  button {
+  button#create-chat-button {
+    background-color: lightseagreen;
+    border: none;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    color: white;
     font-size: 10px;
-    width: 80px;
+    position: absolute;
+    right: 30px;
+    top: 46px;
+    padding: 4px;
+    width: 50px;
+    
+    &:hover {
+      border: 1px solid #14716c;
+      background-color: #14716c;
+      color: white;
+      cursor: pointer;
+    }
+  }
+
+  .all-chatLists {
+    position: absolute;
+    top: 80px;
+    display: inline;
+  }
+
+  .each-chatList {
+    height: 45px;
+    width: 290px;
+
+    span.chatlist-position {
+      top: 10px;
+    }
+
+    button#join-button {
+      border: none;
+      background-color: lightseagreen;
+      color: white;
+      float: right;
+      font-size: 10px;
+      padding: 5px;
+      width: 60px;
+
+      &:hover {
+        border: 1px solid #14716c;
+        background-color: #14716c;
+        color: white;
+        cursor: pointer;
+      }
+    }
+    
+    button#delete-button {
+      border: none;
+      background: none;
+      float: right;
+      width: 25px;
+      padding: 2px;
+    }
   }
 }
