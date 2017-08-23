@@ -28,7 +28,7 @@ class App extends React.Component {
       ChatList: [],
       chatname: "",
       messages: [],
-      clientCount: 0,
+      clientCount: 1,
       socket: null
     };
     this.hideChat = this.hideChat.bind(this);
@@ -175,7 +175,9 @@ class App extends React.Component {
   }
 
   joinChat(chatroomId) {
-    this.state.socket.disconnect();
+    if (this.state.socket) {
+      this.state.socket.close();
+    }
     const url = "/joinChat"
     const body = JSON.stringify({ chatroomId: chatroomId, currentUserId: this.state.currentUserId });
     fetch(url, {

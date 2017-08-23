@@ -87,10 +87,9 @@ function createNameSpace(chatroomId) {
     const group = io.of('/group-' + chatroomId);
     group.on('connection', (socket) => {
       const nspSockets = group.sockets;
-      const noOfClients = Object.keys(nspSockets).length;
+      let noOfClients = Object.keys(nspSockets).length;
       console.log('Client connected');
-      console.log("no of clients", noOfClients);
-      const clients = io.sockets.clients();
+      console.log("no of clients on connect", noOfClients);
       group.emit('data', JSON.stringify({ type: "clientCount", number: noOfClients }));
       
       socket.on('message', (message) => {
@@ -150,10 +149,14 @@ function createNameSpace(chatroomId) {
       // Set up a callback for when a client closes the socket. This usually means they closed their broioer.
       socket.on('disconnecting', () => {
         console.log('Client disconnected');
-        const nspSockets = group.sockets;
-        const noOfClients = Object.keys(nspSockets).length;
-        console.log("no of clients", noOfClients);
-        group.emit('data', JSON.stringify({ type: "clientCount", number: noOfClients }));
+        let noOfClientsLeft = noOfClients - 1;
+        console.log("noOfClientsLeft", noOfClientsLeft)
+        console.log("noofClients",noOfClients)
+        if (noOfClientsLeft === 0) {
+          noOfClientsLeft = 1;
+        };
+        console.log("no of clients after disconnect", noOfClientsLeft);
+        group.emit('data', JSON.stringify({ type: "clientCount", number: noOfClientsLeft }));
       });
     });
   }
