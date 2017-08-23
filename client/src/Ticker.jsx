@@ -90,7 +90,7 @@ class Ticker extends Component {
       const isActive = stock.collected_at || undefined;
       if (stock.collected_at === null) {
         return (
-            <div key={ stock.name }>
+            <div className="ticker-info" key={ stock.name }>
               <form action="/farms" method="POST" >
                 <input name="index" type="hidden" value={index} />
                 <input name="ticker" type="hidden" value={stock.name} />
@@ -99,13 +99,13 @@ class Ticker extends Component {
                 <input name="open" type="hidden" value={stock.open} />
                 <input name="currentPrice" type="hidden" value={stock.price} />
                 <div>{ stock.name } | ${ stock.price } | { stock.percentChange }%</div>
-                <input type="submit" value="Collect !" />
+                <input className="ticker-button" type="submit" value="Collect !" />
               </form>
             </div>
           )
       } else {
         return (
-          <span key={ index }>
+          <span className="ticker-info" key={ index }>
             { stock.name } | ${ stock.price } | { stock.percentChange }%
           </span>
         )
@@ -115,7 +115,7 @@ class Ticker extends Component {
 
     return (
       <section className="tickers">
-        <marquee>{ stocks }</marquee>
+        { stocks }
       </section>
     );
   }

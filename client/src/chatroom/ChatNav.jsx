@@ -17,9 +17,7 @@ class ChatNav extends Component {
       )
     } else {
         return (
-          <nav className="chatNav">
-            <a href="/" className="chatNav-brand">W.S Marina </a>
-          </nav>
+          <nav className="chatNav"></nav>
         )
     };
   }

@@ -6,7 +6,6 @@ import News from './News.jsx';
 import ChatRooms from './ChatRooms.jsx';
 import SiteFooter from './SiteFooter.jsx';
 import ProfilePage from './ProfilePage.jsx';
-import Bets from './Bets.jsx';
 import ChatList from './ChatList.jsx';
 
 class App extends React.Component {
@@ -298,6 +297,7 @@ class App extends React.Component {
 
     return (
       <div className="app">
+        <video autoplay loop muted src="/videos/waves.mp4" />
         <Navbar currentUsername={this.state.currentUsername} 
         currentUserRep={this.state.currentUserRep} 
         currentUserFlairs={this.state.currentUserFlairs} 
