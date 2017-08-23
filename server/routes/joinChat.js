@@ -23,8 +23,10 @@ function createRouter(knex, getChatrooms, createNameSpace) {
           .where({ user_id: req.body.currentUserId })
           .update({ chatroom_id: req.body.chatroomId })
           .then(() => {
-            console.log("jc post user-edit redirect");
-            res.redirect("/")
+            return knex("chatroomusers")
+              .select("*")
+          }).then((newchatlist) => {
+            res.send(newchatlist)
           })
         } else {
           return knex("chatroomusers")
@@ -35,7 +37,6 @@ function createRouter(knex, getChatrooms, createNameSpace) {
             return knex("chatroomusers")
               .select("*")
           }).then((newchatlist) => {
-            console.log("jc post user-create send");
             res.send(newchatlist)
           })
         }

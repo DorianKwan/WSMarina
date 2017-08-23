@@ -12,17 +12,20 @@ class ChatList extends React.Component {
   }
   
   callHideChat(event) {
+    event.preventDefault();
     const chatroomId = event.target.elements[0].value;
     this.props.hideChat(chatroomId);
   }
 
   callHandleSubmit(event) {
+    event.preventDefault();
     const chatname = event.target.elements[0].value;
     this.props.handleSubmit(chatname);
 
   }
 
   callJoinChat(event) {
+    event.preventDefault();
     const chatroomId = event.target.elements[0].value;
     this.props.joinChat(chatroomId);
   }
