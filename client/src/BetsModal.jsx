@@ -51,8 +51,10 @@ class BetsModal extends React.Component {
           style={customStyles}
           contentLabel="Bets Modal"
         >
-          <h1>Bets</h1>
-          <button onClick={this.closeModal}>❌</button>
+          <div className='bets-modal-title'>
+            <h1>Bets</h1>
+            <button onClick={this.closeModal}>❌</button>
+          </div>
           <Bets currentUserRep={this.props.currentUserRep} />
         </Modal>
       </span>
