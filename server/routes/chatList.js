@@ -22,7 +22,10 @@ function createRouter(knex) {
             .update({ isActive: true, user_id: req.session.user_id })
             .where({ name: req.body.chatname})
             .then(() => {
-              res.redirect("/")
+              return knex("chatrooms")
+                .select("*")
+            }).then((newchatlist) => {
+              res.send(newchatlist)
             })
         } else {
           return knex("chatrooms")
@@ -44,7 +47,10 @@ function createRouter(knex) {
     .update({isActive: false})
       .where({ id: req.body.chatroomId, user_id: req.body.currentUserId})
     .then(() => {
-      res.redirect("/")
+      return knex("chatrooms")
+        .select("*")
+    }).then((newchatlist) => {
+      res.send(newchatlist)
     })
   });
 

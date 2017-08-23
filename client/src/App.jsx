@@ -24,12 +24,14 @@ class App extends React.Component {
       userFarm: [1,2,3,4,5],
       chatRooms: [],
       newsItems: [],
-      leaders: []
+      leaders: [],
+      chatList: []
     };
   }
 
   componentDidMount(){
     this.setFarm();
+    this.getChatList()
   }
   componentWillMount(){
     this.findCurrentUser();
@@ -123,6 +125,24 @@ class App extends React.Component {
     });
   }
 
+  getChatList() {
+    //For Localhost use the below url
+    const url = "/ChatList";
+
+    fetch(url, {
+      credentials: 'include',
+      headers: {
+        "Accept": "application/json"
+      }
+    }).then((response) => {
+      return response.json();
+    }).then((chatList) => {
+      this.setState({
+        chatList: chatList
+      });
+    });
+  }
+
   render() {
 
     const flairs = this.state.currentUserFlairs.map((flair) => {
@@ -149,7 +169,7 @@ class App extends React.Component {
           <News newsItems={this.state.newsItems} />
           <Bets currentUserRep={this.state.currentUserRep} />
           <ChatRooms chatRooms={this.state.chatRooms} currentUserId={this.state.currentUserId} currentUsername={this.state.currentUsername} currentUserFlairs={flairs} />
-          <ChatList currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId}/>
+          <ChatList currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} chatList={this.state.chatList}/>
         </div>
         <SiteFooter />
       </div>

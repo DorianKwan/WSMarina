@@ -11,28 +11,6 @@ class ChatList extends React.Component {
     this.hideChat = this.hideChat.bind(this);
   }
 
-  componentDidMount() {
-    this.getChatList();
-  }
-  
-  getChatList() {
-    //For Localhost use the below url
-    const url = "/ChatList";
-
-    fetch(url, {
-      credentials: 'include',
-      headers: {
-        "Accept": "application/json"
-      }
-    }).then((response) => {
-      return response.json();
-    }).then((ChatList) => {
-      this.setState({
-        ChatList: ChatList
-      });
-    });
-  }
-
   hideChat(event) {
     //For Localhost use the below url
     const chatroomId = event.target.elements[0].value;
@@ -47,7 +25,13 @@ class ChatList extends React.Component {
         "Content-Length": new Buffer(body).length
       },
       body: body
-    })
+    }).then((response) => {
+      return response.json();
+    }).then((ChatList) => {
+      this.setState({
+        ChatList: ChatList
+      });
+    });
   }
   
   handleSubmit(event) {
@@ -98,7 +82,7 @@ class ChatList extends React.Component {
 
   render() {
     let position = 0;
-    const ChatList = this.state.ChatList.map((chatList) => {
+    const ChatList = this.props.chatList.map((chatList) => {
       if (chatList.isActive) {
         position++;
         if (chatList.user_id === this.props.currentUserId) {
