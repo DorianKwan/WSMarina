@@ -55,6 +55,26 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use('/login', loginRouter(knex));
+app.use('/register', registerRouter(knex));
+app.use('/currentUser', currentUserRouter(knex));
+app.use('/logout', logoutRouter());
+app.use('/flairs', flairsRouter(knex));
+app.use('/currentUserFlairs', currentUserFlairsRouter(knex));
+app.use('/profile', profileRouter(knex));
+app.use('/leaders', leadersRouter(knex));
+app.use('/chatList', chatListRouter(knex));
+app.use('/joinChat', joinChatRouter(knex, getChatrooms, createNameSpace));
+app.use('/farms', farmsRouter(knex));
+app.use('/reset', farmResetRouter(knex));
+app.use('/bets', betsRouter(knex));
+app.use('/payout', payoutRouter(knex));
+app.use('/api/alphavantage', alphaVantageRouter());
+app.use('/api/newsapi/bloomberg', bloombergRouter());
+app.use('/api/newsapi/businessinsider', businessInsiderRouter());
+app.use('/api/newsapi/theeconomist', theEconomistRouter());
+app.use('/api/newsapi/thewallstreetjournal', theWallStreetJournalRouter());
+
 app.get('/', (req, res) => {
   if (req.session.user_id) {
     res.render('app', {
@@ -162,25 +182,6 @@ function createNameSpace(chatroomId) {
   }
 }
 
-app.use('/login', loginRouter(knex));
-app.use('/register', registerRouter(knex));
-app.use('/currentUser', currentUserRouter(knex));
-app.use('/logout', logoutRouter());
-app.use('/flairs', flairsRouter(knex));
-app.use('/currentUserFlairs', currentUserFlairsRouter(knex));
-app.use('/profile', profileRouter(knex));
-app.use('/leaders', leadersRouter(knex));
-app.use('/chatList', chatListRouter(knex));
-app.use('/joinChat', joinChatRouter(knex, getChatrooms, createNameSpace));
-app.use('/farms', farmsRouter(knex));
-app.use('/reset', farmResetRouter(knex));
-app.use('/bets', betsRouter(knex));
-app.use('/payout', payoutRouter(knex));
-app.use('/api/alphavantage', alphaVantageRouter());
-app.use('/api/newsapi/bloomberg', bloombergRouter());
-app.use('/api/newsapi/businessinsider', businessInsiderRouter());
-app.use('/api/newsapi/theeconomist', theEconomistRouter());
-app.use('/api/newsapi/thewallstreetjournal', theWallStreetJournalRouter());
 
 // USE THIS TO DRY CODE LATER
 // This function broadcasts data to all clients connected to server 

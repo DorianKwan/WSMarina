@@ -21,7 +21,6 @@ class App extends React.Component {
       currentUserImage: "",
       currentUserEmail: "",
       userFarm: [1,2,3,4,5],
-      chatroomUsers: [],
       newsItems: [],
       leaders: [],
       ChatList: [],
@@ -173,39 +172,6 @@ class App extends React.Component {
     });
   }
 
-  joinChat(chatroomId) {
-    if (this.state.socket) {
-      this.state.socket.close();
-    }
-    const url = "/joinChat"
-    const body = JSON.stringify({ chatroomId: chatroomId, currentUserId: this.state.currentUserId });
-    fetch(url, {
-      method: "POST",
-      credentials: 'include',
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Content-Length": new Buffer(body).length
-      },
-      body: body
-    }).then((response) => {
-      return response.json()
-      }).then((chatroomUsers) => {
-        console.log("info of joinchat and its users:", chatroomUsers);
-        chatroomUsers.forEach((obj) => {
-          if (obj.user_id === this.state.currentUserId) {
-            return this.setState({
-              chatname: obj.name,
-              chatroomUsers: chatroomUsers,
-              messages: []
-            })
-          }
-        })
-      const self = this;
-      this.createNameSpace(chatroomUsers, self);
-    })
-  }
-
   handleSubmit(chatname) {
     if (chatname) {
       const body = JSON.stringify({ chatname: chatname, currentUserId: this.state.currentUserId });
@@ -244,8 +210,39 @@ class App extends React.Component {
       chatroomUsers.forEach((obj) => {
         if (obj.user_id === this.state.currentUserId) {
           return this.setState({
+            chatname: obj.name
+          })
+        }
+      })
+      const self = this;
+      this.createNameSpace(chatroomUsers, self);
+    })
+  }
+
+  joinChat(chatroomId) {
+    if (this.state.socket) {
+      this.state.socket.close();
+    }
+    const url = "/joinChat"
+    const body = JSON.stringify({ chatroomId: chatroomId, currentUserId: this.state.currentUserId });
+    fetch(url, {
+      method: "POST",
+      credentials: 'include',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Content-Length": new Buffer(body).length
+      },
+      body: body
+    }).then((response) => {
+      return response.json()
+    }).then((chatroomUsers) => {
+      console.log("info of joinchat and its users:", chatroomUsers);
+      chatroomUsers.forEach((obj) => {
+        if (obj.user_id === this.state.currentUserId) {
+          return this.setState({
             chatname: obj.name,
-            chatroomUsers: chatroomUsers
+            messages: []
           })
         }
       })
@@ -314,7 +311,7 @@ class App extends React.Component {
         <div className="features">
           <Ticker tickers={this.state.userFarm} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep} />
           <News newsItems={this.state.newsItems} />
-          <ChatRooms messages={this.state.messages} clientCount={this.state.clientCount} chatname={this.state.chatname} onNewPost={this.onNewPost} socket={this.state.socket} chatroomUsers={this.state.chatroomUsers} currentUserId={this.state.currentUserId} currentUsername={this.state.currentUsername} currentUserFlairs={flairs} />
+          <ChatRooms messages={this.state.messages} clientCount={this.state.clientCount} chatname={this.state.chatname} onNewPost={this.onNewPost} socket={this.state.socket} currentUserId={this.state.currentUserId} currentUsername={this.state.currentUsername} currentUserFlairs={flairs} />
           <ChatList currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} chatList={this.state.ChatList} hideChat={this.hideChat} joinChat={this.joinChat} handleSubmit={this.handleSubmit} />
         </div>
         <SiteFooter />

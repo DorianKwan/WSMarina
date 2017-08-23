@@ -21,7 +21,7 @@ class ChatList extends React.Component {
     event.preventDefault();
     const chatname = event.target.elements[0].value;
     this.props.handleSubmit(chatname);
-
+    event.target.elements[0].value = "";
   }
 
   callJoinChat(event) {

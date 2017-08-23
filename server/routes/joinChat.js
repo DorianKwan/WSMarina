@@ -26,6 +26,7 @@ function createRouter(knex, getChatrooms, createNameSpace) {
             return knex('chatroomusers').select(['chatroomusers.*', 'chatrooms.name'])
               .join('chatrooms', { 'chatrooms.id': 'chatroomusers.chatroom_id' })
          }).then((newchatlist) => {
+           getChatrooms(newchatlist, createNameSpace);
             res.send(newchatlist)
           })
         } else {
@@ -37,6 +38,7 @@ function createRouter(knex, getChatrooms, createNameSpace) {
             return knex('chatroomusers').select(['chatroomusers.*', 'chatrooms.name'])
               .join('chatrooms', { 'chatrooms.id': 'chatroomusers.chatroom_id' })
           }).then((newchatlist) => {
+            getChatrooms(newchatlist, createNameSpace);
             res.send(newchatlist)
           })
         }
