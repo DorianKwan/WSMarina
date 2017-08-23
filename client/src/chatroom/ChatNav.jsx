@@ -7,7 +7,7 @@ class ChatNav extends Component {
       return (
         <nav className="chatNav">
           <span>TOPIC: {this.props.chatname} </span>
-          <span className="online-users">{this.props.clientCount} users online</span>
+          <span className="online-users">{this.props.clientCount} 👤 online</span>
         </nav>
       )
     } else {

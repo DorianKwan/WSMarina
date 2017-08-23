@@ -24,8 +24,9 @@ menu input {
 }
 
 menu ul li span {
-  color: white;
-  font-size: 2.0em;
+  color: rgb(233,182,50);
+  font-size: 30px;
+  margin-left: 30px;
 }
 
 menu li ul {
@@ -52,17 +53,11 @@ menu li ul li {
   width: 300px;
 }
 menu li ul li:hover {
-  background: #222;
+  background: rgb(233,182,50);
+  cursor: pointer;
 }
 menu li ul li input {
   width: 100%;
-}
-
-.news-source {
-  color: rgb(233,182,50);
-  font-size: 25px;
-  padding-left: 6%;
-  width: 750px;
 }
 
 .news {

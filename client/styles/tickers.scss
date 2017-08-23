@@ -3,13 +3,14 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 .tickers {
   background: rgba(0,0,0,0.6);
   box-sizing: border-box;
+  color: white;
   color: rgb(233,182,50);
+  margin-top: 72px;
+  margin-right: 20px;
+  padding: 10px;
   position: absolute;
   right: 10px;
-  color: white;
-  padding: 10px;
-  margin-top: 44px;
-  margin-right: 20px;
+  text-align: center;
   width: 350px;
 
   .ticker-info {
@@ -20,7 +21,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     border: 1px solid grey;
     border-radius: 5px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-    color: white;
+    color: grey;
     float: center;
     font-size: 10px;
     margin-left: 10px;
@@ -28,7 +29,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     width: 50px;
     
     &:hover {
-      color: black;
+      border: 1px solid white;
+      color: white;
       cursor: pointer;
     }
   }

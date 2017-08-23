@@ -6,7 +6,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   bottom: 0;
   box-sizing: border-box;
   color: white;
-  height: 30px;
+  height: 67px;
   padding: 10px;
   position: fixed;
   right: 30px;
@@ -18,12 +18,26 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     height: 300px;
     overflow: scroll;
   }
+
+  .chatNav {
+    border-bottom: 1px solid rgb(233,182,50);
+    color: white;
+    padding-bottom: 5px;
+  }
+
+  .chatbar:focus {
+    background-color: rgb(233,182,50);
+  }
+
+  .online-users {
+    float: right;
+  }
 }
 
 .chatRoom:hover {
   background: black;
   border: 1px solid black;
-  bottom: 50px;
+  bottom: 10px;
   box-sizing: border-box;
   color: white;
   height: 380px;
