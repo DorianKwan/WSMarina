@@ -5,6 +5,7 @@ import Farm from './Farm.jsx';
  
 const customStyles = {
   content : {
+    overflow              : 'visible',
     top                   : '50%',
     left                  : '50%',
     right                 : 'auto',
