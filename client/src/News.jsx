@@ -22,6 +22,10 @@ class News extends React.Component {
       articles: []
     }
     this.postArticles = this.postArticles.bind(this);
+    this.theWallStreetJournal = this.theWallStreetJournal.bind(this);
+    this.theEconomist = this.theEconomist.bind(this);
+    this.businessInsider = this.businessInsider.bind(this);
+    this.bloomberg = this.bloomberg.bind(this);
   }
 
   componentDidMount() {
@@ -71,6 +75,27 @@ class News extends React.Component {
       });
   }
 
+  bloomberg(event) {
+    event.preventDefault();
+    this.postArticles('/api/newsapi/bloomberg');
+  }
+
+  theWallStreetJournal(event) {
+    event.preventDefault();
+    this.postArticles('/api/newsapi/thewallstreetjournal');
+  }
+
+  theEconomist(event) {
+    event.preventDefault();
+    this.postArticles('/api/newsapi/theeconomist');
+  }
+
+  businessInsider(event) {
+    event.preventDefault();
+    this.postArticles('/api/newsapi/businessinsider');
+  }
+
+
   render() {
     const source = this.state.articles ? this.state.source : "Source";
     const articles = this.state.articles.map(article => {
@@ -92,9 +117,24 @@ class News extends React.Component {
     });
 
     return (
-      <section className="news">
-         <h1>{ source }</h1> 
-        { articles }
+      <section>
+        <span style={{ paddingBottom: "25px" }}>
+          <menu className="news-dropdown">
+            <ul>
+              <li><span>{ source }</span>
+                <ul>
+                    <li><input type="submit" onClick={this.bloomberg} value="Bloomberg News" /></li>
+                    <li><input type="submit" onClick={this.theWallStreetJournal} value="The Wall Street Journal News" /></li>
+                    <li><input type="submit" onClick={this.theEconomist} value="The Economist News" /></li>
+                    <li><input type="submit" onClick={this.businessInsider} value="Business Insider News" /></li>
+                </ul>
+              </li>
+            </ul>
+          </menu>
+        </span>
+        <section className="news">
+            { articles }
+        </section>
       </section>
     );
   }
