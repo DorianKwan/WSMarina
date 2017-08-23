@@ -5,9 +5,9 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   color: white;
   position: fixed;
   right: 0;
-  top: 160px;
-  width: 10px;
+  top: 400px;
   transition: all .75s ease;
+  width: 10px;
 
   .messages {
     height: 300px;
@@ -15,11 +15,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 .chatRoom:hover {
-  visibility: visible;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.8);
   color: white;
   position: fixed;
   right: 0;
-  top: 160px;
+  top: 400px;
   width: 400px;
 }
