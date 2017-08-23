@@ -25,8 +25,11 @@ class App extends React.Component {
       chatRooms: [],
       newsItems: [],
       leaders: [],
-      chatList: []
+      ChatList: []
     };
+    this.hideChat = this.hideChat.bind(this);
+    this.joinChat = this.joinChat.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount(){
@@ -136,13 +139,78 @@ class App extends React.Component {
       }
     }).then((response) => {
       return response.json();
-    }).then((chatList) => {
+    }).then((ChatList) => {
       this.setState({
-        chatList: chatList
+        ChatList: ChatList
       });
     });
   }
 
+  hideChat(chatroomId) {
+    //For Localhost use the below url
+    const url = "/ChatList";
+    const body = JSON.stringify({ chatroomId: chatroomId, currentUserId: this.state.currentUserId });
+    fetch(url, {
+      method: "PUT",
+      credentials: 'include',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Content-Length": new Buffer(body).length
+      },
+      body: body
+    }).then((response) => {
+      return response.json();
+    }).then((ChatList) => {
+      this.setState({
+        ChatList: ChatList
+      });
+    });
+  }
+
+  joinChat(chatroomId) {
+    const url = "/joinChat"
+    const body = JSON.stringify({ chatroomId: chatroomId, currentUserId: this.state.currentUserId });
+    fetch(url, {
+      method: "POST",
+      credentials: 'include',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Content-Length": new Buffer(body).length
+      },
+      body: body
+    }).then((response) => {
+      return response.json()
+    }).then((chatroomUsers) => {
+      console.log(chatroomUsers)
+    })
+  }
+
+  handleSubmit(chatname) {
+    if (chatname) {
+      const body = JSON.stringify({ chatname: chatname, currentUserId: this.state.currentUserId });
+      const url = "/chatList"
+      fetch(url, {
+        method: "POST",
+        credentials: 'include',
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Content-Length": new Buffer(body).length
+        },
+        body: body
+      }).then((response) => {
+        return response.json()
+      }).then((newchatlist) => {
+        console.log("new chat list:", newchatlist)
+        this.setState({
+          chatList: newchatlist
+        })
+        console.log(this.state)
+      })
+    }
+  }
   render() {
 
     const flairs = this.state.currentUserFlairs.map((flair) => {
@@ -169,7 +237,7 @@ class App extends React.Component {
           <News newsItems={this.state.newsItems} />
           <Bets currentUserRep={this.state.currentUserRep} />
           <ChatRooms chatRooms={this.state.chatRooms} currentUserId={this.state.currentUserId} currentUsername={this.state.currentUsername} currentUserFlairs={flairs} />
-          <ChatList currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} chatList={this.state.chatList}/>
+          <ChatList currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} chatList={this.state.ChatList} hideChat={this.hideChat} joinChat={this.joinChat} handleSubmit={this.handleSubmit} />
         </div>
         <SiteFooter />
       </div>

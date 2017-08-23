@@ -6,78 +6,25 @@ class ChatList extends React.Component {
     this.state = {
       ChatList: []
     }
-    this.onSubmit = this.handleSubmit.bind(this);
-    this.joinChat = this.joinChat.bind(this);
-    this.hideChat = this.hideChat.bind(this);
-  }
-
-  hideChat(event) {
-    //For Localhost use the below url
-    const chatroomId = event.target.elements[0].value;
-    const url = "/ChatList";
-    const body = JSON.stringify({ chatroomId: chatroomId, currentUserId: this.props.currentUserId });
-    fetch(url, {
-      method: "PUT",
-      credentials: 'include',
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Content-Length": new Buffer(body).length
-      },
-      body: body
-    }).then((response) => {
-      return response.json();
-    }).then((ChatList) => {
-      this.setState({
-        ChatList: ChatList
-      });
-    });
+    this.onSubmit = this.callHandleSubmit.bind(this);
+    this.joinChat = this.callJoinChat.bind(this);
+    this.hideChat = this.callHideChat.bind(this);
   }
   
-  handleSubmit(event) {
-    // event.preventDefault();
-    const chatname = event.target.elements[0].value;
-    if (chatname) {
-      const body = JSON.stringify({ chatname: chatname, currentUserId: this.props.currentUserId });
-      const url = "/chatList"
-      fetch(url, {      
-        method: "POST",
-        credentials: 'include',
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-          "Content-Length": new Buffer(body).length},
-          body: body
-        }).then((response) => {
-          return response.json()
-        }).then((newchatlist) => {
-          console.log("new chat list:", newchatlist)
-          this.setState({
-            chatList: newchatlist
-          })
-          console.log(this.state)
-        })
-    }
+  callHideChat(event) {
+    const chatroomId = event.target.elements[0].value;
+    this.props.hideChat(chatroomId);
   }
 
-  joinChat(event) {
+  callHandleSubmit(event) {
+    const chatname = event.target.elements[0].value;
+    this.props.handleSubmit(chatname);
+
+  }
+
+  callJoinChat(event) {
     const chatroomId = event.target.elements[0].value;
-    const url = "/joinChat"
-    const body = JSON.stringify({ chatroomId: chatroomId, currentUserId: this.props.currentUserId });
-    fetch(url, {
-      method: "POST",
-      credentials: 'include',
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Content-Length": new Buffer(body).length
-      },
-      body: body
-    }).then((response) => {
-      return response.json()
-    }).then((chatroomUsers) => {
-      console.log(chatroomUsers)
-    })
+    this.props.joinChat(chatroomId);
   }
 
   render() {
