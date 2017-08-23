@@ -5,6 +5,7 @@ import Bets from './Bets.jsx';
  
 const customStyles = {
   content : {
+    overflow              : 'visible',
     top                   : '50%',
     left                  : '50%',
     right                 : 'auto',
@@ -33,7 +34,6 @@ class BetsModal extends React.Component {
  
   afterOpenModal() {
     // references are now sync'd and can be accessed. 
-    this.subtitle.style.color = '#f00';
   }
  
   closeModal() {
@@ -51,9 +51,9 @@ class BetsModal extends React.Component {
           style={customStyles}
           contentLabel="Bets Modal"
         >
-          <div className='bets-modal-title'>
+          <div>
             <h1>Bets</h1>
-            <button onClick={this.closeModal}>❌</button>
+            <button className="modal-button" onClick={this.closeModal}>❌</button>
           </div>
           <Bets currentUserRep={this.props.currentUserRep} />
         </Modal>
