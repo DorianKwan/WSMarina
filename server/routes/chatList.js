@@ -34,24 +34,30 @@ function createRouter(knex) {
               user_id: req.body.currentUserId
             }).then(() => {
               return knex("chatrooms")
-                .select("*")
+                .select("*");
             }).then((newchatlist) => {
-              res.send(newchatlist)
-            })
+              res.send(newchatlist);
+            });
         }
       });
   });
 
   router.put("/", (req, res) => {
     return knex("chatrooms")
-    .update({isActive: false})
+      .update({isActive: false})
       .where({ id: req.body.chatroomId, user_id: req.body.currentUserId})
+<<<<<<< HEAD
     .then(() => {
       return knex("chatrooms")
         .select("*")
     }).then((newchatlist) => {
       res.send(newchatlist)
     })
+=======
+      .then(() => {
+        res.redirect("/");
+      });
+>>>>>>> master
   });
 
   return router;

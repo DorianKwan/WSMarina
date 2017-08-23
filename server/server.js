@@ -27,6 +27,11 @@ const farmsRouter = require('./routes/farms');
 const farmResetRouter = require('./routes/farmReset');
 const betsRouter = require('./routes/bets');
 const payoutRouter = require('./routes/betPayout');
+const alphaVantageRouter = require('./routes/alphavantage');
+const bloombergRouter = require('./routes/bloomberg');
+const businessInsiderRouter = require('./routes/businessinsider');
+const theEconomistRouter = require('./routes/theeconomist');
+const theWallStreetJournalRouter = require('./routes/thewallstreetjournal');
 
 app.set('view engine', 'ejs');
 
@@ -168,6 +173,11 @@ app.use('/farms', farmsRouter(knex));
 app.use('/reset', farmResetRouter(knex));
 app.use('/bets', betsRouter(knex));
 app.use('/payout', payoutRouter(knex));
+app.use('/api/alphavantage', alphaVantageRouter());
+app.use('/api/newsapi/bloomberg', bloombergRouter());
+app.use('/api/newsapi/businessinsider', businessInsiderRouter());
+app.use('/api/newsapi/theeconomist', theEconomistRouter());
+app.use('/api/newsapi/thewallstreetjournal', theWallStreetJournalRouter());
 
 // USE THIS TO DRY CODE LATER
 // This function broadcasts data to all clients connected to server 
