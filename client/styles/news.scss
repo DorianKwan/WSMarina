@@ -3,7 +3,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 .news-source {
   color: rgb(233,182,50);
   font-size: 25px;
-  padding-left: 50px;
+  padding-left: 70px;
+  padding-bottom: 10px;
   width: 750px;
 }
 
@@ -11,7 +12,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   column-count: 2;
   column-gap: 30px;
   overflow: hidden;
-  padding: 0 40px;
+  padding-left: 60px;
   width: 750px;
 
   .each-article {
