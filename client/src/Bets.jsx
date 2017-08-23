@@ -192,7 +192,6 @@ class Bets extends Component {
 
     return (
       <section className="bets">
-        <h1>Bets</h1>
         <div>{ bets }</div>
         <br />
         <h2>Make a Prediction!</h2>
