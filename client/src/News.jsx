@@ -117,11 +117,11 @@ class News extends React.Component {
     });
 
     return (
-      <section>
+      <div>
         <span style={{ paddingBottom: "25px" }}>
           <menu className="news-dropdown">
             <ul>
-              <li><span>{ source }</span>
+              <li><span className="news-source">{ source }</span>
                 <ul>
                     <li><input type="submit" onClick={this.bloomberg} value="Bloomberg News" /></li>
                     <li><input type="submit" onClick={this.theWallStreetJournal} value="The Wall Street Journal News" /></li>
@@ -131,11 +131,11 @@ class News extends React.Component {
               </li>
             </ul>
           </menu>
-        </span>
+        </span> 
         <section className="news">
-            { articles }
+          { articles }
         </section>
-      </section>
+      </div>
     );
   }
 }

@@ -30,7 +30,7 @@ menu ul li span {
 
 menu li ul {
     float: left;
-    left: 0;
+    left: 6%;
     opacity: 0;
     position: absolute;
     top: 15px;
@@ -58,12 +58,18 @@ menu li ul li input {
   width: 100%;
 }
 
+.news-source {
+  color: rgb(233,182,50);
+  font-size: 25px;
+  padding-left: 6%;
+  width: 750px;
+}
 
 .news {
   column-count: 2;
   column-gap: 30px;
   overflow: hidden;
-  padding: 40px;
+  padding-left: 60px;
   width: 750px;
 
   .each-article {
