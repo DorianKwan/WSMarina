@@ -20,7 +20,7 @@ function createRouter(knex) {
       }).then(() => {
         return knex("users").where("id", req.body.currentUserId).update("rep", newRep);
       }).then(() => {
-        res.redirect("/");
+        res.json({ success: true });
       });
   });
 
