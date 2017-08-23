@@ -6,16 +6,13 @@ class ChatNav extends Component {
     if (this.props.chatname) {
       return (
         <nav className="chatNav">
-          <a href="/" className="chatNav-brand">W.S Marina </a>
-          <a>Topic: {this.props.chatname} </a>
+          <span>TOPIC: {this.props.chatname} </span>
           <span className="online-users">{this.props.clientCount} users online</span>
         </nav>
       )
     } else {
         return (
-          <nav className="chatNav">
-            <a href="/" className="chatNav-brand">W.S Marina </a>
-          </nav>
+          <nav className="chatNav"></nav>
         )
     }
   }
