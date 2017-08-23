@@ -19,6 +19,12 @@ module.exports = {
           'css-loader',
           'sass-loader'
         ]
+      },
+      {
+        test: /\.mp4$/,
+        use: {
+          loader: 'file-loader'
+        }
       }
     ]
   }

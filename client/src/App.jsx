@@ -131,6 +131,7 @@ class App extends React.Component {
 
     return (
       <div className="app">
+        <video autoPlay loop muted src="/videos/waves.mp4" />
         <Navbar currentUsername={this.state.currentUsername} 
         currentUserRep={this.state.currentUserRep} 
         currentUserFlairs={this.state.currentUserFlairs} 

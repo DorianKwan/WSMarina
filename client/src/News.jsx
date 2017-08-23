@@ -92,10 +92,12 @@ class News extends React.Component {
     });
 
     return (
-      <section className="news">
-         <h1>{ source }</h1> 
-        { articles }
-      </section>
+      <div>
+        <section className="news-source">{ source }</section> 
+        <section className="news">
+          { articles }
+        </section>
+      </div>
     );
   }
 }
