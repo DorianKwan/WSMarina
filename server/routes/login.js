@@ -46,10 +46,10 @@ function createRouter(knex) {
 
       // Set cookie to reflect logged in status and redirect to users page
         req.session.user_id = user.id;
-        res.redirect('/');
+        res.redirect("/");
 
       }).catch((err) => {
-        req.flash('errors', err.message);
+        req.flash("errors", err.message);
         res.redirect("/");
       });
   });
