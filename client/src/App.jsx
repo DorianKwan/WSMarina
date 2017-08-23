@@ -186,13 +186,13 @@ class App extends React.Component {
         },
         body: body
       }).then((response) => {
-        return response.json()
+        return response.json();
       }).then((newchatlist) => {
         console.log("new chat list:", newchatlist)
         this.setState({
           ChatList: newchatlist
-        })
-      })
+        });
+      });
     }
   }
 
@@ -211,12 +211,12 @@ class App extends React.Component {
         if (obj.user_id === this.state.currentUserId) {
           return this.setState({
             chatname: obj.name
-          })
+          });
         }
-      })
+      });
       const self = this;
       this.createNameSpace(chatroomUsers, self);
-    })
+    });
   }
 
   joinChat(chatroomId) {
@@ -235,7 +235,7 @@ class App extends React.Component {
       },
       body: body
     }).then((response) => {
-      return response.json()
+      return response.json();
     }).then((chatroomUsers) => {
       console.log("info of joinchat and its users:", chatroomUsers);
       chatroomUsers.forEach((obj) => {
@@ -243,12 +243,12 @@ class App extends React.Component {
           return this.setState({
             chatname: obj.name,
             messages: []
-          })
+          });
         }
-      })
+      });
       const self = this;
       this.createNameSpace(chatroomUsers, self);
-    })
+    });
   }
 
   createNameSpace(chatroomUsers, self) {
@@ -257,32 +257,32 @@ class App extends React.Component {
         var s = io.connect(`http://localhost:3000/group-${chatroom.chatroom_id}`, { 'forceNew': true });
         this.setState({
           socket: s
-        })
+        });
         s.on('data', function (event) {
           let messageRecieved = JSON.parse(event);
-          console.log("message Recieved", messageRecieved)
+          console.log("message Recieved", messageRecieved);
           switch (messageRecieved.type) {
             // If incoming data has clientCount type, clientCount in state will be updated
             case "clientCount":
               self.setState({ clientCount: messageRecieved.number });
-              break
+              break;
             // Messages in state will be updated to include messageRecieved
             case "incomingMessage":
               let allMessages = self.state.messages.concat(messageRecieved);
               self.setState({ messages: allMessages });
               break;
           }
-        })
+        });
       }
-    })
+    });
   }
 
   onNewPost(content) {
     const newMessage = { username: this.state.currentUsername, content: content, currentUserFlairs: this.state.currentUserFlairs };
     newMessage.type = "incomingMessage";
-    console.log("socket is:", this.state.socket)
-    console.log("the message sent is", newMessage)
-    const nsp = this.state.socket
+    console.log("socket is:", this.state.socket);
+    console.log("the message sent is", newMessage);
+    const nsp = this.state.socket;
     nsp.emit('message', JSON.stringify(newMessage));
   }
 
