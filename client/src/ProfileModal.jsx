@@ -6,6 +6,7 @@ import ProfilePage from './ProfilePage.jsx';
 const customStyles = {
   content : {
     overflow              : 'visible',
+    height                : '400px',
     top                   : '50%',
     left                  : '50%',
     right                 : 'auto',
