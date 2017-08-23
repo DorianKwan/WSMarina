@@ -49,7 +49,7 @@ function createRouter(knex) {
 
     // Check if user entered ticker, wager, direction
     if (!ticker || !wager) {
-      req.flash('errors', 'Input fields cannot be empty');
+      req.flash("errors", "Input fields cannot be empty");
     }
 
     // Check if a bet is already placed on selected ticker
@@ -62,7 +62,7 @@ function createRouter(knex) {
         if (bets.length) {
           if (bets[0].ticker === ticker) {
             return Promise.reject({
-              message: 'A bet for this stock has already been placed'
+              message: "A bet for this stock has already been placed"
             });
           }
         }
@@ -91,7 +91,7 @@ function createRouter(knex) {
           });
       })
       .catch((err) => {
-        req.flash('errors', err.message);
+        req.flash("errors", err.message);
         res.redirect("/");
         console.log("error", err.message);
       });

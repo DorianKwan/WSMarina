@@ -5,7 +5,7 @@ function calculatePercentChange(currentPrice, openingPrice) {
 }
 
 function round(number, decimals) {
-  return Number(Math.round(number + 'e' + decimals) + 'e-' + decimals).toFixed(2);
+  return Number(Math.round(number + "e" + decimals) + "e-" + decimals).toFixed(2);
 }
 
 class Bets extends Component {
@@ -27,7 +27,7 @@ class Bets extends Component {
 
   getBets() {
     fetch("/bets", {
-      credentials: 'include',
+      credentials: "include",
       headers: {
         "Accept": "application/json"
       }
@@ -54,7 +54,7 @@ class Bets extends Component {
 
     fetch("/bets", {
       method: "PUT",
-      credentials: 'include',
+      credentials: "include",
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
@@ -92,13 +92,13 @@ class Bets extends Component {
     ).then(all => {
       const bets = all.map((data, index) => {
 
-        const realTimeStockPrices = data['Time Series (Daily)'];
+        const realTimeStockPrices = data["Time Series (Daily)"];
 
         for (let time in realTimeStockPrices) {
 
           const { ticker, wager, created_at } = list.bets[index];
           const direction = list.bets[index].direction ? "Bull" : "Bear";
-          const currentPrice = round(realTimeStockPrices[time]['4. close'], 2);
+          const currentPrice = round(realTimeStockPrices[time]["4. close"], 2);
           const start_price = list.bets[index].start_price || currentPrice;
           const percentChange = round(calculatePercentChange(Number(start_price), Number(currentPrice)), 2);
           const collected_at = list.bets[index].collected_at || null;
@@ -145,7 +145,7 @@ class Bets extends Component {
 
     fetch("/payout", {
       method: "POST",
-      credentials: 'include',
+      credentials: "include",
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
