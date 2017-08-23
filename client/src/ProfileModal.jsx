@@ -15,8 +15,8 @@ const customStyles = {
 };
  
 class ProfileModal extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
  
     this.state = {
       modalIsOpen: false

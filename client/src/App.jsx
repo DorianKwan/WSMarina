@@ -141,6 +141,7 @@ class App extends React.Component {
         leaders={this.state.leaders}
         currentUserTitle={this.state.currentUserTitle} 
         currentUsername={this.state.currentUsername}
+        currentUserRep={this.state.currentUserRep}
         currentUserImage={this.state.currentUserImage} />
         
         <div className="features">

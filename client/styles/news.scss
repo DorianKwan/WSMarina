@@ -2,18 +2,18 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 .news {
   column-count: 2;
-  column-gap: 50px;
+  column-gap: 30px;
   overflow: hidden;
-  padding: 20px;
-  width: 700px;
+  padding: 40px;
+  width: 750px;
 
   .each-article {
     padding: 10px;
 
     .article-image {
       img {
-        height: 230px;
-        width: 300px;
+        height: 250px;
+        width: 320px;
       }
     }
 
@@ -21,15 +21,16 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
       background-color: rgba(0,0,0,0.8);
       box-sizing: border-box;
       box-shadow: 0 19px 38px rgba(black, 0.3), 0 15px 12px rgba(black, 0.2);
-      height: 90px;
+      height: 94px;
       overflow: hidden;
-      padding: 10px;
+      padding: 15px;
       position: absolute;
-      transform: translateY(calc(140px));
+      transform: translateY(calc(160px));
       transition: transform 0.3s;
-      width: 300px;
+      width: 320px;
 
       a.article-title {
+        padding-bottom: 10px;
         color: white;
         font-size: 20px;
       }
@@ -47,7 +48,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   
     .article-content:hover {
       box-sizing: border-box;
-      height: 230px;
+      height: 250px;
       padding: 10px;
       transform: translateY(0);
     }
