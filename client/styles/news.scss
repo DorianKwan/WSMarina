@@ -1,10 +1,67 @@
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin:0; padding:0; border:0; outline:0; font-size:100%; vertical-align:baseline; background:transparent;} body {line-height: 1;}ol, ul{list-style:none;} blockquote, q{quotes:none;} blockquote:before, blockquote:after, q:before, q:after{content:'';content:none;} :focus{outline:0;} ins{text-decoration:none;} del{text-decoration:line-through;} table{border-collapse:collapse; border-spacing:0;}
 
+menu ul {
+	-webkit-font-smoothing:antialiased;
+}
+menu li {
+  position: relative;
+  width: 500px;
+}
+menu input {
+  background: black;
+  border: none;
+  color: white;
+  display: block;
+  font: bold 16px/50px sans-serif;
+  opacity: 0.8;
+  text-align: center;
+  text-decoration: none;
+  -webkit-transition: all .25s ease;
+      -moz-transition: all .25s ease;
+      -ms-transition: all .25s ease;
+        -o-transition: all .25s ease;
+          transition: all .25s ease;
+}
+
+menu ul li span {
+  color: white;
+  font-size: 2.0em;
+}
+
+menu li ul {
+    float: left;
+    left: 6%;
+    opacity: 0;
+    position: absolute;
+    top: 15px;
+    visibility: hidden;
+    z-index: 1;
+    -webkit-transition: all .25s ease;
+       -moz-transition: all .25s ease;
+        -ms-transition: all .25s ease;
+         -o-transition: all .25s ease;
+            transition: all .25s ease;
+}
+menu li:hover ul {
+    opacity: 1;
+    top: 38px;
+    visibility: visible;
+}
+menu li ul li {
+  float: none;
+  width: 300px;
+}
+menu li ul li:hover {
+  background: #222;
+}
+menu li ul li input {
+  width: 100%;
+}
+
 .news-source {
   color: rgb(233,182,50);
   font-size: 25px;
-  padding-left: 70px;
-  padding-bottom: 10px;
+  padding-left: 6%;
   width: 750px;
 }
 
@@ -34,7 +91,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
       padding: 15px;
       position: absolute;
       transform: translateY(calc(160px));
-      transition: transform 0.3s;
+      transition: transform 0.5s;
       width: 320px;
 
       a.article-title {
