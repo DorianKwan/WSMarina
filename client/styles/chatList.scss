@@ -12,15 +12,18 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   top: 270px;
   width: 350px;
 
-  form {
-    
+  span#title {
+    margin-bottom: 10px;
   }
 
   input {
-
+    height: 18px;
+    width: 230px;
+    border-color: 1px solid rgb(233,182,50);
   }
 
   button {
-
+    font-size: 10px;
+    width: 80px;
   }
 }
