@@ -17,17 +17,23 @@ During development:
 1. `npm run nodemon` in one terminal
 1. `npm run dev-server` in another terminal
 
-git clone git@github.com:DorianKwan/WSMarina.git
-cd WSMarina
-npm install
-psql drop database WSMarina;
-psql create database WSMarina;
-//create .env
-//DB_NAME=wsmarina
+`git clone git@github.com:DorianKwan/WSMarina.git`
+`cd WSMarina`
+`npm install`
+
+in psql `drop database wsmarina if exists;`
+in psql `create database wsmarina;`
+
+Copy and create .env
+
+ `DB_NAME=wsmarina
   DB_USER=vagrant
   DB_PASS=password
-knex migrate:latest
-npm start
+  ALPHAVANTAGE_KEY
+  NEWSAPI_KEY`
+
+To migrate latest: `npm db:migrate` 
+To start backend server: `npm start`
 // in another terminal
-npm run start:api
-localhost:8080
+To start frontend server `npm run dev-server`
+Visit localhost:3000

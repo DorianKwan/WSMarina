@@ -1,33 +1,33 @@
-const bcrypt = require('bcrypt');
-const express = require('express');
+const bcrypt = require("bcrypt");
+const express = require("express");
 
 function createRouter(knex) {
   const router = express.Router();
 
-  router.post('/', (req, res) => {
+  router.post("/", (req, res) => {
 
     // Check if user entered username, email, and password
     if (!req.body.username || !req.body.email || !req.body.password) {
-      req.flash('errors', 'Input fields cannot be empty');
+      req.flash("errors", "Input fields cannot be empty");
     }
 
     // Check if password and password confirmation match
     if (req.body.password !== req.body.password_confirmation) {
-      req.flash('errors', 'Passwords do not match');
+      req.flash("errors", "Passwords do not match");
     }
 
     // Check if age is 21 or over
     if (new Date().getFullYear() - req.body.date_of_birth.substring(0, 4) < 21) {
-      req.flash('errors', 'You must be at least 21 years old');
+      req.flash("errors", "You must be at least 21 years old");
     }
 
     // Check if user entered date of birth
     if (!req.body.date_of_birth) {
-      req.flash('errors', 'Date of birth field cannot be empty');
+      req.flash("errors", "Date of birth field cannot be empty");
     }
 
     // Check if username is already being used
-    knex('users')
+    knex("users")
       .select(1)
       .where({ username: req.body.username })
       .limit(1)
@@ -35,18 +35,18 @@ function createRouter(knex) {
 
         if (rows.length) {
           return Promise.reject({
-            message: 'Username is already being used'
+            message: "Username is already being used"
           });
         }
 
       }).catch((err) => {
         req.session.show_register = true;
-        req.flash('errors', err.message);
+        req.flash("errors", err.message);
         res.redirect("/");
       });
 
 
-    knex('users')
+    knex("users")
       .select(1)
       .where({ email: req.body.email })
       .limit(1)
@@ -54,7 +54,7 @@ function createRouter(knex) {
 
         if (rows.length) {
           return Promise.reject({
-            message: 'Email is already being used'
+            message: "Email is already being used"
           });
         }
 
@@ -64,7 +64,7 @@ function createRouter(knex) {
       }).then((encryptedPassword) => {
 
         // Save user details into database
-        return knex('users').insert({
+        return knex("users").insert({
           username: req.body.username,
           email: req.body.email,
           password_digest: encryptedPassword,
@@ -74,8 +74,8 @@ function createRouter(knex) {
       }).then(() => {
 
         // Select newly created user
-        return knex('users')
-          .select('id')
+        return knex("users")
+          .select("id")
           .where({ email: req.body.email })
           .limit(1);
 
@@ -89,24 +89,24 @@ function createRouter(knex) {
 
       }).then((user) => {
 
-        return knex('farms').insert({
+        return knex("farms").insert({
           user_id: user
         });
 
       }).then(() => {
 
-        res.redirect('/');
+        res.redirect("/");
 
       }).catch((err) => {
 
         req.session.show_register = true;
 
         // Prevent error message that reveals sensitive information from showing
-        if (err.message.substr(0, 6) !== 'insert') {
-          req.flash('errors', err.message);
+        if (err.message.substr(0, 6) !== "insert") {
+          req.flash("errors", err.message);
         }
 
-        res.redirect('/');
+        res.redirect("/");
 
       });
   });
