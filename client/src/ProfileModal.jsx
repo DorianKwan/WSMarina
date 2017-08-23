@@ -5,6 +5,7 @@ import ProfilePage from './ProfilePage.jsx';
  
 const customStyles = {
   content : {
+    overflow              : 'visible',
     top                   : '50%',
     left                  : '50%',
     right                 : 'auto',
@@ -33,7 +34,6 @@ class ProfileModal extends React.Component {
  
   afterOpenModal() {
     // references are now sync'd and can be accessed. 
-    this.subtitle.style.color = '#f00';
   }
  
   closeModal() {
@@ -52,7 +52,7 @@ class ProfileModal extends React.Component {
           contentLabel="Profile Modal"
         >
           <h1>Profile</h1>
-          <button onClick={this.closeModal}>❌</button>
+          <button className="modal-button" onClick={this.closeModal}>❌</button>
           <ProfilePage currentUserFlairs={this.props.currentUserFlairs} />
         </Modal>
       </span>

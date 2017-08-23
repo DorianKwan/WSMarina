@@ -52,7 +52,7 @@ class FarmModal extends React.Component {
           contentLabel="Farm Modal"
         >
           <h1>Farm</h1>
-          <button onClick={this.closeModal}>❌</button>
+          <button className="modal-button" onClick={this.closeModal}>❌</button>
           <Farm defaultValue={this.props.defaultValue} setFarm={this.props.setFarm} />
         </Modal>
       </span>

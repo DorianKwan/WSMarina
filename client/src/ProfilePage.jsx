@@ -105,7 +105,6 @@ class ProfilePage extends React.Component {
 
     return (
         <div className="profilePage">
-          <h1>Profile</h1>
           <img className="user-avatar" src={this.state.image} />
           <table>
             <tbody>
