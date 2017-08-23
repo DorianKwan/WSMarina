@@ -98,8 +98,8 @@ class Ticker extends Component {
                 <input name="currentUserId" type="hidden" value={this.props.currentUserId || ""} />
                 <input name="open" type="hidden" value={stock.open} />
                 <input name="currentPrice" type="hidden" value={stock.price} />
-                <div>{ stock.name } | ${ stock.price } | { stock.percentChange }%</div>
-                <input className="ticker-button" type="submit" value="Collect !" />
+                <span>{ stock.name } | ${ stock.price } | { stock.percentChange }%</span>
+                <input className="ticker-button" type="submit" value="Collect" />
               </form>
             </div>
           )
