@@ -81,12 +81,10 @@ class Bets extends Component {
   }
 
   getTickerPrice(list) {
-    const alphaVantageKey = 'Your api key here';
-
     Promise.all(
       list.bets.map((bet) => {
         const ticker = bet.ticker;
-        return fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&outputsize=full&apikey=${alphaVantageKey}`)
+        return fetch(`/api/alphavantage?symbol=${ticker}`)
           .then((response) => {
             return response.json();
           });

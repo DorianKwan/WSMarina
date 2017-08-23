@@ -31,7 +31,7 @@ class Ticker extends Component {
     .then((response) => {
       return response.json();
     }).then((slots) => {
-      this.setState({
+      const tickers = {
         tickers: [
           { name: slots.slot_01.name, collected_at: slots.slot_01.collected_at },
           { name: slots.slot_02.name, collected_at: slots.slot_02.collected_at },
@@ -39,22 +39,23 @@ class Ticker extends Component {
           { name: slots.slot_04.name, collected_at: slots.slot_04.collected_at },
           { name: slots.slot_05.name, collected_at: slots.slot_05.collected_at },
         ]
-      });
+      };
+      return tickers;
     })
-    .then(() => {
-      this.tickerFeed();
+    .then((tickers) => {
+      this.tickerFeed(tickers);
     })
     .catch((error) => { 
       console.log("error: ", error); 
     });
   }
 
-  tickerFeed() {
-    const alphaVantageKey = 'your api key';
-    const data = this.state || this.props;
+  tickerFeed(data) {
+    const list = data || this.state;
     Promise.all(
-      data.tickers.map((item, index) => {
-        return fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${item.name}&outputsize=full&apikey=${alphaVantageKey}`)
+      list.tickers.map((item) => {
+        const ticker = item.name;
+        return fetch(`/api/alphavantage?symbol=${ticker}`)
         .then((resp) => resp.json());
       })
     ).then(all => {
@@ -64,7 +65,7 @@ class Ticker extends Component {
           const price = round(realTimeStockPrices[time]['4. close'], 2);
           const open = round(realTimeStockPrices[time]['1. open'], 2);
           const percentChange = round(calculatePercentChange(price, open), 2);
-          const collected_at = this.state.tickers[index].collected_at;
+          const collected_at = list.tickers[index].collected_at;
 
           return {
             collected_at,

@@ -22,8 +22,8 @@ function createRouter(knex) {
             .update({ isActive: true, user_id: req.session.user_id })
             .where({ name: req.body.chatname})
             .then(() => {
-              res.redirect("/")
-            })
+              res.redirect("/");
+            });
         } else {
           return knex("chatrooms")
             .insert({
@@ -31,21 +31,21 @@ function createRouter(knex) {
               user_id: req.body.currentUserId
             }).then(() => {
               return knex("chatrooms")
-                .select("*")
+                .select("*");
             }).then((newchatlist) => {
-              res.send(newchatlist)
-            })
+              res.send(newchatlist);
+            });
         }
       });
   });
 
   router.put("/", (req, res) => {
     return knex("chatrooms")
-    .update({isActive: false})
+      .update({isActive: false})
       .where({ id: req.body.chatroomId, user_id: req.body.currentUserId})
-    .then(() => {
-      res.redirect("/")
-    })
+      .then(() => {
+        res.redirect("/");
+      });
   });
 
   return router;
