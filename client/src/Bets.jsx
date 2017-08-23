@@ -73,7 +73,7 @@ class Bets extends Component {
   timestampCheck(bet, percentChange) {
     const today = Date.now();
     const created_at = Date.parse(bet.created_at);
-    if ((created_at + 86400000) < today) {
+    if ((created_at + 86400000) < today && !bet.collected_at) {
       this.payoutBet(bet, percentChange);
       return;
     }
