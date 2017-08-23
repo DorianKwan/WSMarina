@@ -55,6 +55,26 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use('/login', loginRouter(knex));
+app.use('/register', registerRouter(knex));
+app.use('/currentUser', currentUserRouter(knex));
+app.use('/logout', logoutRouter());
+app.use('/flairs', flairsRouter(knex));
+app.use('/currentUserFlairs', currentUserFlairsRouter(knex));
+app.use('/profile', profileRouter(knex));
+app.use('/leaders', leadersRouter(knex));
+app.use('/chatList', chatListRouter(knex));
+app.use('/joinChat', joinChatRouter(knex, getChatrooms, createNameSpace));
+app.use('/farms', farmsRouter(knex));
+app.use('/reset', farmResetRouter(knex));
+app.use('/bets', betsRouter(knex));
+app.use('/payout', payoutRouter(knex));
+app.use('/api/alphavantage', alphaVantageRouter());
+app.use('/api/newsapi/bloomberg', bloombergRouter());
+app.use('/api/newsapi/businessinsider', businessInsiderRouter());
+app.use('/api/newsapi/theeconomist', theEconomistRouter());
+app.use('/api/newsapi/thewallstreetjournal', theWallStreetJournalRouter());
+
 app.get('/', (req, res) => {
   if (req.session.user_id) {
     res.render('app', {
@@ -87,10 +107,9 @@ function createNameSpace(chatroomId) {
     const group = io.of('/group-' + chatroomId);
     group.on('connection', (socket) => {
       const nspSockets = group.sockets;
-      const noOfClients = Object.keys(nspSockets).length;
+      let noOfClients = Object.keys(nspSockets).length;
       console.log('Client connected');
-      console.log("no of clients", noOfClients);
-      const clients = io.sockets.clients();
+      console.log("no of clients on connect", noOfClients);
       group.emit('data', JSON.stringify({ type: "clientCount", number: noOfClients }));
       
       socket.on('message', (message) => {
@@ -114,7 +133,7 @@ function createNameSpace(chatroomId) {
             // group.emit('data', JSON.stringify(botResponse));
           } else if (messageRecieved.content.toLowerCase().includes("@jeremy")) {
             botResponse.username = "Jeremy Holman:";
-            botResponse.content = "Foosball anyone?";
+            botResponse.content = "Foosball, anyone?";
             setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
           } else if (messageRecieved.content.toLowerCase().includes("@david")){
             botResponse.username = "David VanDusen:";
@@ -150,34 +169,19 @@ function createNameSpace(chatroomId) {
       // Set up a callback for when a client closes the socket. This usually means they closed their broioer.
       socket.on('disconnecting', () => {
         console.log('Client disconnected');
-        const nspSockets = group.sockets;
-        const noOfClients = Object.keys(nspSockets).length;
-        console.log("no of clients", noOfClients);
-        group.emit('data', JSON.stringify({ type: "clientCount", number: noOfClients }));
+        let noOfClientsLeft = noOfClients - 1;
+        console.log("noOfClientsLeft", noOfClientsLeft)
+        console.log("noofClients",noOfClients)
+        if (noOfClientsLeft === 0) {
+          noOfClientsLeft = 1;
+        };
+        console.log("no of clients after disconnect", noOfClientsLeft);
+        group.emit('data', JSON.stringify({ type: "clientCount", number: noOfClientsLeft }));
       });
     });
   }
 }
 
-app.use('/login', loginRouter(knex));
-app.use('/register', registerRouter(knex));
-app.use('/currentUser', currentUserRouter(knex));
-app.use('/logout', logoutRouter());
-app.use('/flairs', flairsRouter(knex));
-app.use('/currentUserFlairs', currentUserFlairsRouter(knex));
-app.use('/profile', profileRouter(knex));
-app.use('/leaders', leadersRouter(knex));
-app.use('/chatList', chatListRouter(knex));
-app.use('/joinChat', joinChatRouter(knex, getChatrooms, createNameSpace));
-app.use('/farms', farmsRouter(knex));
-app.use('/reset', farmResetRouter(knex));
-app.use('/bets', betsRouter(knex));
-app.use('/payout', payoutRouter(knex));
-app.use('/api/alphavantage', alphaVantageRouter());
-app.use('/api/newsapi/bloomberg', bloombergRouter());
-app.use('/api/newsapi/businessinsider', businessInsiderRouter());
-app.use('/api/newsapi/theeconomist', theEconomistRouter());
-app.use('/api/newsapi/thewallstreetjournal', theWallStreetJournalRouter());
 
 // USE THIS TO DRY CODE LATER
 // This function broadcasts data to all clients connected to server 

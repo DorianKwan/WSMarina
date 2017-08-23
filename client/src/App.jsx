@@ -21,14 +21,24 @@ class App extends React.Component {
       currentUserImage: "",
       currentUserEmail: "",
       userFarm: [1,2,3,4,5],
-      chatRooms: [],
       newsItems: [],
-      leaders: []
+      leaders: [],
+      ChatList: [],
+      chatname: "",
+      messages: [],
+      clientCount: 1,
+      socket: null
     };
+    this.hideChat = this.hideChat.bind(this);
+    this.joinChat = this.joinChat.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.onNewPost = this.onNewPost.bind(this);
   }
 
   componentDidMount(){
     this.setFarm();
+    this.getChatList();
+    this.getChatroomUsers();
   }
   componentWillMount(){
     this.findCurrentUser();
@@ -122,6 +132,160 @@ class App extends React.Component {
     });
   }
 
+  getChatList() {
+    //For Localhost use the below url
+    const url = "/ChatList";
+
+    fetch(url, {
+      credentials: 'include',
+      headers: {
+        "Accept": "application/json"
+      }
+    }).then((response) => {
+      return response.json();
+    }).then((ChatList) => {
+      this.setState({
+        ChatList: ChatList
+      });
+    });
+  }
+
+  hideChat(chatroomId) {
+    //For Localhost use the below url
+    const url = "/ChatList";
+    const body = JSON.stringify({ chatroomId: chatroomId, currentUserId: this.state.currentUserId });
+    fetch(url, {
+      method: "PUT",
+      credentials: 'include',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Content-Length": new Buffer(body).length
+      },
+      body: body
+    }).then((response) => {
+      return response.json();
+    }).then((ChatList) => {
+      this.setState({
+        ChatList: ChatList
+      });
+    });
+  }
+
+  handleSubmit(chatname) {
+    if (chatname) {
+      const body = JSON.stringify({ chatname: chatname, currentUserId: this.state.currentUserId });
+      const url = "/chatList"
+      fetch(url, {
+        method: "POST",
+        credentials: 'include',
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Content-Length": new Buffer(body).length
+        },
+        body: body
+      }).then((response) => {
+        return response.json();
+      }).then((newchatlist) => {
+        console.log("new chat list:", newchatlist)
+        this.setState({
+          ChatList: newchatlist
+        });
+      });
+    }
+  }
+
+  getChatroomUsers(){
+    const url = "/joinChat";
+    fetch(url, {
+      credentials: 'include',
+      headers: {
+        "Accept": "application/json"
+      }
+    }).then((response) => {
+      return response.json();
+    }).then((chatroomUsers) => {
+      console.log("info of chatroomid and its users:", chatroomUsers);
+      chatroomUsers.forEach((obj) => {
+        if (obj.user_id === this.state.currentUserId) {
+          return this.setState({
+            chatname: obj.name
+          });
+        }
+      });
+      const self = this;
+      this.createNameSpace(chatroomUsers, self);
+    });
+  }
+
+  joinChat(chatroomId) {
+    if (this.state.socket) {
+      this.state.socket.close();
+    }
+    const url = "/joinChat"
+    const body = JSON.stringify({ chatroomId: chatroomId, currentUserId: this.state.currentUserId });
+    fetch(url, {
+      method: "POST",
+      credentials: 'include',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Content-Length": new Buffer(body).length
+      },
+      body: body
+    }).then((response) => {
+      return response.json();
+    }).then((chatroomUsers) => {
+      console.log("info of joinchat and its users:", chatroomUsers);
+      chatroomUsers.forEach((obj) => {
+        if (obj.user_id === this.state.currentUserId) {
+          return this.setState({
+            chatname: obj.name,
+            messages: []
+          });
+        }
+      });
+      const self = this;
+      this.createNameSpace(chatroomUsers, self);
+    });
+  }
+
+  createNameSpace(chatroomUsers, self) {
+    chatroomUsers.forEach((chatroom) => {
+      if (chatroom.user_id === this.state.currentUserId) {
+        var s = io.connect(`http://localhost:3000/group-${chatroom.chatroom_id}`, { 'forceNew': true });
+        this.setState({
+          socket: s
+        });
+        s.on('data', function (event) {
+          let messageRecieved = JSON.parse(event);
+          console.log("message Recieved", messageRecieved);
+          switch (messageRecieved.type) {
+            // If incoming data has clientCount type, clientCount in state will be updated
+            case "clientCount":
+              self.setState({ clientCount: messageRecieved.number });
+              break;
+            // Messages in state will be updated to include messageRecieved
+            case "incomingMessage":
+              let allMessages = self.state.messages.concat(messageRecieved);
+              self.setState({ messages: allMessages });
+              break;
+          }
+        });
+      }
+    });
+  }
+
+  onNewPost(content) {
+    const newMessage = { username: this.state.currentUsername, content: content, currentUserFlairs: this.state.currentUserFlairs };
+    newMessage.type = "incomingMessage";
+    console.log("socket is:", this.state.socket);
+    console.log("the message sent is", newMessage);
+    const nsp = this.state.socket;
+    nsp.emit('message', JSON.stringify(newMessage));
+  }
+
   render() {
 
     const flairs = this.state.currentUserFlairs.map((flair) => {
@@ -130,7 +294,7 @@ class App extends React.Component {
 
     return (
       <div className="app">
-        <video autoplay loop muted src="/videos/waves.mp4" />
+        <video autoPlay loop muted src="/videos/waves.mp4" />
         <Navbar currentUsername={this.state.currentUsername} 
         currentUserRep={this.state.currentUserRep} 
         currentUserFlairs={this.state.currentUserFlairs} 
@@ -147,8 +311,8 @@ class App extends React.Component {
         <div className="features">
           <Ticker tickers={this.state.userFarm} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep} />
           <News newsItems={this.state.newsItems} />
-          <ChatRooms chatRooms={this.state.chatRooms} currentUserId={this.state.currentUserId} currentUsername={this.state.currentUsername} currentUserFlairs={flairs} />
-          <ChatList currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId}/>
+          <ChatRooms messages={this.state.messages} clientCount={this.state.clientCount} chatname={this.state.chatname} onNewPost={this.onNewPost} socket={this.state.socket} currentUserId={this.state.currentUserId} currentUsername={this.state.currentUsername} currentUserFlairs={flairs} />
+          <ChatList currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} chatList={this.state.ChatList} hideChat={this.hideChat} joinChat={this.joinChat} handleSubmit={this.handleSubmit} />
         </div>
         <SiteFooter />
       </div>
