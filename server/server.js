@@ -113,7 +113,7 @@ function createNameSpace(chatroomId) {
             // group.emit('data', JSON.stringify(botResponse));
           } else if (messageRecieved.content.toLowerCase().includes("@jeremy")) {
             botResponse.username = "Jeremy Holman:";
-            botResponse.content = "Foosball anyone?";
+            botResponse.content = "Foosball, anyone?";
             setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
           } else if (messageRecieved.content.toLowerCase().includes("@david")){
             botResponse.username = "David VanDusen:";

@@ -297,7 +297,7 @@ class App extends React.Component {
 
     return (
       <div className="app">
-        <video autoplay loop muted src="/videos/waves.mp4" />
+        <video autoPlay loop muted src="/videos/waves.mp4" />
         <Navbar currentUsername={this.state.currentUsername} 
         currentUserRep={this.state.currentUserRep} 
         currentUserFlairs={this.state.currentUserFlairs} 
@@ -314,7 +314,6 @@ class App extends React.Component {
         <div className="features">
           <Ticker tickers={this.state.userFarm} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep} />
           <News newsItems={this.state.newsItems} />
-          <Bets currentUserRep={this.state.currentUserRep} />
           <ChatRooms messages={this.state.messages} clientCount={this.state.clientCount} chatname={this.state.chatname} onNewPost={this.onNewPost} socket={this.state.socket} chatroomUsers={this.state.chatroomUsers} currentUserId={this.state.currentUserId} currentUsername={this.state.currentUsername} currentUserFlairs={flairs} />
           <ChatList currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} chatList={this.state.ChatList} hideChat={this.hideChat} joinChat={this.joinChat} handleSubmit={this.handleSubmit} />
         </div>
