@@ -8,10 +8,6 @@ import ChatBar from './chatroom/ChatBar.jsx';
 class ChatRooms extends Component {
   constructor(props) {
     super(props);
-    // clientCount represents the number of users connected to server
-    this.state = {
-      messages: [],
-    }
   }
 
   // Render page and pass in data from props
@@ -19,7 +15,7 @@ class ChatRooms extends Component {
     return (
       <div className="chatRoom">
         <ChatNav clientCount={this.props.clientCount} chatname={this.props.chatname} />
-        <MessageList messages={this.props.messages} type={this.state.type} currentUser={this.props.currentUsername} currentUserFlairs={this.props.currentUserFlairs} />
+        <MessageList messages={this.props.messages} currentUser={this.props.currentUsername} currentUserFlairs={this.props.currentUserFlairs} />
         <ChatBar currentUser={this.props.currentUsername}  onNewPost={this.props.onNewPost} />
       </div>
     );

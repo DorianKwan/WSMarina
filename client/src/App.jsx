@@ -175,6 +175,7 @@ class App extends React.Component {
   }
 
   joinChat(chatroomId) {
+    this.state.socket.disconnect();
     const url = "/joinChat"
     const body = JSON.stringify({ chatroomId: chatroomId, currentUserId: this.state.currentUserId });
     fetch(url, {
@@ -189,9 +190,16 @@ class App extends React.Component {
     }).then((response) => {
       return response.json()
       }).then((chatroomUsers) => {
-      this.setState({
-        chatroomUsers: chatroomUsers
-      })
+        console.log("info of joinchat and its users:", chatroomUsers);
+        chatroomUsers.forEach((obj) => {
+          if (obj.user_id === this.state.currentUserId) {
+            return this.setState({
+              chatname: obj.name,
+              chatroomUsers: chatroomUsers,
+              messages: []
+            })
+          }
+        })
       const self = this;
       this.createNameSpace(chatroomUsers, self);
     })
@@ -232,16 +240,12 @@ class App extends React.Component {
       return response.json();
     }).then((chatroomUsers) => {
       console.log("info of chatroomid and its users:", chatroomUsers);
-      this.setState({
-        chatroomUsers: chatroomUsers
-      });
       chatroomUsers.forEach((obj) => {
         if (obj.user_id === this.state.currentUserId) {
           return this.setState({
             chatname: obj.name,
             chatroomUsers: chatroomUsers
           })
-          console.log("test1",obj.name)
         }
       })
       const self = this;
@@ -252,7 +256,7 @@ class App extends React.Component {
   createNameSpace(chatroomUsers, self) {
     chatroomUsers.forEach((chatroom) => {
       if (chatroom.user_id === this.state.currentUserId) {
-        var s = io.connect(`http://localhost:3000/group-${chatroom.chatroom_id}`);
+        var s = io.connect(`http://localhost:3000/group-${chatroom.chatroom_id}`, { 'forceNew': true });
         this.setState({
           socket: s
         })

@@ -23,9 +23,9 @@ function createRouter(knex, getChatrooms, createNameSpace) {
           .where({ user_id: req.body.currentUserId })
           .update({ chatroom_id: req.body.chatroomId })
           .then(() => {
-            return knex("chatroomusers")
-              .select("*")
-          }).then((newchatlist) => {
+            return knex('chatroomusers').select(['chatroomusers.*', 'chatrooms.name'])
+              .join('chatrooms', { 'chatrooms.id': 'chatroomusers.chatroom_id' })
+         }).then((newchatlist) => {
             res.send(newchatlist)
           })
         } else {
@@ -34,8 +34,8 @@ function createRouter(knex, getChatrooms, createNameSpace) {
             chatroom_id: req.body.chatroomId,
             user_id: req.body.currentUserId
           }).then(() => {
-            return knex("chatroomusers")
-              .select("*")
+            return knex('chatroomusers').select(['chatroomusers.*', 'chatrooms.name'])
+              .join('chatrooms', { 'chatrooms.id': 'chatroomusers.chatroom_id' })
           }).then((newchatlist) => {
             res.send(newchatlist)
           })
