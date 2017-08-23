@@ -25,12 +25,12 @@ class News extends React.Component {
   }
 
   componentDidMount() {
-    this.postArticles();
+    this.postArticles("api/newsapi/bloomberg");
     setInterval(this.postArticles(), 1800000);
   } 
 
-  postArticles() {
-    fetch("/api/newsapi/bloomberg")
+  postArticles(url) {
+    fetch(url)
       .then((resp) => resp.json())
       .then(news => {
         const articlesList = news.articles;
@@ -58,8 +58,12 @@ class News extends React.Component {
         return orderByTime(articles);
       })
       .then((articles) => {
+
+        const source = articles[0].source.split("-").map((word) => { return word[0].toUpperCase() + word.substr(1, word.length) }).join(" ");
+
         this.setState({
-          articles
+          articles,
+          source,
         });
       })
       .catch((error) => {
@@ -68,7 +72,7 @@ class News extends React.Component {
   }
 
   render() {
-
+    const source = this.state.articles ? this.state.source : "Source";
     const articles = this.state.articles.map(article => {
       return (
         <div className="each-article" key={ article.title }>
@@ -89,6 +93,7 @@ class News extends React.Component {
 
     return (
       <section className="news">
+         <h1>{ source }</h1> 
         { articles }
       </section>
     );
