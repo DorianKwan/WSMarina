@@ -6,7 +6,6 @@ import News from './News.jsx';
 import ChatRooms from './ChatRooms.jsx';
 import SiteFooter from './SiteFooter.jsx';
 import ProfilePage from './ProfilePage.jsx';
-import Bets from './Bets.jsx';
 import ChatList from './ChatList.jsx';
 
 class App extends React.Component {
@@ -131,7 +130,7 @@ class App extends React.Component {
 
     return (
       <div className="app">
-        <video autoPlay loop muted src="/videos/waves.mp4" />
+        <video autoplay loop muted src="/videos/waves.mp4" />
         <Navbar currentUsername={this.state.currentUsername} 
         currentUserRep={this.state.currentUserRep} 
         currentUserFlairs={this.state.currentUserFlairs} 
@@ -148,7 +147,6 @@ class App extends React.Component {
         <div className="features">
           <Ticker tickers={this.state.userFarm} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep} />
           <News newsItems={this.state.newsItems} />
-          <Bets currentUserRep={this.state.currentUserRep} />
           <ChatRooms chatRooms={this.state.chatRooms} currentUserId={this.state.currentUserId} currentUsername={this.state.currentUsername} currentUserFlairs={flairs} />
           <ChatList currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId}/>
         </div>
