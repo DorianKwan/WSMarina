@@ -55,7 +55,7 @@ function createRouter(knex) {
         res.send(slots[0]);
       })
       .catch(error => {
-        res.json({ status: 422, msg: 'Error has occured on GET request to database.' });
+        res.json({ status: 422, msg: "Error has occured on GET request to database." });
       });
   });
   return router;
