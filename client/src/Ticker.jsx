@@ -115,7 +115,6 @@ class Ticker extends Component {
 
     return (
       <section className="tickers">
-        <div class="loader">Loading...</div>
         { stocks }
       </section>
     );
