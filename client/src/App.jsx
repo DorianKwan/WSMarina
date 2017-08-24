@@ -62,11 +62,15 @@ class App extends React.Component {
     }).then((user) => {
         let title;
         if(user.rep < 1000) {
-          title = "Ant";
-        } else if(user.rep <= 5000) {
-          title = "Farmer";
-        } else if (user.rep > 5000 && user.rep <= 50000 ) {
+          title = "Beggar";
+        } else if(user.rep <= 4999) {
+          title = "Dead Broke";
+        } else if (user.rep >= 5000 && user.rep <= 10000 ) {
           title = "Citizen";
+        } else if (user.rep > 10000 && user.rep <= 25000 ) {
+          title = "Boss";
+        } else if (user.rep > 25000 && user.rep <= 50000 ) {
+          title = "Baller";
         } else if (user.rep > 50000 && user.rep <= 100000 ) {
           title = "Big Boss";
         } else {
