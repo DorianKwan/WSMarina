@@ -5,6 +5,7 @@ import Store from './Store.jsx';
  
 const customStyles = {
   content : {
+    backgroundColor       : 'black',
     overflow              : 'visible',
     top                   : '50%',
     left                  : '50%',
@@ -53,7 +54,7 @@ class FarmModal extends React.Component {
           contentLabel="Store Modal"
         >
           <h1>Store</h1>
-          <button onClick={this.closeModal}>❌</button>
+          <button className="modal-button" onClick={this.closeModal}>❌</button>
           <Store buyFlairs={this.props.buyFlairs} currentUsername={this.props.currentUsername} currentUserId={this.props.currentUserId} currentUserRep={this.props.currentUserRep} />
         </Modal>
       </span>

@@ -5,6 +5,7 @@ import ProfilePage from './ProfilePage.jsx';
  
 const customStyles = {
   content : {
+    backgroundColor       : 'black',
     overflow              : 'visible',
     height                : '400px',
     top                   : '50%',
