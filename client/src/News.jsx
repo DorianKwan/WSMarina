@@ -30,7 +30,7 @@ class News extends React.Component {
 
   componentDidMount() {
     this.postArticles("api/newsapi/bloomberg");
-    setInterval(this.postArticles(), 1800000);
+    setInterval(this.postArticles, 1800000);
   } 
 
   postArticles(url) {
