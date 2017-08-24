@@ -90,7 +90,7 @@ class Farm extends React.Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault(); // ASK MENTOR FOR HELP! REMIND KAI
+    event.preventDefault(); 
   
     const ticker_01 = event.target.elements[0].value || this.props.defaultValue[0].name;
     const ticker_02 = event.target.elements[1].value || this.props.defaultValue[1].name;
