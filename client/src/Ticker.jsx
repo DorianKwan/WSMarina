@@ -158,13 +158,16 @@ class Ticker extends Component {
     const data = this.state || this.props; // Is this necessary? For now it will only pass state if tickerFeed is broken
     const stocks = data.tickers.filter(stock => stock).map((stock, index) => {
       const isActive = stock.collected_at || undefined;
+      const button = "button" + index;
       if (!isActive) {
-        return (<div className='ticker-info'>
-          <div key={this.uuid()}>
-            { stock.name } | ${ stock.price } | { stock.percentChange }% 
-            <button className='ticker-button' onClick={() => { this.collect(index, stock), this.hideButton(index)}} style={{position: "relative", right: "0"}}>Collect</button>
+        return (
+          <div key={this.uuid()} className='ticker-info'>
+            <div>
+              { stock.name } | ${ stock.price } | { stock.percentChange }% 
+              <button className='ticker-button' onClick={() => { this.collect(index, stock), this.hideButton(index)}} style={{ display: data[button] ? "none" : "block" }}>Collect</button>
+            </div>
           </div>
-        </div>);
+        );
       } else {
         return (
           <span className="ticker-collected" key={ index }>
