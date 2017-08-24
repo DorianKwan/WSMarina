@@ -1,5 +1,6 @@
 // This is the top-level scss file. Import all other files in here.
 @import 'app';
+@import 'bets';
 @import 'chatList';
 @import 'chatRoom';
 @import 'farm';
@@ -13,5 +14,4 @@
 @import 'siteFooter';
 @import 'store';
 @import 'tickers';
-// @import 'variables';
 

@@ -11,3 +11,11 @@ button.modal-button {
   border-radius: 100%;
   transform: translate(50%, -50%);
 }
+
+.modal-name {
+  position: absolute;
+  top: 25px;
+  font-family: inherit;
+  font-size: 20px;
+  color: white;
+}

@@ -165,7 +165,7 @@ function createNameSpace(chatroomId) {
             setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
           } else if (messageRecieved.content.toLowerCase().includes("@karl")) {
             botResponse.username = "Karl Jensen:";
-            botResponse.content = `*gracefully combs hair back*`;
+            botResponse.content = `💁`;
             setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
           }
           break;
@@ -189,21 +189,6 @@ function createNameSpace(chatroomId) {
     });
   }
 }
-
-
-// USE THIS TO DRY CODE LATER
-// This function broadcasts data to all clients connected to server 
-// function broadcast(data) {
-//   io.sockets.emit('data', data);
-// }
-
-// This function checks number of users connected to server and passes noOfClients to broadcast function
-// function numberOfClients() {
-//   const noOfClients = io.engine.clientsCount
-//   console.log("no of clients", noOfClients)
-//   const clients = io.sockets.clients()
-//   broadcast(JSON.stringify({ type: "clientCount", number: noOfClients }));
-// }
 
 server.listen(process.env.PORT || 3000, () => {
   const address = server.address();

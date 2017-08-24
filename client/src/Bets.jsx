@@ -197,15 +197,13 @@ class Bets extends Component {
         <h2>Make a Prediction!</h2>
         <form action="/bets" method="POST">
           <input name="currentUserRep" type="hidden" value={this.props.currentUserRep || undefined} />
-          <label>Enter a Ticker: </label>
-          <input name="ticker" />
+          <input name="ticker" placeholder="Enter a ticker" />
           <br />
-          <label>Enter Wager Amount: </label>
-          <input name="wager" />
+          <input name="wager" placeholder="Enter wager amount" />
           <br />
           <label>Choose a direction: </label>
-          <input name="direction" type="submit" value={true} />
-          <input name="direction" type="submit" value={false} />
+          <input id="direction-true-button" name="direction" type="submit" value={true} />
+          <input id="direction-false-button" name="direction" type="submit" value={false} />
         </form>
       </section>
     );

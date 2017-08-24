@@ -135,27 +135,27 @@ class Farm extends React.Component {
           <span>Choose your farm !</span>
           <form onSubmit={this.onSubmit}>
             <label>Current Value: { this.props.defaultValue[0].name }</label>
-            <input id="slot_01" type="text" ref="slot_01" />
+            <input id="slot_01" type="text" ref="slot_01" placeholder="Add a new ticker" />
             <br />
             <label>Current Value: { this.props.defaultValue[1].name }</label>
-            <input id="slot_02" type="text" ref="slot_02" />
+            <input id="slot_02" type="text" ref="slot_02" placeholder="Add a new ticker" />
             <br />
             <label>Current Value: { this.props.defaultValue[2].name }</label>
-            <input id="slot_03" type="text" ref="slot_03" />
+            <input id="slot_03" type="text" ref="slot_03" placeholder="Add a new ticker" />
             <br />
             <label>Current Value: { this.props.defaultValue[3].name }</label>
-            <input id="slot_04" type="text" ref="slot_04" />
+            <input id="slot_04" type="text" ref="slot_04" placeholder="Add a new ticker" />
             <br />
             <label>Current value: { this.props.defaultValue[4].name }</label>
-            <input id="slot_05" type="text" ref="slot_05" />
+            <input id="slot_05" type="text" ref="slot_05" placeholder="Add a new ticker" />
             <br />
-            <input type="submit" />
+            <input id="submit-farm-button" type="submit" />
           </form>
         </div>
         <br />
         <div>
           <form onSubmit={this.resetFarm}>
-            <input type="submit" value="Reset Farm" />
+            <input id="reset-farm-button" type="submit" value="Reset Farm" />
           </form>
         </div>
       </section>
