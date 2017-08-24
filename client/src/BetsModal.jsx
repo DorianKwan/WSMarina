@@ -43,7 +43,7 @@ class BetsModal extends React.Component {
   render() {
     return (
       <span>
-        <button onClick={this.openModal}>BETS &ensp; &ensp; /</button>
+        <button className="navbar-button" onClick={this.openModal}>BETS &ensp; &ensp; <span style={{color: "white"}} >/</span></button>
         <Modal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}

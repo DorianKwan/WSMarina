@@ -43,7 +43,7 @@ class FarmModal extends React.Component {
   render() {
     return (
       <span>
-        <button onClick={this.openModal}>STORE &ensp; &ensp; /</button>
+        <button className="navbar-button" onClick={this.openModal}>STORE &ensp; &ensp; <span style={{color: "white"}} >/</span></button>
         <Modal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}

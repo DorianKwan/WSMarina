@@ -44,7 +44,7 @@ class ProfileModal extends React.Component {
   render() {
     return (
       <span>
-        <button onClick={this.openModal}>PROFILE &ensp; &ensp; /</button>
+        <button className="navbar-button" onClick={this.openModal}>PROFILE &ensp; &ensp; <span style={{color: "white"}} >/</span></button>
         <Modal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
