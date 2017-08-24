@@ -326,7 +326,8 @@ class App extends React.Component {
         defaultValue={this.state.userFarm} 
         setFarm={this.setFarm.bind(this)} 
         buyFlairs={this.buyFlairs}
-        currentUserId={this.state.currentUserId} />
+        currentUserId={this.state.currentUserId} 
+        findUser={this.findCurrentUser.bind(this)} />
         <Leaders 
         leaders={this.state.leaders}
         currentUserTitle={this.state.currentUserTitle} 
