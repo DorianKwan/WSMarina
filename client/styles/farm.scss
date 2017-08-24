@@ -1,9 +1,68 @@
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin:0; padding:0; border:0; outline:0; font-size:100%; vertical-align:baseline; background:transparent;} body {line-height: 1;}ol, ul{list-style:none;} blockquote, q{quotes:none;} blockquote:before, blockquote:after, q:before, q:after{content:'';content:none;} :focus{outline:0;} ins{text-decoration:none;} del{text-decoration:line-through;} table{border-collapse:collapse; border-spacing:0;}
 
 .farm {
-  
+
+  form {
+    margin-top: 35px;
+    color: white;
+    width: 220px;
+  }
+
   input {
-    background-color: lightgrey;
+    border: none;
+    border-bottom: 1px solid white;
+    font-size: 12px;
+    padding: 5px;
+    width: 200px;
+    text-align: center;
+    margin-bottom: 20px;
+
+    &:focus {
+      color: rgb(233,182,50);
+      border-bottom: 1px solid rgb(163,129,40);
+    }
+  }
+
+  label {
+    display: block;
+    font-size: 15px;
+    margin: 5px;
+    text-align: center;
+  }
+
+  #reset-farm-button {
+    border: none;
+    color: darkred;
+    font-size: 14px;
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-left: 55px;
+    padding: 5px;
+    width: 95px;
+
+    &:hover {
+      color: red;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+    }
+  }
+
+  #submit-farm-button {
+    background-color: white;
     color: black;
+    font-size: 14px;
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-left: 55px;
+    padding: 5px;
+    width: 95px;
+
+    &:hover {
+      background-color: rgb(163,129,40);
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
   }
 }

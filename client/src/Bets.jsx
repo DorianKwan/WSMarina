@@ -164,16 +164,14 @@ class Bets extends Component {
         <form onSubmit={this.makeBet}>
           {/* <div className="errors-info">{ error }</div> */}
           <input name="currentUserRep" type="hidden" value={this.props.currentUserRep || undefined} />
-          <label>Enter a Ticker: </label>
-          <input name="ticker" />
+          <input name="ticker" placeholder="Enter a ticker" />
           <br />
-          <label>Enter Wager Amount: </label>
-          <input name="wager" />
+          <input name="wager" placeholder="Enter wager amount" />
           <br />
           <label>Choose a direction: </label>
           <input name="direction" type="hidden" value={this.state.direction} />
-          <input name="direction" type="submit" onClick={this.setTrue} value="Bull" style={{color: "rgb(233,182,50)"}}/>
-          <input name="direction" type="submit" onClick={this.setFalse} value="Bear" style={{color: "rgb(15, 60, 77)"}} />
+          <input id="direction-bull-button" name="direction" type="submit" onClick={this.setTrue} value="Bull" />
+          <input id="direction-bear-button" name="direction" type="submit" onClick={this.setFalse} value="Bear" />
         </form>
       </section>
     );

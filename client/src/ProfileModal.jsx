@@ -5,8 +5,10 @@ import ProfilePage from './ProfilePage.jsx';
  
 const customStyles = {
   content : {
+    padding               : '50px',
+    backgroundColor       : 'black',
     overflow              : 'visible',
-    height                : '400px',
+    height                : '470px',
     top                   : '50%',
     left                  : '50%',
     right                 : 'auto',
@@ -53,7 +55,7 @@ class ProfileModal extends React.Component {
           style={customStyles}
           contentLabel="Profile Modal"
         >
-          <h1>Profile</h1>
+          <h1 className="modal-name">P R O F I L E</h1>
           <button className="modal-button" onClick={this.closeModal}>❌</button>
           <ProfilePage 
             deleteFlair={this.props.deleteFlair}
