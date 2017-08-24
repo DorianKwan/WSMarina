@@ -6,6 +6,7 @@ class Store extends React.Component {
     this.state = {
       flairs: []
     }
+    this.callBuyFlairs = this.callBuyFlairs.bind(this);
   }
 
    componentDidMount() {
@@ -36,6 +37,17 @@ class Store extends React.Component {
       });
   }
     
+
+  callBuyFlairs(event) {
+    event.preventDefault();
+    const currentUserId = event.target.elements[0].value;
+    const currentUserRep = event.target.elements[1].value;
+    const flairId = event.target.elements[2].value;
+    const flairCost = event.target.elements[3].value;
+    const body = JSON.stringify({ currentUserId, currentUserRep, flairId, flairCost });
+    this.props.buyFlairs(body);
+  }
+
   render() {
     const flairs = this.state.flairs.map((flair) => { 
       if (this.props.currentUserRep >= flair.cost) { 
@@ -44,7 +56,7 @@ class Store extends React.Component {
             <p className="product-name">{flair.name}</p>
             <img key={this.uuid()} src= {flair.image} height="100" width="100" />
             <p className="product-cost">cost: {flair.cost} reps</p>
-              <form action="/flairs" method="POST">
+            <form onSubmit={this.callBuyFlairs}>
                 <input type='hidden' name='currentUserId' value={this.props.currentUserId} />
                 <input type='hidden' name='currentUserRep' value={this.props.currentUserRep} />
                 <input type='hidden' name='flairId' value={flair.id} />

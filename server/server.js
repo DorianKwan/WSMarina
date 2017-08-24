@@ -130,7 +130,7 @@ function createNameSpace(chatroomId) {
             botResponse.username = "Jeremy Holman:";
             botResponse.content = "Cause you need another yacht";
             setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
-            // group.emit('data', JSON.stringify(botResponse));
+            // group.emit for bot responses;
           } else if (messageRecieved.content.toLowerCase().includes("@jeremy")) {
             botResponse.username = "Jeremy Holman:";
             botResponse.content = "Foosball, anyone?";
@@ -141,7 +141,7 @@ function createNameSpace(chatroomId) {
             setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
           } else if (messageRecieved.content.toLowerCase().includes("@rosy")){
             botResponse.username = "Rosy Lee:";
-            botResponse.content = "Plank Club unite!";
+            botResponse.content = "Plank Club Unite!";
             setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
           } else if (messageRecieved.content.toLowerCase().includes("@joel")){
             botResponse.username = "Joel Shinness:";
@@ -149,7 +149,7 @@ function createNameSpace(chatroomId) {
             setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
           } else if (messageRecieved.content.toLowerCase().includes("@don")){
             botResponse.username = "Don Burks:";
-            botResponse.content = "Alright class is over, now go away.";
+            botResponse.content = "Welcome to Lighthouse Labs. You are not ready to code yet.";
             setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
           } else if (messageRecieved.content.toLowerCase().includes("@wesley")){
             botResponse.username = "Wesley Wong:";
@@ -158,6 +158,14 @@ function createNameSpace(chatroomId) {
           } else if (messageRecieved.content.toLowerCase().includes("@rohit")){
             botResponse.username = "Rohit Dhand:";
             botResponse.content = `Hi ${messageRecieved.username}, How are you?`;
+            setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
+          } else if (messageRecieved.content.toLowerCase().includes("@khurram")) {
+            botResponse.username = "Khurram Virani:";
+            botResponse.content = `... *Awkward pause* ...`;
+            setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
+          } else if (messageRecieved.content.toLowerCase().includes("@karl")) {
+            botResponse.username = "Karl Jensen:";
+            botResponse.content = `*gracefully combs hair back*`;
             setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
           }
           break;

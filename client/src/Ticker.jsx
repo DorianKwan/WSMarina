@@ -166,15 +166,15 @@ class Ticker extends Component {
                 <input name="currentUserId" type="hidden" value={this.props.currentUserId || ""} />
                 <input name="percentChange" type="hidden" value={stock.percentChange} />
                 <input name="created_at" type="hidden" value={stock.created_at} />
-                <div>{ stock.name } | ${ stock.price } | { stock.percentChange }%</div>
-                <input id={index} onClick={this.hideButton} className="ticker-button" style={{ display: this.state[button] ? "none" : "block" }} type="submit" value="Collect !" />
+                <span>{ stock.name } | ${ stock.price } | { stock.percentChange }%</span>
+                <span><input id={index} onClick={this.hideButton} className="ticker-button" style={{ display: this.state[button] ? "none" : "block" }} type="submit" value="Collect" /></span>
               </form>
             </div>
           )
       } else {
         return (
-          <span className="ticker-info" key={ index }>
-            { stock.name } | ${ stock.price } | { stock.percentChange }%
+          <span className="ticker-collected" key={ index }>
+            { stock.name } | ${ stock.price } | { stock.percentChange }% <br />
           </span>
         )
       }
