@@ -168,10 +168,11 @@ class App extends React.Component {
       body: body
     }).then((response) => {
       return response.json();
-    }).then((ChatList) => {
-      this.setState({
-        ChatList: ChatList
-      });
+    }).then((newchatlist) => {
+      const newMessage = { newchatlist: newchatlist };
+      newMessage.type = "newchatlist";
+      const nsp = this.state.socket;
+      nsp.emit('message', JSON.stringify(newMessage));
     });
   }
 
@@ -191,10 +192,10 @@ class App extends React.Component {
       }).then((response) => {
         return response.json();
       }).then((newchatlist) => {
-        console.log("new chat list:", newchatlist)
-        this.setState({
-          ChatList: newchatlist
-        });
+        const newMessage = { newchatlist: newchatlist };
+        newMessage.type = "newchatlist";
+        const nsp = this.state.socket;
+        nsp.emit('message', JSON.stringify(newMessage));
       });
     }
   }
@@ -273,6 +274,9 @@ class App extends React.Component {
             case "incomingMessage":
               let allMessages = self.state.messages.concat(messageRecieved);
               self.setState({ messages: allMessages });
+              break;
+            case "newchatlist":
+              self.setState({ ChatList: messageRecieved.newchatlist });
               break;
           }
         });
