@@ -48,7 +48,7 @@ class Leaders extends React.Component {
         <section className="sideProfile">
           <img id="currentUserImage" src={this.props.currentUserImage} />
           <div id="currentUserTitleRep">{this.props.currentUserTitle} ∙ {this.props.currentUserRep} reps</div> 
-          <div id="currentUsername">{this.props.currentUsername}</div>
+          <div id="currentUserName">{this.props.currentUsername}</div>
         </section>
         <section className="leaderTitle">TOP 10 LEADERS</section>
         <img id="leader-anchor" src="http://flaticons.net/icons/Transportation/Anchor-01.png" alt="anchor-icon" height="20" width="20" />
