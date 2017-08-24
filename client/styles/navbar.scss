@@ -16,6 +16,13 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 		position: absolute;
 	}
 
+	.navbar-button:hover {
+		color: rgb(233,182,50);
+	}
+	.logout:hover {
+		color: #d63500;
+	}
+
 	button, .logout {
 		border: 0;
 		border-color: black;

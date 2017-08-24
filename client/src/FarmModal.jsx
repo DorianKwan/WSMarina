@@ -34,7 +34,6 @@ class FarmModal extends React.Component {
  
   afterOpenModal() {
     // references are now sync'd and can be accessed. 
-    this.subtitle.style.color = '#f00';
   }
  
   closeModal() {
@@ -44,7 +43,7 @@ class FarmModal extends React.Component {
   render() {
     return (
       <span>
-        <button onClick={this.openModal}>FARM &ensp; &ensp; /</button>
+        <button className="navbar-button" onClick={this.openModal}>FARM &ensp; &ensp; <span style={{color: "white"}} >/</span></button>
         <Modal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
