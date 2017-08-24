@@ -24,8 +24,10 @@ menu input {
 }
 
 menu ul li span {
-  color: white;
-  font-size: 2.0em;
+  color: rgb(233,182,50);
+  font-size: 25px;
+  margin-left: 30px;
+  margin-top: 20px;
 }
 
 menu li ul {
@@ -52,30 +54,29 @@ menu li ul li {
   width: 300px;
 }
 menu li ul li:hover {
-  background: #222;
+  background: rgb(233,182,50);
+  cursor: pointer;
 }
 menu li ul li input {
   width: 100%;
-}
-
-.news-source {
-  color: rgb(233,182,50);
-  font-size: 25px;
-  padding-left: 6%;
-  width: 750px;
 }
 
 .news {
   column-count: 2;
   column-gap: 30px;
   overflow: hidden;
+  padding-bottom: 50px;
   padding-left: 60px;
   width: 750px;
 
   .each-article {
+    overflow: hidden;
     padding: 10px;
+    width: 320px;
 
     .article-image {
+      width: 320px;
+      
       img {
         height: 250px;
         width: 320px;
@@ -90,7 +91,7 @@ menu li ul li input {
       overflow: hidden;
       padding: 15px;
       position: absolute;
-      transform: translateY(calc(160px));
+      transform: translateY(calc(156px));
       transition: transform 0.5s;
       width: 320px;
 

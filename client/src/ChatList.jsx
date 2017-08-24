@@ -37,28 +37,28 @@ class ChatList extends React.Component {
         position++;
         if (chatList.user_id === this.props.currentUserId) {
           return (
-            <div key={chatList.name}>
-              <span>{position}. {chatList.name}</span>
+            <div className="each-chatList" key={chatList.name}>
+              <span className="chatlist-position">{position}. {chatList.name}</span>
               <span>
                 <form onSubmit={this.joinChat}>
                   <input type="hidden" name="chatroomid" value={chatList.id}/>
-                  <button>Join Chat</button>
+                  <button id="join-button">Join Chat</button>
                 </form>
                 <form onSubmit={this.hideChat}>
                   <input type="hidden" name="chatroomid" value={chatList.id} />
-                  <button>Delete Chat</button>
+                  <button id="delete-button">❌</button>
                 </form>
               </span>
             </div>
           );
         } else {
           return (
-            <div key={chatList.name}>
-              <span>{position}. {chatList.name}</span>
+            <div className="each-chatList" key={chatList.name}>
+              <span className="chatlist-position">{position}. {chatList.name}</span>
               <span>
                 <form onSubmit={this.joinChat}>
                   <input type="hidden" name="chatroomid" value={chatList.id} />
-                  <button>Join Chat</button>
+                  <button id="join-button">Join Chat</button>
                 </form>
               </span>
             </div>
@@ -71,10 +71,10 @@ class ChatList extends React.Component {
 
     return (
       <div className="chatList">
-        <p>ChatList</p>
-        <form onSubmit={this.onSubmit}>
-          <input type="text" placeholder="Name your Chat topic!" />
-          <button>Create</button>
+        <span id="title">CHAT LIST</span>
+        <form id="chatList-form" onSubmit={this.onSubmit}>
+          <input type="text" placeholder="Name your Chat topic" />
+          <button id="create-chat-button">Create</button>
         </form>
         {ChatList}
       </div>

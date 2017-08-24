@@ -11,7 +11,7 @@ class Message extends Component {
 
     const flairs = this.props.message.currentUserFlairs.map((flair) => {
       return(
-        <img key={this.uuid()} src={flair.image} height="30" width="30" />
+        <img id="flair" key={this.uuid()} src={flair.image} height="23" width="23" />
       )
     })
     switch (this.props.message.type) {
@@ -20,7 +20,7 @@ class Message extends Component {
         return (
           <div className="message">
             <span className="message-username">{this.props.message.username}</span>
-            <span className="message-userFlairs">{flairs} &ensp;</span>
+            <span className="message-userFlairs">{flairs} &ensp; &ensp;</span>
             <span className="message-content">{this.props.message.content}</span>
           </div>
         );

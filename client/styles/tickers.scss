@@ -2,23 +2,50 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 .tickers {
   background: rgba(0,0,0,0.6);
+  border-bottom: none;
+  box-shadow: 0 19px 38px rgba(black, 0.3), 0 15px 12px rgba(black, 0.2);
   box-sizing: border-box;
-  color: rgb(233,182,50);
-  position: absolute;
-  right: 10px;
   color: white;
-  padding: 30px;
-  margin-top: 44px;
-  margin-right: 50px;
-  width: 300px;
+  margin-top: 72px;
+  margin-right: 20px;
+  padding: 20px 30px;
+  position: fixed;
+  right: 10px;
+  text-align: left;
+  width: 350px;
+  
+  form.ticker-info {
+    color: white;
+    padding: 5px;
 
-  .ticker-info {
-    color: rgb(233,182,50);
+    &:hover {
+      color: rgb(233,182,50);  
+    }
+  }
+
+  .ticker-collected {
+    padding: 5px 0;
+  }
+
+  span {
+    display: inline-block;
+    padding: 5px 0;
+    margin-right: 5px;
   }
 
   .ticker-button {
-    background-color: white;
-    border: 1px solid white;
-    color: black;
+    background-color: #14716c;
+    border: none;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    color: white;
+    font-size: 10px;
+    padding: 4px;
+    width: 60px;
+    
+    &:hover {
+      background-color: lightseagreen;
+      color: white;
+      cursor: pointer;
+    }
   }
 }
