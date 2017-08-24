@@ -5,6 +5,8 @@ import Farm from './Farm.jsx';
  
 const customStyles = {
   content : {
+    padding               : '50px',
+    backgroundColor       : 'black',
     overflow              : 'visible',
     top                   : '50%',
     left                  : '50%',
@@ -52,7 +54,7 @@ class FarmModal extends React.Component {
           style={customStyles}
           contentLabel="Farm Modal"
         >
-          <h1>Farm</h1>
+          <h1 className="modal-name">F A R M</h1>
           <button className="modal-button" onClick={this.closeModal}>❌</button>
           <Farm defaultValue={this.props.defaultValue} setFarm={this.props.setFarm} />
         </Modal>

@@ -5,71 +5,81 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
+  overflow: scroll;
 
   .product {
     background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    flex: 1;
-    margin: 10px;
-    margin-top: 20px;
-    max-width: 180px;
-    padding: 0px;
-    padding-bottom: 40px;
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    height: 260px;
+    width: 175px;
     position: relative;
+    border: 1px solid grey;
 
 
     img {
-      display: block;
-      margin: auto;
-      max-height: 140px;
-      max-width: 100%;
+      padding: 23px;
+      height: 110px;
+      width: 130px;
     }
 
     p.product-name {
+      padding-top: 5px;
       color: black;
-      margin-bottom: 10px;
-      margin-top: 10px;
       text-align: center;
     }
 
     p.product-cost {
-      background-color: black;
-      border-top-left-radius: 20px;
-      bottom: 0;
-      color: white;
-      font-size: 0.7em;
-      margin: 0;
-      padding: 8px;
-      position: absolute;
-      right: 0;
+      color: black;
+      font-size: 12px;
+      padding: 10px;
+      text-align: center;
     }
     
-    p.soldout {
-      background-color: rgb(233,182,50);
-      border-bottom-right-radius: 20px;
-      border-top-left-radius: 4px;
-      color: white;
-      font-size: 0.5em;
-      left: 0;
-      margin: 0;
-      padding: 7px;
+    p.cant-afford {
+      background-color: white;
+      bottom: 10px;
+      box-shadow: 0 19px 38px rgba(black, 0.3), 0 15px 12px rgba(black, 0.2);
+      color: darkred;
+      font-size: 13px;
+      left: 25px;
+      margin-bottom: 7px;
+      margin-left: 0;
+      padding: 5px;
       position: absolute;
-      top: 0px;
+      text-align: center;
+      width: 115px;
+
+      &:hover {
+        border: none;
+        box-shadow: 0 19px 38px rgba(black, 0.3), 0 15px 12px rgba(black, 0.2);
+        color: red;
+        font-size: 14px;
+        width: 120px;
+        margin-left: -2px;
+        width: 125px;
+      }
     }
 
     .buy-product {
-      background-color: lightseagreen;
-      border-color: lightseagreen;
-      border-top-right-radius: 20px;
-      bottom: 0px;
+      background-color: black;
+      border: none;
+      bottom: 10px;
+      box-shadow: 0 19px 38px rgba(black, 0.3), 0 15px 12px rgba(black, 0.2);
       color: white;
-      font-size: 0.7em;
-      left: 0;
-      margin: 0;
-      padding: 7px;
+      font-size: 12px;
+      left: 55px;
+      margin-bottom: 5px;
+      padding: 5px;
       position: absolute;
       width: 60px;
+
+      &:hover {
+        color: black;
+        cursor: pointer;
+        background-color: lightgrey;
+      }
     }
   }
 }

@@ -1,87 +1,11 @@
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin:0; padding:0; border:0; outline:0; font-size:100%; vertical-align:baseline; background:transparent;} body {line-height: 1;}ol, ul{list-style:none;} blockquote, q{quotes:none;} blockquote:before, blockquote:after, q:before, q:after{content:'';content:none;} :focus{outline:0;} ins{text-decoration:none;} del{text-decoration:line-through;} table{border-collapse:collapse; border-spacing:0;}
 
-.profilePage {
-  border-radius: 10px;
-  color: white;
-  height: 250px;
-  padding: 10px;
-  width: 500px;
+.bets {
 
-  .user-avatar {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    padding: 15px 0;
-  }
-
-  table#bio-table {
-    font-size: 15px;
-    width: 340px;
-    position: absolute;
-    top: 98px;
-    left: 245px;
-    margin: 10px;
-  }
-
-  table#flair-table {
-    font-size: 15px;
-    width: 370px;
-    position: absolute;
-    top: 465px;
-    left: 60px;
-  }
-
-  div.profile-flairs {
-    position: absolute;
-    left: 88px;
-    overflow: scroll;
-    height: 50px;
-    width: 410px;
-    column-gap: 5px;
-    column-count: 3;
-  }
-
-  div#currentUserFlairs {
-		font-size: 12px;
-
-    img#flairImage {
-      display: inline-block;
-    }
-  }
-
-  div#each-flair {
-    width: 80px;
-  }
-
-  form#delete-flair-form {
-    width: 30px;
-    border: none;
-    float: right;
-    padding: 0;
-    margin: 0;
-
-    button {
-      border: none;
-    }
-  }
-
-  td.label {
-    padding: 2px;
-
-    &:hover {
-      color: rgb(233,182,50);
-    }
-  }
-
-  span#edit-label {
-    font-size: 12px;
-  }
-  
   form {
-    border: 3px solid white;
-    padding: 10px;
+    margin-top: 5px;
     color: white;
-    width: 475px;
+    width: 220px;
   }
 
   input {
@@ -90,7 +14,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     font-size: 15px;
     padding: 10px;
     margin-bottom: 18px;
-    width: 450px;
+    width: 200px;
 
     &:focus {
       color: rgb(233,182,50);
@@ -106,15 +30,31 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     text-align: center;
   }
 
-  #submit-button {
+  #direction-bull-button {
     background-color: white;
-    font-size: 12px;
-    color: black;
+    color: darkred;
     margin-bottom: 0;
-    margin-left: 5px;
+    margin-left: 10px;
     margin-right: 20px;
     padding: 5px;
-    width: 70px;
+    width: 80px;
+
+    &:hover {
+      background-color: rgb(163,129,40);
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+  }
+
+  #direction-bear-button  {
+    background-color: white;
+    color: rgb(15, 60, 77);
+    margin-bottom: 0;
+    margin-left: 10px;
+    margin-right: 20px;
+    padding: 5px;
+    width: 80px;
 
     &:hover {
       background-color: rgb(163,129,40);
