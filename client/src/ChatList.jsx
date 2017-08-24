@@ -40,13 +40,13 @@ class ChatList extends React.Component {
             <div className="each-chatList" key={chatList.name}>
               <span className="chatlist-position">{position}. {chatList.name}</span>
               <span>
-                <form onSubmit={this.hideChat}>
-                  <input type="hidden" name="chatroomid" value={chatList.id} />
-                  <button id="delete-button">❌</button>
-                </form>
                 <form onSubmit={this.joinChat}>
                   <input type="hidden" name="chatroomid" value={chatList.id}/>
                   <button id="join-button">Join Chat</button>
+                </form>
+                <form onSubmit={this.hideChat}>
+                  <input type="hidden" name="chatroomid" value={chatList.id} />
+                  <button id="delete-button">❌</button>
                 </form>
               </span>
             </div>
@@ -72,13 +72,11 @@ class ChatList extends React.Component {
     return (
       <div className="chatList">
         <span id="title">CHAT LIST</span>
-        <form onSubmit={this.onSubmit}>
+        <form id="chatList-form" onSubmit={this.onSubmit}>
           <input type="text" placeholder="Name your Chat topic" />
           <button id="create-chat-button">Create</button>
         </form>
-        <div className="all-chatLists">
-          {ChatList}
-        </div>
+        {ChatList}
       </div>
     );
   }

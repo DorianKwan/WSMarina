@@ -11,65 +11,65 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   padding: 20px 30px;
   position: absolute;
   right: 10px;
-  top: 302px;
+  top: 340px;
   width: 350px;
 
   #title {
-    padding: 10px 0;
+    font-size: 18px;
+    margin: 5px 0;
+  }
+
+  form#chatList-form {
+    margin-bottom: 10px;
   }
 
   input {
     border: none;
     border-bottom: 1px solid white;
-    position: absolute;
+    display: inline-block;
     font-size: 12px;
     height: 18px;
-    margin-right: 10px;
-    margin-top: 5px;
-    width: 190px;
+    margin: 10px 0;
+    margin-right: 7px;
+    width: 185px;
     
     &:focus {
-      border-color: 1px solid rgb(233,182,50);
+      border-bottom: 1px solid rgb(186,144,35);
     }
   }
 
   button#create-chat-button {
-    background-color: lightseagreen;
+    background-color: rgb(163,129,40);
     border: none;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     color: white;
+    display: inline-block;
     font-size: 10px;
-    position: absolute;
-    right: 30px;
-    top: 46px;
     padding: 4px;
-    width: 50px;
+    width: 60px;
     
     &:hover {
-      border: 1px solid #14716c;
-      background-color: #14716c;
+      border: 1px solid rgb(163, 129, 40);
+      background-color: rgb(233,182,50);
       color: white;
       cursor: pointer;
     }
   }
 
-  .all-chatLists {
-    position: absolute;
-    top: 80px;
-    display: inline;
-  }
-
   .each-chatList {
-    height: 45px;
-    width: 290px;
 
     span.chatlist-position {
-      top: 10px;
+      display: inline-block;
+      width: 198px;
+    }
+
+    form {
+      display: inline-block;
     }
 
     button#join-button {
       border: none;
-      background-color: lightseagreen;
+      background-color: #14716c;
       color: white;
       float: right;
       font-size: 10px;
@@ -78,7 +78,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
       &:hover {
         border: 1px solid #14716c;
-        background-color: #14716c;
+        background-color: lightseagreen;
         color: white;
         cursor: pointer;
       }
@@ -88,8 +88,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
       border: none;
       background: none;
       float: right;
-      width: 25px;
       padding: 2px;
+      width: 30px;
     }
   }
 }

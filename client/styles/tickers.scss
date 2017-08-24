@@ -14,7 +14,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   text-align: left;
   width: 350px;
 
-  .ticker-info {
+  form.ticker-info {
     color: white;
     padding: 5px;
 
@@ -23,19 +23,27 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     }
   }
 
+  .ticker-collected {
+    padding: 5px;
+  }
+
+  span {
+    display: inline-block;
+    margin-right: 50px;
+  }
+
   .ticker-button {
-    background-color: lightseagreen;
+    background-color: #14716c;
     border: none;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     color: white;
-    float: right;
+    display: inline-block;
     font-size: 10px;
-    margin-left: 10px;
     padding: 4px;
-    width: 50px;
+    width: 60px;
     
     &:hover {
-      background-color: #14716c;
+      background-color: lightseagreen;
       color: white;
       cursor: pointer;
     }

@@ -1,12 +1,12 @@
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin:0; padding:0; border:0; outline:0; font-size:100%; vertical-align:baseline; background:transparent;} body {line-height: 1;}ol, ul{list-style:none;} blockquote, q{quotes:none;} blockquote:before, blockquote:after, q:before, q:after{content:'';content:none;} :focus{outline:0;} ins{text-decoration:none;} del{text-decoration:line-through;} table{border-collapse:collapse; border-spacing:0;}
 
 .chatRoom {
-  background: rgb(233,182,50);
+  background: rgb(163,129,40);
   border: 1px solid black;
   bottom: 0;
   box-sizing: border-box;
   color: white;
-  height: 67px;
+  height: 62px;
   padding: 10px;
   position: fixed;
   right: 30px;
@@ -17,16 +17,41 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     color: white;
     height: 300px;
     overflow: scroll;
+
+    .message {
+      padding: 3px 2px;
+
+      .message-content {
+        color: rgb(233,182,50);
+      }
+    }
+  }
+
+  #flair {
+    border-radius: 50%;
   }
 
   .chatNav {
     border-bottom: 1px solid rgb(233,182,50);
     color: white;
+    margin-bottom: 10px;
     padding-bottom: 5px;
+
+    #chatname {
+      color: black;
+    }
   }
 
-  .chatbar:focus {
-    background-color: rgb(233,182,50);
+  .chatbar {
+
+    &:focus {
+      background-color: rgb(233,182,50);
+    }
+
+    .chatbar-message {
+      font-size: 12px;
+      width: 318px;
+    }
   }
 
   .online-users {
@@ -40,10 +65,14 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   bottom: 10px;
   box-sizing: border-box;
   color: white;
-  height: 380px;
+  height: 393px;
   padding: 10px;
   position: fixed;
   right: 30px;
   width: 350px;
   z-index: 10;
+
+  #chatname {
+    color: rgb(233,182,50);
+  }
 }
