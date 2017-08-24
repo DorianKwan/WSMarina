@@ -48,17 +48,23 @@ class ProfilePage extends React.Component {
       bio = this.props.currentUserBio;
     }
 
-    const flairs = this.props.currentUserFlairs.map((flair) => { 
+    let image;
+    if (this.props.currentUserImage === null) {
+      image = "https://t3.ftcdn.net/jpg/01/06/07/16/240_F_106071621_UwCztl7yyMbVNSMijfuYyZrzbtmoxJPH.jpg";
+    } else {
+      image = this.props.currentUserImage;
+    }
 
+    const flairs = this.props.currentUserFlairs.map((flair) => { 
       return (
-        <div>
-          <img key={this.uuid()} id="flairImage" src={flair.image} height="30" width="30" />
+        <div id="each-flair">
+          <img key={this.uuid()} id="flairImage" src={flair.image} height="45" width="45" />
           <span>
-            <form onSubmit={this.callDeleteFlair}>
+            <form id="delete-flair-form" onSubmit={this.callDeleteFlair}>
               <input type="hidden" name="flairId" value={flair.flair_id} />
               <input type="hidden" name="Id" value={flair.id} />
               <input type="hidden" name="userId" value={flair.user_id} />
-              <button id="delete-flair">Delete Flair</button>
+              <button>❌</button>
             </form>
           </span>
         </div>
@@ -67,39 +73,41 @@ class ProfilePage extends React.Component {
 
     return (
         <div className="profilePage">
-          <table>
+          <img className="user-avatar" src={image} />
+          <table id="bio-table">
             <tbody>
               <tr>
-              <td><img className="user-avatar" src={this.props.currentUserImage} /></td>
-              </tr>
-              <tr>
-                <td>USERNAME:</td> 
+                <td className="label">USERNAME :</td> 
                 <td>{this.props.currentUsername }</td>
               </tr>
               <tr>
-                <td>BIO:</td>
+                <td className="label">BIO :</td>
                 <td>{bio}</td>
               </tr>
               <tr>
-                <td>EMAIL:</td>
+                <td className="label">EMAIL :</td>
                 <td>{this.props.currentUserEmail}</td>
               </tr>
               <tr>
-                <td>TITLE:</td>
+                <td className="label">TITLE :</td>
                 <td>{this.props.currentUserTitle}</td>
               </tr>
               <tr>
-                <td>REPUTATIONS:</td>
+                <td className="label">REPUTATIONS :</td>
                 <td>{this.props.currentUserRep}</td>
-              </tr>
-              <tr>
-                <td>FLAIRS:</td>
-                <td>{flairs}</td>
               </tr>
             </tbody>
           </table>
+          <table id="flair-table">
+            <tbody>
+              <tr>
+                <td className="label">FLAIRS :</td>
+                <td><div className="profile-flairs">{flairs}</div></td>
+              </tr> 
+            </tbody>
+          </table>
         <div className="edit-profile">
-          <span>EDIT</span>
+          <span id="edit-label">Edit Profile</span>
           <form onSubmit={this.onProfile}>
             <input type="text" name="image" accept="image/*" placeholder="Insert avatar url here"/>
             <input type="text" placeholder="Tell us about yourself" />

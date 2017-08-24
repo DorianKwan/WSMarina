@@ -8,7 +8,7 @@ const customStyles = {
     padding               : '50px',
     backgroundColor       : 'black',
     overflow              : 'visible',
-    height                : '500px',
+    height                : '470px',
     top                   : '50%',
     left                  : '50%',
     right                 : 'auto',

@@ -9,29 +9,76 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
   .user-avatar {
     width: 150px;
+    height: 150px;
     border-radius: 50%;
-    padding: 10px 0;
+    padding: 15px 0;
+  }
+
+  table#bio-table {
+    font-size: 15px;
+    width: 340px;
+    position: absolute;
+    top: 98px;
+    left: 245px;
+    margin: 10px;
+  }
+
+  table#flair-table {
+    font-size: 15px;
+    width: 370px;
+    position: absolute;
+    top: 465px;
+    left: 60px;
+  }
+
+  div.profile-flairs {
+    position: absolute;
+    left: 88px;
+    overflow: scroll;
+    height: 50px;
+    width: 410px;
+    column-gap: 5px;
+    column-count: 3;
   }
 
   div#currentUserFlairs {
 		font-size: 12px;
 
-		#flairImage {
-			border-radius: 10px;
-		}
+    img#flairImage {
+      display: inline-block;
+    }
   }
 
-  td {
-    padding: 3px 0;
+  div#each-flair {
+    width: 80px;
+  }
+
+  form#delete-flair-form {
+    width: 30px;
+    border: none;
+    float: right;
+    padding: 0;
+    margin: 0;
+
+    button {
+      border: none;
+    }
+  }
+
+  td.label {
+    padding: 2px;
 
     &:hover {
       color: rgb(233,182,50);
     }
   }
+
+  span#edit-label {
+    font-size: 12px;
+  }
   
   form {
-    border: 2px solid rgb(163,129,40);
-    margin: 25px 0px;
+    border: 3px solid white;
     padding: 10px;
     color: white;
     width: 475px;
@@ -61,12 +108,13 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
   #submit-button {
     background-color: white;
+    font-size: 12px;
     color: black;
     margin-bottom: 0;
-    margin-left: 10px;
+    margin-left: 5px;
     margin-right: 20px;
     padding: 5px;
-    width: 80px;
+    width: 70px;
 
     &:hover {
       background-color: rgb(163,129,40);
@@ -74,14 +122,5 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
       color: white;
       cursor: pointer;
     }
-  }
-
-  span {
-    font-size: 15px;
-    font-weight: bold;
-    position: fixed;
-    color: rgb(163,129,40);
-    top: 380px;
-    left: 62px;
   }
 }

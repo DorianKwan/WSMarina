@@ -12,6 +12,16 @@ button.modal-button {
   transform: translate(50%, -50%);
 }
 
+button.profileModal-button {
+  position: absolute;
+  right: 25px;
+  top: 25px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  transform: translate(50%, -50%);
+}
+
 .modal-name {
   position: absolute;
   top: 25px;
