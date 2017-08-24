@@ -14,7 +14,7 @@ class Navbar extends React.Component {
         </form>
         <ProfileModal currentUserFlairs={this.props.currentUserFlairs}/>
         <FarmModal defaultValue={this.props.defaultValue} setFarm={this.props.setFarm} />
-        <BetsModal currentUserRep={this.props.currentUserRep} />
+        <BetsModal findUser={this.props.findUser} currentUserRep={this.props.currentUserRep} />
         <StoreModal buyFlairs={this.props.buyFlairs} currentUsername={this.props.currentUsername} currentUserId={this.props.currentUserId} currentUserRep={this.props.currentUserRep} />
       </div>
     );
