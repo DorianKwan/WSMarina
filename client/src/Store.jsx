@@ -53,8 +53,8 @@ class Store extends React.Component {
       if (this.props.currentUserRep >= flair.cost) { 
         return (
           <div className="product" key={ flair.id }>
-            <p className="product-name">{flair.name}</p>
             <img key={this.uuid()} src= {flair.image} height="100" width="100" />
+            <p className="product-name">{flair.name}</p>
             <p className="product-cost">cost: {flair.cost} reps</p>
             <form onSubmit={this.callBuyFlairs}>
                 <input type='hidden' name='currentUserId' value={this.props.currentUserId} />
@@ -68,10 +68,10 @@ class Store extends React.Component {
       } else {
         return (
           <div className="product" key={ flair.id }>
-            <p className="product-name">{flair.name}</p>
             <img key={this.uuid()} src={flair.image} height="100" width="100" />
+            <p className="product-name">{flair.name}</p>
             <p className="product-cost">cost: {flair.cost} reps</p>
-            <p className="soldout"> You can't afford this! </p>
+            <p className="cant-afford">You can't afford this</p>
           </div>
         );
       }

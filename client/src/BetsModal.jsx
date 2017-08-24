@@ -5,6 +5,8 @@ import Bets from './Bets.jsx';
  
 const customStyles = {
   content : {
+    padding               : '50px',
+    backgroundColor       : 'black',
     overflow              : 'visible',
     top                   : '50%',
     left                  : '50%',
@@ -225,7 +227,7 @@ class BetsModal extends React.Component {
           contentLabel="Bets Modal"
         >
           <div>
-            <h1>Bets</h1>
+            <h1 className="modal-name">B E T S</h1>
             <button className="modal-button" onClick={this.closeModal}>❌</button>
           </div>
           <Bets currentUserRep={this.state.currentUserRep} bets={this.state.bets} getBets={this.getBets.bind(this)}/>

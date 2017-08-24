@@ -41,17 +41,24 @@ class ProfilePage extends React.Component {
 
   render() {
 
+    let bio;
+    if (this.props.currentUserBio === null) {
+      bio = "No description yet";
+    } else {
+      bio = this.props.currentUserBio;
+    }
+
     const flairs = this.props.currentUserFlairs.map((flair) => { 
 
       return (
         <div>
-          <img key={this.uuid()} id="flairImage" src={flair.image} height="20" width="20" />
+          <img key={this.uuid()} id="flairImage" src={flair.image} height="30" width="30" />
           <span>
             <form onSubmit={this.callDeleteFlair}>
               <input type="hidden" name="flairId" value={flair.flair_id} />
               <input type="hidden" name="Id" value={flair.id} />
               <input type="hidden" name="userId" value={flair.user_id} />
-              <button>Delete Flair</button>
+              <button id="delete-flair">Delete Flair</button>
             </form>
           </span>
         </div>
@@ -66,35 +73,37 @@ class ProfilePage extends React.Component {
               <td><img className="user-avatar" src={this.props.currentUserImage} /></td>
               </tr>
               <tr>
-                <td>Username:</td> 
+                <td>USERNAME:</td> 
                 <td>{this.props.currentUsername }</td>
               </tr>
               <tr>
-                <td>Bio:</td>
-                <td>{this.props.currentUserBio}</td>
+                <td>BIO:</td>
+                <td>{bio}</td>
               </tr>
               <tr>
-                <td>Email:</td>
+                <td>EMAIL:</td>
                 <td>{this.props.currentUserEmail}</td>
               </tr>
               <tr>
-                <td>Title:</td>
+                <td>TITLE:</td>
                 <td>{this.props.currentUserTitle}</td>
               </tr>
               <tr>
-                <td>Reputation:</td>
+                <td>REPUTATIONS:</td>
                 <td>{this.props.currentUserRep}</td>
+              </tr>
+              <tr>
+                <td>FLAIRS:</td>
+                <td>{flairs}</td>
               </tr>
             </tbody>
           </table>
-          <div id="currentUserFlairs">Flairs: {flairs}</div>
-        {/* edit profile should only be visible when user_id matches visiting user */}
-        {/* no defaults set for img and both forms are forced to be entered */}
         <div className="edit-profile">
+          <span>EDIT</span>
           <form onSubmit={this.onProfile}>
-            <input type="text" name="image" accept="image/*" placeholder="Insert avatar url here:"/>
-            <input type="text" placeholder="Tell us about yourself:" />
-            <input type="submit"/>
+            <input type="text" name="image" accept="image/*" placeholder="Insert avatar url here"/>
+            <input type="text" placeholder="Tell us about yourself" />
+            <input id="submit-button" type="submit"/>
           </form>
         </div>
       </div>
