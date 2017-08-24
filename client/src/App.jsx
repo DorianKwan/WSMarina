@@ -276,7 +276,6 @@ class App extends React.Component {
               self.setState({ messages: allMessages });
               break;
             case "newchatlist":
-              console.log("client side whats inside!", messageRecieved)
               self.setState({ ChatList: messageRecieved.newchatlist });
               break;
           }
