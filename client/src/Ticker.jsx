@@ -23,21 +23,19 @@ class Ticker extends Component {
     setInterval(this.tickerFeed, 60000);
   }
 
+  componentWillReceiveProps() {
+    this.getTickers();
+  }
+
   uuid() {
     return Math.random().toString(36).substr(2, 6);
   }
-
-  collect(event) {
-    event.preventDefault();
-    const index = event.target.elements[0].value;
-    const ticker = event.target.elements[1].value;
-    const currentUserRep = event.target.elements[2].value;
-    const currentUserId = event.target.elements[3].value;
-    const percentChange = event.target.elements[4].value;
-    const created_at = event.target.elements[5].value;
+  collect(index, stock){
+    const { currentUserId, currentUserRep } = this.props;
+    const { name, percentChange, created_at } = stock;
     const body = JSON.stringify({
       index,
-      ticker,
+      name,
       currentUserRep,
       currentUserId,
       percentChange,
@@ -71,10 +69,10 @@ class Ticker extends Component {
     .catch((err) => {
       console.log(err);
     })
+    
   }
 
-  hideButton(event) {
-    const index = event.target.id;
+  hideButton(index) {
     const button = "button" + index;
     this.setState({ [button]: true });
   }
@@ -156,25 +154,17 @@ class Ticker extends Component {
   }
 
   render() {
+
     const data = this.state || this.props; // Is this necessary? For now it will only pass state if tickerFeed is broken
-    const stocks = data.tickers.map((stock, index) => {
+    const stocks = data.tickers.filter(stock => stock).map((stock, index) => {
       const isActive = stock.collected_at || undefined;
-      const button = "button" + index;
-      if (stock.collected_at === null) {
-        return (
-            <div className="ticker-info" key={this.uuid()}>
-              <form onSubmit={this.collect} >
-                <input name="index" type="hidden" value={index} />
-                <input name="ticker" type="hidden" value={stock.name} />
-                <input name="currentUserRep" type="hidden" value={this.props.currentUserRep || ""} />
-                <input name="currentUserId" type="hidden" value={this.props.currentUserId || ""} />
-                <input name="percentChange" type="hidden" value={stock.percentChange} />
-                <input name="created_at" type="hidden" value={stock.created_at} />
-                <span>{ stock.name } | ${ stock.price } | { stock.percentChange }%</span>
-                <span><input id={index} onClick={this.hideButton} className="ticker-button" style={{ display: this.state[button] ? "none" : "block" }} type="submit" value="Collect" /></span>
-              </form>
-            </div>
-          )
+      if (!isActive) {
+        return (<div className='ticker-info'>
+          <div key={this.uuid()}>
+            { stock.name } | ${ stock.price } | { stock.percentChange }% 
+            <button className='ticker-button' onClick={() => { this.collect(index, stock), this.hideButton(index)}} style={{position: "relative", right: "0"}}>Collect</button>
+          </div>
+        </div>);
       } else {
         return (
           <span className="ticker-collected" key={ index }>

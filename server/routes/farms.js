@@ -28,7 +28,7 @@ function createRouter(knex) {
 
   router.post("/", (req, res) => {
 
-    const { currentUserId, currentUserRep, percentChange, index, ticker, created_at } = req.body;
+    const { currentUserId, currentUserRep, percentChange, index, name, created_at } = req.body;
     const slot = `slot_0${Number(index) + 1}`;
     const newRep = Number(percentChange) > 0 ? Number(currentUserRep) + 250 : Number(currentUserRep) + 100;
     
@@ -37,7 +37,7 @@ function createRouter(knex) {
       .where({ id: currentUserId })
       .update({ rep: newRep })
       .then(() => {
-        return knex("farms").where("user_id", currentUserId).update(slot, JSON.stringify({ name: ticker, created_at, collected_at: new Date }));
+        return knex("farms").where("user_id", currentUserId).update(slot, JSON.stringify({ name, created_at, collected_at: new Date }));
       }).then(() => {
         return knex("farms").where("user_id", currentUserId).select("*");
       }).then((data) => {
