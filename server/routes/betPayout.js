@@ -7,7 +7,6 @@ function createRouter(knex) {
 
     const { percentChange, wager, ticker, currentUserRep } = req.body;
     const direction = req.body.direction === "Bull" ? true : false;
-    const user_id = req.session.user_id;
     let payout;
     let rep;
     if (percentChange !== 0) {
@@ -22,26 +21,22 @@ function createRouter(knex) {
       rep = Number(currentUserRep) + payout;
     }
 
-
     // Find bet and update the columns
-    knex("bets")
+    return knex("bets")
       .where({
         user_id,
         ticker
       })
-      .update("collected_at", new Date)
-      .update({ payout })
+      .update({ collected_at: new Date, payout: payout})
       .then(() => {
 
         // Update user rep 
-        knex("users")
-          .where({ id: user_id })
-          .update({ rep })
+        return knex("users")
+          .where("id", user_id)
+          .update("rep", rep)
           .catch((err) => {
             console.log("error", err);
           });
-
-        console.log("Updated");
       })
       .catch((err) => {
         console.log("error occured", err);
