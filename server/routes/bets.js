@@ -47,11 +47,6 @@ function createRouter(knex) {
     const { ticker, wager, currentUserRep, direction } = req.body;
     const user_id = req.session.user_id;
 
-    // Check if user entered ticker, wager, direction
-    if (!ticker || !wager) {
-      req.flash("errors", "Input fields cannot be empty");
-    }
-
     // Check if a bet is already placed on selected ticker
     knex("bets")
       .select(1)
