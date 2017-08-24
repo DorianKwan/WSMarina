@@ -5,8 +5,8 @@ function createRouter(knex) {
 
   router.post("/", (req, res) => {
 
-    const { percentChange, wager, ticker, currentUserRep } = req.body;
-    const direction = req.body.direction === "Bull" ? true : false;
+    const { percentChange, wager, ticker, currentUserRep, direction } = req.body;
+    const user_id = req.session.user_id;
     let payout;
     let rep;
     if (percentChange !== 0) {
