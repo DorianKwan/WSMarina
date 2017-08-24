@@ -44,8 +44,7 @@ function createRouter(knex) {
 
   router.post("/", (req, res) => {
 
-    const { ticker, wager, currentUserRep } = req.body;
-    const direction = req.body.direction === "Bull" ? true : false;
+    const { ticker, wager, currentUserRe, direction } = req.body;
     const user_id = req.session.user_id;
 
     // Check if user entered ticker, wager, direction
@@ -56,7 +55,7 @@ function createRouter(knex) {
     // Check if a bet is already placed on selected ticker
     knex("bets")
       .select(1)
-      .where({ user_id })
+      .where({ ticker })
       .limit(1)
       .then((bets) => {
 
