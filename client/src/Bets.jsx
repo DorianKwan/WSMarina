@@ -32,7 +32,20 @@ class Bets extends Component {
     event.preventDefault();
     const currentUserRep = event.target.elements[0].value;
     const ticker = event.target.elements[1].value;
+    alert(currentUserRep);
+    if (ticker.length > 4) {
+      event.target.elements[1].value = "";
+      event.target.elements[2].value = "";
+      alert("Ticker length must be 4 characters or less");
+      return;
+    }
     const wager = event.target.elements[2].value;
+    if (Number(wager) > Number(currentUserRep)) {
+      event.target.elements[1].value = "";
+      event.target.elements[2].value = "";
+      alert("You do not have enough rep for a bet that size");
+      return;
+    }
     const direction = event.target.elements[3].value;
     const bet = {
       currentUserRep,
@@ -41,8 +54,8 @@ class Bets extends Component {
       direction
     }
     const body = JSON.stringify(bet);
-    event.target.elements[1].value = ""
-    event.target.elements[2].value = ""
+    event.target.elements[1].value = "";
+    event.target.elements[2].value = "";
 
     fetch("/bets", {
       method: "POST",
@@ -135,12 +148,21 @@ class Bets extends Component {
       }
     });
 
+    // if (errors.length) {
+    //   const error = errors.forEach(err => {
+    //     return (
+    //       <span>{ err }</span>
+    //     );
+    //   });
+    // }
+
     return (
       <section className="bets">
         <div>{ bets }</div>
         <br />
         <h2>Make a Prediction!</h2>
         <form onSubmit={this.makeBet}>
+          {/* <div className="errors-info">{ error }</div> */}
           <input name="currentUserRep" type="hidden" value={this.props.currentUserRep || undefined} />
           <input name="ticker" placeholder="Enter a ticker" />
           <br />

@@ -15,11 +15,8 @@ class Farm extends React.Component {
 
   getResetDate(date) {
     const year = date.slice(0, 4);
-    console.log(year);
     const month = date.slice(5, 7);
-    console.log(month)
     const day = date.slice(8, 10);
-    console.log(day);
     const fullDate = `${year}, ${month}, ${day + 1}, 0`;
     return fullDate;
   }
@@ -97,15 +94,37 @@ class Farm extends React.Component {
     const ticker_03 = event.target.elements[2].value || this.props.defaultValue[2].name;
     const ticker_04 = event.target.elements[3].value || this.props.defaultValue[3].name;
     const ticker_05 = event.target.elements[4].value || this.props.defaultValue[4].name;
+    const tickers = [ticker_01, ticker_02, ticker_03, ticker_04, ticker_05];
+
+    tickers.forEach((item) => { 
+      if (item.length > 4) {
+        alert("Ticker length must be 4 characters or less");
+      }
+    });
+    let obj = {};
+    tickers.forEach((item) => {
+      if (obj[item]) {
+        alert(`One of your slots is already ${item.toUpperCase()}`);
+        return;
+      }
+      obj[item] = item;
+    });
+
     const farmSlots = {
-      slot_01: { name: ticker_01, created_at: this.state.slot_01.created_at, collected_at: this.state.slot_01.collected_at },
-      slot_02: { name: ticker_02, created_at: this.state.slot_02.created_at, collected_at: this.state.slot_02.collected_at },
-      slot_03: { name: ticker_03, created_at: this.state.slot_03.created_at, collected_at: this.state.slot_03.collected_at },
-      slot_04: { name: ticker_04, created_at: this.state.slot_04.created_at, collected_at: this.state.slot_04.collected_at },
-      slot_05: { name: ticker_05, created_at: this.state.slot_05.created_at, collected_at: this.state.slot_05.collected_at }
+      slot_01: { name: ticker_01.toUpperCase(), created_at: this.state.slot_01.created_at, collected_at: this.state.slot_01.collected_at },
+      slot_02: { name: ticker_02.toUpperCase(), created_at: this.state.slot_02.created_at, collected_at: this.state.slot_02.collected_at },
+      slot_03: { name: ticker_03.toUpperCase(), created_at: this.state.slot_03.created_at, collected_at: this.state.slot_03.collected_at },
+      slot_04: { name: ticker_04.toUpperCase(), created_at: this.state.slot_04.created_at, collected_at: this.state.slot_04.collected_at },
+      slot_05: { name: ticker_05.toUpperCase(), created_at: this.state.slot_05.created_at, collected_at: this.state.slot_05.collected_at }
     }
 
     const body = JSON.stringify(farmSlots);
+
+    event.target.elements[0].value = "";
+    event.target.elements[1].value = "";
+    event.target.elements[2].value = "";
+    event.target.elements[3].value = "";
+    event.target.elements[4].value = "";
 
     fetch("/farms", {
       method: "PUT",

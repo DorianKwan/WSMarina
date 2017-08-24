@@ -62,11 +62,15 @@ class App extends React.Component {
     }).then((user) => {
         let title;
         if(user.rep < 1000) {
-          title = "Ant";
-        } else if(user.rep <= 5000) {
-          title = "Farmer";
-        } else if (user.rep > 5000 && user.rep <= 50000 ) {
+          title = "Beggar";
+        } else if(user.rep <= 4999) {
+          title = "Dead Broke";
+        } else if (user.rep >= 5000 && user.rep <= 10000 ) {
           title = "Citizen";
+        } else if (user.rep > 10000 && user.rep <= 25000 ) {
+          title = "Boss";
+        } else if (user.rep > 25000 && user.rep <= 50000 ) {
+          title = "Baller";
         } else if (user.rep > 50000 && user.rep <= 100000 ) {
           title = "Big Boss";
         } else {
@@ -405,7 +409,7 @@ class App extends React.Component {
         currentUserImage={this.state.currentUserImage} />
         
         <div className="features">
-          <Ticker findUser={this.findCurrentUser.bind(this)} tickers={this.state.userFarm} currentUserId={this.state.currentUserId} />
+          <Ticker findUser={this.findCurrentUser.bind(this)} tickers={this.state.userFarm} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep} />
           <News newsItems={this.state.newsItems} />
           <ChatRooms messages={this.state.messages} clientCount={this.state.clientCount} chatname={this.state.chatname} onNewPost={this.onNewPost} socket={this.state.socket} currentUserId={this.state.currentUserId} currentUsername={this.state.currentUsername} currentUserFlairs={flairs} />
           <ChatList currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} chatList={this.state.ChatList} hideChat={this.hideChat} joinChat={this.joinChat} handleSubmit={this.handleSubmit} />
