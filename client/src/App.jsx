@@ -33,6 +33,7 @@ class App extends React.Component {
     this.joinChat = this.joinChat.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onNewPost = this.onNewPost.bind(this);
+    this.buyFlairs = this.buyFlairs.bind(this);
   }
 
   componentDidMount(){
@@ -286,6 +287,31 @@ class App extends React.Component {
     nsp.emit('message', JSON.stringify(newMessage));
   }
 
+  buyFlairs(body) {
+    const url = "/flairs";
+    fetch(url, {
+      method: "POST",
+      credentials: 'include',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Content-Length": new Buffer(body).length
+      },
+      body: body
+    }).then((response) => {
+      return response.json();
+      }).then((userInfo) => {
+      const currentUserFlairs = [];
+      userInfo.forEach((flair) => {
+        currentUserFlairs.push(flair);
+      })
+      this.setState({
+        currentUserRep: userInfo[0].rep,
+        currentUserFlairs: currentUserFlairs
+      })
+      alert(`Thanks for the purchase, ${userInfo[0].user}! You have ${userInfo[0].rep} reps left.`);
+    })
+  }
   render() {
 
     const flairs = this.state.currentUserFlairs.map((flair) => {
@@ -300,6 +326,7 @@ class App extends React.Component {
         currentUserFlairs={this.state.currentUserFlairs} 
         defaultValue={this.state.userFarm} 
         setFarm={this.setFarm.bind(this)} 
+        buyFlairs={this.buyFlairs}
         currentUserId={this.state.currentUserId} />
         <Leaders 
         leaders={this.state.leaders}

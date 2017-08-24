@@ -34,6 +34,10 @@ class BetsModal extends React.Component {
  
   afterOpenModal() {
     // references are now sync'd and can be accessed. 
+<<<<<<< HEAD
+=======
+    // this.subtitle.style.color = '#f00';
+>>>>>>> features/reactNotredirect
   }
  
   closeModal() {
