@@ -11,59 +11,23 @@ class ProfilePage extends React.Component {
       email: '',
       flairs: ''
     }
-    this.onSubmit = this.handleSubmit.bind(this);
+    this.onProfile = this.callProfileSubmit.bind(this);
     this.callDeleteFlair = this.callDeleteFlair.bind(this);
-  }
-
-  componentDidMount() {
-    this.getUserInfo();
   }
   
   uuid() {
     return Math.random().toString(36).substr(2, 6);
   }
 
-  getUserInfo() {
-    fetch("/profile", {
-      method: "GET",
-      credentials: "include"
-    })
-      .then((response) => {
-        return response.json();
-      }).then((userInfo) => {
-        this.setState({
-          image: userInfo.image,
-          bio: userInfo.bio,
-          username: userInfo.username,
-          rep: userInfo.rep,
-          email: userInfo.email,
-        });
-      }).catch((err) => {
-        console.log("error ", err);
-      });
-  }
 
-  handleSubmit(event) {
+  callProfileSubmit(event) {
     event.preventDefault();
     const image = event.target.elements[0].value;
     const bio = event.target.elements[1].value;
     const body = JSON.stringify({ image: image, bio: bio });
-
-    fetch("/profile", {
-      method: "PUT",
-      credentials: 'include',
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Content-Length": new Buffer(body).length
-      },
-      body: body
-    })
-      .then((response) => {
-        return response.json();
-      }).catch((err) => {
-        console.log("error ", err);
-      });
+    event.target.elements[0].value = "";
+    event.target.elements[1].value = "";
+    this.props.profileSubmit(body);
   }
 
   callDeleteFlair(event) {
@@ -99,23 +63,27 @@ class ProfilePage extends React.Component {
           <table>
             <tbody>
               <tr>
-                <td><img className="user-avatar" src={this.state.image} /></td>
+              <td><img className="user-avatar" src={this.props.currentUserImage} /></td>
               </tr>
               <tr>
                 <td>Username:</td> 
-                <td>{this.state.username}</td>
+                <td>{this.props.currentUsername }</td>
               </tr>
               <tr>
                 <td>Bio:</td>
-                <td>{this.state.bio}</td>
+                <td>{this.props.currentUserBio}</td>
               </tr>
               <tr>
                 <td>Email:</td>
-                <td>{this.state.email}</td>
+                <td>{this.props.currentUserEmail}</td>
+              </tr>
+              <tr>
+                <td>Title:</td>
+                <td>{this.props.currentUserTitle}</td>
               </tr>
               <tr>
                 <td>Reputation:</td>
-                <td>{this.state.rep}</td>
+                <td>{this.props.currentUserRep}</td>
               </tr>
             </tbody>
           </table>
@@ -123,7 +91,7 @@ class ProfilePage extends React.Component {
         {/* edit profile should only be visible when user_id matches visiting user */}
         {/* no defaults set for img and both forms are forced to be entered */}
         <div className="edit-profile">
-          <form onSubmit={this.onSubmit}>
+          <form onSubmit={this.onProfile}>
             <input type="text" name="image" accept="image/*" placeholder="Insert avatar url here:"/>
             <input type="text" placeholder="Tell us about yourself:" />
             <input type="submit"/>

@@ -35,6 +35,7 @@ class App extends React.Component {
     this.onNewPost = this.onNewPost.bind(this);
     this.buyFlairs = this.buyFlairs.bind(this);
     this.deleteFlair = this.deleteFlair.bind(this);
+    this.profileSubmit = this.profileSubmit.bind(this);
   }
 
   componentDidMount(){
@@ -338,23 +339,59 @@ class App extends React.Component {
     })
   }
 
-  render() {
+  profileSubmit(body) {
+    fetch("/profile", {
+      method: "PUT",
+      credentials: 'include',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Content-Length": new Buffer(body).length
+      },
+      body: body
+    })
+      .then((response) => {
+        return response.json();
+      }).then((user) => {
+        let image;
+        if (!user.image) {
+          image = "https://thinkcerca.com/wp-content/uploads/2015/02/Avatar-Gray.gif";
+        } else {
+          image = user.image;
+        }
+        this.setState({
+          currentUserBio: user.bio,
+          currentUserImage: image,
+        });
+      }).catch((err) => {
+        console.log("error ", err);
+      });
+  }
 
+  render() {
     const flairs = this.state.currentUserFlairs.map((flair) => {
       return flair.image;
     }); 
 
+
     return (
       <div className="app">
         <video autoPlay loop muted src="/videos/waves.mp4" />
-        <Navbar currentUsername={this.state.currentUsername} 
-        currentUserRep={this.state.currentUserRep} 
-        currentUserFlairs={this.state.currentUserFlairs} 
-        defaultValue={this.state.userFarm} 
-        setFarm={this.setFarm.bind(this)} 
-        buyFlairs={this.buyFlairs}
-        deleteFlair={this.deleteFlair}
-        currentUserId={this.state.currentUserId} />
+        <Navbar 
+          currentUsername={this.state.currentUsername} 
+          currentUserRep={this.state.currentUserRep} 
+          currentUserFlairs={this.state.currentUserFlairs} 
+          currentUserImage={this.state.currentUserImage}
+          currentUserEmail={this.state.currentUserEmail}
+          currentUserTitle={this.state.currentUserTitle}
+          currentUserBio={this.state.currentUserBio}
+          defaultValue={this.state.userFarm} 
+          setFarm={this.setFarm.bind(this)} 
+          buyFlairs={this.buyFlairs}
+          deleteFlair={this.deleteFlair}
+          currentUserId={this.state.currentUserId}
+          profileSubmit={this.profileSubmit}
+         />
         <Leaders 
         leaders={this.state.leaders}
         currentUserTitle={this.state.currentUserTitle} 

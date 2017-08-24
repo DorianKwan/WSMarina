@@ -55,7 +55,17 @@ class ProfileModal extends React.Component {
         >
           <h1>Profile</h1>
           <button className="modal-button" onClick={this.closeModal}>❌</button>
-          <ProfilePage deleteFlair={this.props.deleteFlair} currentUserFlairs={this.props.currentUserFlairs} />
+          <ProfilePage 
+            deleteFlair={this.props.deleteFlair}
+            currentUsername={this.props.currentUsername}
+            currentUserRep={this.props.currentUserRep}
+            currentUserFlairs={this.props.currentUserFlairs}
+            currentUserImage={this.props.currentUserImage}
+            currentUserEmail={this.props.currentUserEmail}
+            currentUserTitle={this.props.currentUserTitle}
+            currentUserBio={this.props.currentUserBio}
+            profileSubmit={this.props.profileSubmit}
+           />
         </Modal>
       </span>
     );
