@@ -169,6 +169,13 @@ function createNameSpace(chatroomId) {
             setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
           }
           break;
+        case "newchatlist":
+          messageRecieved.id = uuidv4();
+          const namespaces = Object.keys(io.nsps)
+          for (let x = 1; x < Object.keys(io.nsps).length; x++) {
+            io.of(namespaces[x]).emit('data', JSON.stringify(messageRecieved))
+          }
+          break;
         default:
           throw new Error("Unknown event type " + message.type);
         }
