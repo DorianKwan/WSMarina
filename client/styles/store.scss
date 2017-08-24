@@ -19,9 +19,9 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 
     img {
-      padding: 20px 30px;
+      padding: 12px;
       height: 110px;
-      width: 110px;
+      width: 150px;
     }
 
     p.product-name {
@@ -36,6 +36,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
       padding: 10px;
       text-align: center;
     }
+
+    // .delete-flair {
+    //   background-color: pink;
+    // }
     
     p.cant-afford {
      background-color: white;

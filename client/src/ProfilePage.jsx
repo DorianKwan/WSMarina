@@ -58,7 +58,7 @@ class ProfilePage extends React.Component {
               <input type="hidden" name="flairId" value={flair.flair_id} />
               <input type="hidden" name="Id" value={flair.id} />
               <input type="hidden" name="userId" value={flair.user_id} />
-              <button>Delete Flair</button>
+              <button id="delete-flair">Delete Flair</button>
             </form>
           </span>
         </div>
@@ -98,8 +98,6 @@ class ProfilePage extends React.Component {
               </tr>
             </tbody>
           </table>
-        {/* edit profile should only be visible when user_id matches visiting user */}
-        {/* no defaults set for img and both forms are forced to be entered */}
         <div className="edit-profile">
           <span>EDIT</span>
           <form onSubmit={this.onProfile}>
