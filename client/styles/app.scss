@@ -2,7 +2,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 .app {
   // background: url("https://ak3.picdn.net/shutterstock/videos/24964697/thumb/1.jpg");
-
+  overflow: hidden;
 }
 
 video {
@@ -12,4 +12,3 @@ video {
   height: 100%;
   overflow: hidden;
 }
-

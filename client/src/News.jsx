@@ -121,7 +121,7 @@ class News extends React.Component {
         <span style={{ paddingBottom: "25px" }}>
           <menu className="news-dropdown">
             <ul>
-              <li><span className="news-source">{ source }</span>
+              <li><span>{ source }</span>
                 <ul>
                     <li><input type="submit" onClick={this.bloomberg} value="Bloomberg News" /></li>
                     <li><input type="submit" onClick={this.theWallStreetJournal} value="The Wall Street Journal News" /></li>

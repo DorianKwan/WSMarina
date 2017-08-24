@@ -2,7 +2,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 .leaders {
   background: rgba(0,0,0,0.6);
-  height: 90%;
+  height: 93%;
   left: 0;
   position: fixed;
   top: 55px;
@@ -14,7 +14,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   
   .leaderTitle {
     border-bottom: 1px solid white;
-    color: white;
+    color: rgb(233,182,50);
     font-size: 13px;
     margin-bottom: 10px;
     padding: 10px;
@@ -36,7 +36,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   }
 
   li {
-  color: rgb(233,182,50);
+  color: white;
   font-size: 15px;
   padding: 10px 0;
   
@@ -45,13 +45,13 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     }
 		
     :hover {
-      color: black;
+      color: lightseagreen;
       background-color: white;
       font-size: 20px;
       padding: 10px;
 
       #leaderRep {
-        color: black;
+        color: #14716c;
         font-size: 12px;
         visibility: visible;
       }

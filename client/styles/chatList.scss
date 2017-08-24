@@ -3,12 +3,93 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 .chatList {
   color: white;
   background: rgba(0,0,0,0.6);
+  box-shadow: 0 19px 38px rgba(black, 0.3), 0 15px 12px rgba(black, 0.2);
   box-sizing: border-box;
-  margin-right: 50px;
-  overflow: auto;
-  padding: 30px;
-  position: absolute;
+  height: 400px;
+  margin-right: 20px;
+  overflow: scroll;
+  padding: 20px 30px;
+  position: fixed;
   right: 10px;
-  top: 460px;
-  width: 300px;
+  top: 355px;
+  width: 350px;
+
+  #title {
+    font-size: 18px;
+    margin: 5px 0;
+  }
+
+  form#chatList-form {
+    margin-bottom: 10px;
+  }
+
+  input {
+    border: none;
+    border-bottom: 1px solid white;
+    display: inline-block;
+    font-size: 12px;
+    height: 18px;
+    margin: 10px 0;
+    margin-right: 7px;
+    width: 185px;
+    
+    &:focus {
+      border-bottom: 1px solid rgb(186,144,35);
+    }
+  }
+
+  button#create-chat-button {
+    background-color: rgb(163,129,40);
+    border: none;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    color: white;
+    display: inline-block;
+    font-size: 10px;
+    padding: 4px;
+    width: 60px;
+    
+    &:hover {
+      border: 1px solid rgb(163, 129, 40);
+      background-color: rgb(233,182,50);
+      color: white;
+      cursor: pointer;
+    }
+  }
+
+  .each-chatList {
+
+    span.chatlist-position {
+      display: inline-block;
+      width: 198px;
+    }
+
+    form {
+      display: inline-block;
+    }
+
+    button#join-button {
+      border: none;
+      background-color: #14716c;
+      color: white;
+      float: right;
+      font-size: 10px;
+      padding: 5px;
+      width: 60px;
+
+      &:hover {
+        border: 1px solid #14716c;
+        background-color: lightseagreen;
+        color: white;
+        cursor: pointer;
+      }
+    }
+    
+    button#delete-button {
+      border: none;
+      background: none;
+      float: right;
+      padding: 2px;
+      width: 30px;
+    }
+  }
 }
