@@ -12,7 +12,7 @@ class ProfilePage extends React.Component {
       flairs: ''
     }
     this.onSubmit = this.handleSubmit.bind(this);
-    this.deleteFlair = this.deleteFlair.bind(this);
+    this.callDeleteFlair = this.callDeleteFlair.bind(this);
   }
 
   componentDidMount() {
@@ -66,22 +66,13 @@ class ProfilePage extends React.Component {
       });
   }
 
-  deleteFlair(event) {
+  callDeleteFlair(event) {
+    event.preventDefault();
     const flairId = event.target.elements[0].value;
     const id = event.target.elements[1].value;
     const userId = event.target.elements[2].value;
-    const url = "/currentUserFlairs";
     const body = JSON.stringify({ flairId: flairId, userId: userId, id: id });
-    fetch(url, {
-      method: "DELETE",
-      credentials: 'include',
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Content-Length": new Buffer(body).length
-      },
-      body: body
-    });
+    this.props.deleteFlair(body);
   }
 
   render() {
@@ -92,7 +83,7 @@ class ProfilePage extends React.Component {
         <div>
           <img key={this.uuid()} id="flairImage" src={flair.image} height="20" width="20" />
           <span>
-            <form onSubmit={this.deleteFlair}>
+            <form onSubmit={this.callDeleteFlair}>
               <input type="hidden" name="flairId" value={flair.flair_id} />
               <input type="hidden" name="Id" value={flair.id} />
               <input type="hidden" name="userId" value={flair.user_id} />

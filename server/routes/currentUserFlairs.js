@@ -15,11 +15,16 @@ function createRouter(knex) {
 
   router.delete("/", (req, res) => {
     knex('user_flairs')
-      .where({ flair_id: req.body.flairId, user_id: req.body.userId, id: req.body.id})
+      .where({ flair_id: req.body.flairId, user_id: req.session.user_id, id: req.body.id})
       .del()
-      .then((flairs) => {
-        res.redirect("/");
-      });
+    .then(() => {
+      return knex('flairs')
+        .select("*")
+        .join('user_flairs', { 'flairs.id': 'user_flairs.flair_id' })
+        .where({ user_id: req.session.user_id })
+    }).then((flairs) => {
+      res.send(flairs);
+    });
   });
 
   return router;

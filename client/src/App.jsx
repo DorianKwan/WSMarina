@@ -34,6 +34,7 @@ class App extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onNewPost = this.onNewPost.bind(this);
     this.buyFlairs = this.buyFlairs.bind(this);
+    this.deleteFlair = this.deleteFlair.bind(this);
   }
 
   componentDidMount(){
@@ -312,6 +313,31 @@ class App extends React.Component {
       alert(`Thanks for the purchase, ${userInfo[0].user}! You have ${userInfo[0].rep} reps left.`);
     })
   }
+
+  deleteFlair(body) {
+    const url = "/currentUserFlairs";
+    fetch(url, {
+      method: "DELETE",
+      credentials: 'include',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Content-Length": new Buffer(body).length
+      },
+      body: body
+    }).then((response) => {
+      return response.json();
+    }).then((res) => {
+      const currentUserFlairs = [];
+      res.forEach((obj) => {
+        currentUserFlairs.push(obj);
+      })
+      this.setState({
+        currentUserFlairs: currentUserFlairs
+      })
+    })
+  }
+
   render() {
 
     const flairs = this.state.currentUserFlairs.map((flair) => {
@@ -327,6 +353,7 @@ class App extends React.Component {
         defaultValue={this.state.userFarm} 
         setFarm={this.setFarm.bind(this)} 
         buyFlairs={this.buyFlairs}
+        deleteFlair={this.deleteFlair}
         currentUserId={this.state.currentUserId} />
         <Leaders 
         leaders={this.state.leaders}
