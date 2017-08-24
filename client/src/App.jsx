@@ -39,11 +39,11 @@ class App extends React.Component {
   }
 
   componentDidMount(){
-    this.setFarm();
     this.getChatList();
     this.getChatroomUsers();
   }
   componentWillMount(){
+    this.setFarm();
     this.findCurrentUser();
     this.findCurrentUserFlairs();
   }
@@ -378,20 +378,21 @@ class App extends React.Component {
       <div className="app">
         <video autoPlay loop muted src="/videos/waves.mp4" />
         <Navbar 
-          currentUsername={this.state.currentUsername} 
-          currentUserRep={this.state.currentUserRep} 
-          currentUserFlairs={this.state.currentUserFlairs} 
-          currentUserImage={this.state.currentUserImage}
-          currentUserEmail={this.state.currentUserEmail}
-          currentUserTitle={this.state.currentUserTitle}
-          currentUserBio={this.state.currentUserBio}
-          defaultValue={this.state.userFarm} 
-          setFarm={this.setFarm.bind(this)} 
-          buyFlairs={this.buyFlairs}
-          deleteFlair={this.deleteFlair}
-          currentUserId={this.state.currentUserId}
-          profileSubmit={this.profileSubmit}
-         />
+        currentUsername={this.state.currentUsername} 
+        currentUserRep={this.state.currentUserRep} 
+        currentUserFlairs={this.state.currentUserFlairs} 
+        currentUserImage={this.state.currentUserImage}
+        currentUserEmail={this.state.currentUserEmail}
+        currentUserTitle={this.state.currentUserTitle}
+        currentUserBio={this.state.currentUserBio}
+        defaultValue={this.state.userFarm} 
+        setFarm={this.setFarm.bind(this)} 
+        buyFlairs={this.buyFlairs}
+        currentUserId={this.state.currentUserId} 
+        deleteFlair={this.deleteFlair}
+        profileSubmit={this.profileSubmit}
+        findUser={this.findCurrentUser.bind(this)} />
+        
         <Leaders 
         leaders={this.state.leaders}
         currentUserTitle={this.state.currentUserTitle} 
@@ -400,7 +401,7 @@ class App extends React.Component {
         currentUserImage={this.state.currentUserImage} />
         
         <div className="features">
-          <Ticker findUser={this.findCurrentUser.bind(this)} tickers={this.state.userFarm} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep} />
+          <Ticker findUser={this.findCurrentUser.bind(this)} tickers={this.state.userFarm} currentUserId={this.state.currentUserId} />
           <News newsItems={this.state.newsItems} />
           <ChatRooms messages={this.state.messages} clientCount={this.state.clientCount} chatname={this.state.chatname} onNewPost={this.onNewPost} socket={this.state.socket} currentUserId={this.state.currentUserId} currentUsername={this.state.currentUsername} currentUserFlairs={flairs} />
           <ChatList currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} chatList={this.state.ChatList} hideChat={this.hideChat} joinChat={this.joinChat} handleSubmit={this.handleSubmit} />
