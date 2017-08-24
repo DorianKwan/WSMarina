@@ -9,17 +9,24 @@ function createRouter(knex) {
     const user_id = req.session.user_id;
     let payout;
     let rep;
-    if (percentChange !== 0) {
-      if (direction === "Bull") {
-        payout = percentChange > 0 ? Number(wager) * 2 : 0;
+    if (direction === "Bull") {
+      if (percentChange > 0) {
+        payout = Number(wager) * 2;
+      } else if (percentChange < 0) {
+        payout = 0;
       } else {
-        payout = percentChange < 0 ? Number(wager) * 2 : 0;
+        payout = Number(wager);
       }
-      rep = Number(currentUserRep) + payout;
     } else {
-      payout = Number(wager);
-      rep = Number(currentUserRep) + payout;
+      if (percentChange < 0) {
+        payout = Number(wager) * 2;
+      } else if (percentChange > 0) {
+        payout = 0;
+      } else {
+        payout = Number(wager);
+      }
     }
+    rep = Number(currentUserRep) + payout;
 
     // Find bet and update the columns
     return knex("bets")
