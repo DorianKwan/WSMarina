@@ -5,7 +5,7 @@ import Store from './Store.jsx';
  
 const customStyles = {
   content : {
-    padding               : '50px',
+    padding               : '50px 25px',
     backgroundColor       : 'black',
     overflow              : 'visible',
     top                   : '50%',

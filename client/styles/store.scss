@@ -10,7 +10,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   .product {
     background-color: white;
     margin-top: 10px;
-    margin-right: 11px;
+    margin-left: 5px;
+    margin-right: 5px;
     height: 260px;
     width: 175px;
     position: relative;
@@ -37,12 +38,13 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     }
     
     p.cant-afford {
-      color: red;
+      color: darkred;
       font-size: 11px;
       margin: 15px 25px;
       text-align: center;
 
       &:hover {
+        color: red;
         font-size: 13px;
       }
     }
