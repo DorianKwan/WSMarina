@@ -44,7 +44,7 @@ function createRouter(knex) {
 
   router.post("/", (req, res) => {
 
-    const { ticker, wager, currentUserRe, direction } = req.body;
+    const { ticker, wager, currentUserRep, direction } = req.body;
     const user_id = req.session.user_id;
 
     // Check if user entered ticker, wager, direction
