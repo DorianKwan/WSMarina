@@ -148,8 +148,8 @@ class Bets extends Component {
           <br />
           <label>Choose a direction: </label>
           <input name="direction" type="hidden" value={this.state.direction} />
-          <input id="direction-true-button" name="direction" type="submit" onClick={this.setTrue} value="Bull" style={{color: "rgb(233,182,50)"}} />
-          <input id="direction-false-button" name="direction" type="submit" onClick={this.setFalse} value="Bear" style={{color: "rgb(15, 60, 77)"}} />
+          <input id="direction-bull-button" name="direction" type="submit" onClick={this.setTrue} value="Bull" />
+          <input id="direction-bear-button" name="direction" type="submit" onClick={this.setFalse} value="Bear" />
         </form>
       </section>
     );

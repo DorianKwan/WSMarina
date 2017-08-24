@@ -14,7 +14,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   top: 350px;
   width: 350px;
 
-  #title {
+  .leaderTitle {
+    color: rgb(186,144,35);
     font-size: 18px;
     margin: 5px 0;
   }
@@ -69,7 +70,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
     button#join-button {
       border: none;
-      background-color: #14716c;
+      background-color: #4A777A;
       color: white;
       float: right;
       font-size: 10px;
@@ -77,8 +78,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
       width: 60px;
 
       &:hover {
-        border: 1px solid #14716c;
-        background-color: lightseagreen;
+        border: 1px solid #4A777A;
+        background-color: #14716c;
         color: white;
         cursor: pointer;
       }

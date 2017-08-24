@@ -34,7 +34,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   }
 
   .ticker-button {
-    background-color: #14716c;
+    background-color: #4A777A;
     border: none;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     color: white;
@@ -43,7 +43,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     width: 60px;
     
     &:hover {
-      background-color: lightseagreen;
+      background-color: #4A777A;
+      background-color: #14716c;
       color: white;
       cursor: pointer;
     }

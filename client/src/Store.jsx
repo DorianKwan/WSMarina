@@ -71,7 +71,7 @@ class Store extends React.Component {
             <img key={this.uuid()} src={flair.image} height="100" width="100" />
             <p className="product-name">{flair.name}</p>
             <p className="product-cost">cost: {flair.cost} reps</p>
-            <p className="cant-afford"> You can't afford this! </p>
+            <p className="cant-afford">You can't afford this</p>
           </div>
         );
       }

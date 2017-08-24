@@ -38,14 +38,23 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     }
     
     p.cant-afford {
+     background-color: white;
+      border: 1px solid darkred;
+      bottom: 10px;
       color: darkred;
-      font-size: 11px;
-      margin: 15px 25px;
-      text-align: center;
+      font-size: 12px;
+      left: 25px;
+      margin-bottom: 5px;
+      margin-left: 0;
+      padding: 5px;
+      position: absolute;
+      width: 110px;
 
       &:hover {
+        border: none;
         color: red;
         font-size: 13px;
+        width: 120px;
       }
     }
 

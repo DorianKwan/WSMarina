@@ -20,10 +20,18 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 			border-radius: 10px;
 		}
   }
+
+  td {
+    padding: 3px 0;
+
+    &:hover {
+      color: rgb(233,182,50);
+    }
+  }
   
   form {
     border: 2px solid rgb(163,129,40);
-    margin: 40px 0px;
+    margin: 25px 0px;
     padding: 10px;
     color: white;
     width: 475px;
@@ -73,7 +81,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     font-weight: bold;
     position: fixed;
     color: rgb(163,129,40);
-    top: 352px;
+    top: 380px;
     left: 62px;
   }
 }

@@ -30,9 +30,26 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     text-align: center;
   }
 
-  #direction-true-button, #direction-false-button  {
+  #direction-bull-button {
     background-color: white;
-    color: black;
+    color: darkred;
+    margin-bottom: 0;
+    margin-left: 10px;
+    margin-right: 20px;
+    padding: 5px;
+    width: 80px;
+
+    &:hover {
+      background-color: rgb(163,129,40);
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+  }
+
+  #direction-bear-button  {
+    background-color: white;
+    color: rgb(15, 60, 77);
     margin-bottom: 0;
     margin-left: 10px;
     margin-right: 20px;
