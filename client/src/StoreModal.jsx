@@ -53,7 +53,7 @@ class FarmModal extends React.Component {
         >
           <h1>Store</h1>
           <button onClick={this.closeModal}>❌</button>
-          <Store currentUsername={this.props.currentUsername} currentUserId={this.props.currentUserId} currentUserRep={this.props.currentUserRep} />
+          <Store buyFlairs={this.props.buyFlairs} currentUsername={this.props.currentUsername} currentUserId={this.props.currentUserId} currentUserRep={this.props.currentUserRep} />
         </Modal>
       </span>
     );
