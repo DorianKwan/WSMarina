@@ -37,11 +37,11 @@ class App extends React.Component {
   }
 
   componentDidMount(){
-    this.setFarm();
     this.getChatList();
     this.getChatroomUsers();
   }
   componentWillMount(){
+    this.setFarm();
     this.findCurrentUser();
     this.findCurrentUserFlairs();
   }
@@ -313,7 +313,6 @@ class App extends React.Component {
     })
   }
   render() {
-
     const flairs = this.state.currentUserFlairs.map((flair) => {
       return flair.image;
     }); 
@@ -336,7 +335,7 @@ class App extends React.Component {
         currentUserImage={this.state.currentUserImage} />
         
         <div className="features">
-          <Ticker findUser={this.findCurrentUser.bind(this)} tickers={this.state.userFarm} currentUserId={this.state.currentUserId} currentUserRep={this.state.currentUserRep} />
+          <Ticker findUser={this.findCurrentUser.bind(this)} tickers={this.state.userFarm} currentUserId={this.state.currentUserId} />
           <News newsItems={this.state.newsItems} />
           <ChatRooms messages={this.state.messages} clientCount={this.state.clientCount} chatname={this.state.chatname} onNewPost={this.onNewPost} socket={this.state.socket} currentUserId={this.state.currentUserId} currentUsername={this.state.currentUsername} currentUserFlairs={flairs} />
           <ChatList currentUsername={this.state.currentUsername} currentUserId={this.state.currentUserId} chatList={this.state.ChatList} hideChat={this.hideChat} joinChat={this.joinChat} handleSubmit={this.handleSubmit} />
