@@ -14,7 +14,7 @@ class MessageList extends Component {
           this.props.messages
             .filter((m) => m.type === 'incomingMessage')
             .map(currentMessage => {
-              console.log("currentMessage", currentMessage)
+              console.log("currentMessage", currentMessage);
               return <Message
                 message={currentMessage}
                 key={currentMessage.id}
