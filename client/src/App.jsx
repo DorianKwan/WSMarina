@@ -306,13 +306,13 @@ class App extends React.Component {
       const currentUserFlairs = [];
       userInfo.forEach((flair) => {
         currentUserFlairs.push(flair);
-      })
+      });
       this.setState({
         currentUserRep: userInfo[0].rep,
         currentUserFlairs: currentUserFlairs
-      })
+      });
       alert(`Thanks for the purchase, ${userInfo[0].user}! You have ${userInfo[0].rep} reps left.`);
-    })
+    });
   }
 
   deleteFlair(body) {
@@ -332,11 +332,11 @@ class App extends React.Component {
       const currentUserFlairs = [];
       res.forEach((obj) => {
         currentUserFlairs.push(obj);
-      })
+      });
       this.setState({
         currentUserFlairs: currentUserFlairs
-      })
-    })
+      });
+    });
   }
 
   profileSubmit(body) {
