@@ -133,8 +133,8 @@ class ProfilePage extends React.Component {
         {/* no defaults set for img and both forms are forced to be entered */}
         <div className="edit-profile">
           <form onSubmit={this.onSubmit}>
-            <input type="file" name="image" accept="image/*" />
-            <input type="text" placeholder="Tell us about yourself" />
+            <input type="text" name="image" accept="image/*" placeholder="Insert avatar url here:"/>
+            <input type="text" placeholder="Tell us about yourself:" />
             <input type="submit"/>
           </form>
         </div>
