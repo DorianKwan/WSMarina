@@ -23,6 +23,10 @@ class Ticker extends Component {
     setInterval(this.tickerFeed, 60000);
   }
 
+  uuid() {
+    return Math.random().toString(36).substr(2, 6);
+  }
+
   collect(event) {
     event.preventDefault();
     const index = event.target.elements[0].value;
@@ -158,7 +162,7 @@ class Ticker extends Component {
       const button = "button" + index;
       if (stock.collected_at === null) {
         return (
-            <div className="ticker-info" key={ stock.name }>
+            <div className="ticker-info" key={this.uuid()}>
               <form onSubmit={this.collect} >
                 <input name="index" type="hidden" value={index} />
                 <input name="ticker" type="hidden" value={stock.name} />
