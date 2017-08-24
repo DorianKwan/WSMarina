@@ -9,11 +9,11 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   margin-top: 72px;
   margin-right: 20px;
   padding: 20px 30px;
-  position: absolute;
+  position: fixed;
   right: 10px;
   text-align: left;
   width: 350px;
-
+  
   form.ticker-info {
     color: white;
     padding: 5px;
@@ -24,12 +24,13 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   }
 
   .ticker-collected {
-    padding: 5px;
+    padding: 5px 0;
   }
 
   span {
     display: inline-block;
-    margin-right: 50px;
+    padding: 5px 0;
+    margin-right: 5px;
   }
 
   .ticker-button {
@@ -37,7 +38,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     border: none;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     color: white;
-    display: inline-block;
     font-size: 10px;
     padding: 4px;
     width: 60px;

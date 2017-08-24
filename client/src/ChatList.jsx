@@ -58,7 +58,7 @@ class ChatList extends React.Component {
               <span>
                 <form onSubmit={this.joinChat}>
                   <input type="hidden" name="chatroomid" value={chatList.id} />
-                  <button>Join Chat</button>
+                  <button id="join-button">Join Chat</button>
                 </form>
               </span>
             </div>

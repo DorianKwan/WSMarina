@@ -6,18 +6,29 @@ class Farm extends React.Component {
     this.onSubmit = this.handleSubmit.bind(this);
     this.getFarmInfo = this.getFarmInfo.bind(this);
     this.resetFarm = this.resetFarm.bind(this);
-    this.resetFarmCollect = this.resetFarmCollect.bind(this);
-    setInterval(this.resetFarmCollect, 60000);
+    this.autoFarmCollect = this.autoFarmCollect.bind(this);
   }
 
   componentDidMount() {
     this.getFarmInfo();
   }
 
-  resetFarmCollect() {
-    const currentDate = new Date; 
-    const currentTime = currentDate.toTimeString().slice(0, 5);
-    if (currentTime === "04:00") {
+  getResetDate(date) {
+    const year = date.slice(0, 4);
+    console.log(year);
+    const month = date.slice(5, 7);
+    console.log(month)
+    const day = date.slice(8, 10);
+    console.log(day);
+    const fullDate = `${year}, ${month}, ${day + 1}, 0`;
+    return fullDate;
+  }
+
+  autoFarmCollect(farm) {
+    const createdAt = farm.slot_01.created_at;
+    const resetTime = this.getResetDate(createdAt);
+    const today = Date.now();
+    if (today > resetTime) {
       this.resetFarm();
     }
     return;
@@ -59,17 +70,20 @@ class Farm extends React.Component {
       headers: {
         "Accept": "application/json"
       }
-    })
-    .then((response) => {
+    }).then((response) => {
       return response.json();
     }).then((slots) => {
-      this.setState({
-        slot_01: { name: slots.slot_01.name, collected_at: slots.slot_01.collected_at },
-        slot_02: { name: slots.slot_02.name, collected_at: slots.slot_02.collected_at },
-        slot_03: { name: slots.slot_03.name, collected_at: slots.slot_03.collected_at },
-        slot_04: { name: slots.slot_04.name, collected_at: slots.slot_04.collected_at },
-        slot_05: { name: slots.slot_05.name, collected_at: slots.slot_05.collected_at }
-      });
+      const farm = {
+        slot_01: { name: slots.slot_01.name, created_at: slots.slot_01.created_at, collected_at: slots.slot_01.collected_at },
+        slot_02: { name: slots.slot_02.name, created_at: slots.slot_02.created_at, collected_at: slots.slot_02.collected_at },
+        slot_03: { name: slots.slot_03.name, created_at: slots.slot_03.created_at, collected_at: slots.slot_03.collected_at },
+        slot_04: { name: slots.slot_04.name, created_at: slots.slot_04.created_at, collected_at: slots.slot_04.collected_at },
+        slot_05: { name: slots.slot_05.name, created_at: slots.slot_05.created_at, collected_at: slots.slot_05.collected_at }
+      }
+      this.setState(farm);
+      return farm;
+    }).then((farm) => {
+      this.autoFarmCollect(farm);
     }).catch((error) => { 
       console.log("error: ", error); 
     });
@@ -84,11 +98,11 @@ class Farm extends React.Component {
     const ticker_04 = event.target.elements[3].value || this.props.defaultValue[3].name;
     const ticker_05 = event.target.elements[4].value || this.props.defaultValue[4].name;
     const farmSlots = {
-      slot_01: { name: ticker_01, collected_at: this.state.slot_01.collected_at },
-      slot_02: { name: ticker_02, collected_at: this.state.slot_02.collected_at },
-      slot_03: { name: ticker_03, collected_at: this.state.slot_03.collected_at },
-      slot_04: { name: ticker_04, collected_at: this.state.slot_04.collected_at },
-      slot_05: { name: ticker_05, collected_at: this.state.slot_05.collected_at }
+      slot_01: { name: ticker_01, created_at: this.state.slot_01.created_at, collected_at: this.state.slot_01.collected_at },
+      slot_02: { name: ticker_02, created_at: this.state.slot_02.created_at, collected_at: this.state.slot_02.collected_at },
+      slot_03: { name: ticker_03, created_at: this.state.slot_03.created_at, collected_at: this.state.slot_03.collected_at },
+      slot_04: { name: ticker_04, created_at: this.state.slot_04.created_at, collected_at: this.state.slot_04.collected_at },
+      slot_05: { name: ticker_05, created_at: this.state.slot_05.created_at, collected_at: this.state.slot_05.collected_at }
     }
 
     const body = JSON.stringify(farmSlots);
