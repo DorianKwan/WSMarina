@@ -44,7 +44,8 @@ function createRouter(knex) {
 
   router.post("/", (req, res) => {
 
-    const { ticker, wager, direction, currentUserRep } = req.body;
+    const { ticker, wager, currentUserRep } = req.body;
+    const direction = req.body.direction === "Bull" ? true : false;
     const user_id = req.session.user_id;
 
     // Check if user entered ticker, wager, direction
@@ -89,6 +90,9 @@ function createRouter(knex) {
           .catch((err) => {
             console.log(err);
           });
+      })
+      .then(() => {
+        res.send();
       })
       .catch((err) => {
         req.flash("errors", err.message);

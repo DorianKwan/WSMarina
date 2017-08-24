@@ -204,8 +204,8 @@ class Bets extends Component {
           <input name="wager" />
           <br />
           <label>Choose a direction: </label>
-          <input name="direction" type="submit" value={true} />
-          <input name="direction" type="submit" value={false} />
+          <input name="direction" type="submit" value="Bull" style={{color: "rgb(233,182,50)"}}/>
+          <input name="direction" type="submit" value="Bear" style={{color: "rgb(15, 60, 77)"}} />
         </form>
       </section>
     );
