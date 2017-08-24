@@ -171,9 +171,9 @@ function createNameSpace(chatroomId) {
           break;
         case "newchatlist":
           messageRecieved.id = uuidv4();
-          const namespaces = Object.keys(io.nsps)
+          const namespaces = Object.keys(io.nsps);
           for (let x = 1; x < Object.keys(io.nsps).length; x++) {
-            io.of(namespaces[x]).emit('data', JSON.stringify(messageRecieved))
+            io.of(namespaces[x]).emit('data', JSON.stringify(messageRecieved));
           }
           break;
         default:
