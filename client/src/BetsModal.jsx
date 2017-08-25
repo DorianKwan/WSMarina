@@ -5,7 +5,7 @@ import Bets from './Bets.jsx';
  
 const customStyles = {
   content : {
-    padding               : '50px',
+    padding               : '65px',
     backgroundColor       : 'black',
     overflow              : 'visible',
     top                   : '50%',

@@ -139,6 +139,7 @@ class Farm extends React.Component {
     .then((response) => {
       return response.text();
     }).then((text) => {
+      alert("Farm Updated!");
       this.props.setFarm();
       this.getFarmInfo();
     }).catch((error) => {
