@@ -32,7 +32,7 @@ class Bets extends Component {
     event.preventDefault();
     const currentUserRep = event.target.elements[0].value;
     const ticker = event.target.elements[1].value;
-    alert(currentUserRep);
+    alert("Bet was made !");
     if (ticker.length > 4) {
       event.target.elements[1].value = "";
       event.target.elements[2].value = "";
@@ -126,7 +126,25 @@ class Bets extends Component {
       if (!bet.collected_at) {
         return (
           <div key={this.uuid()}>
-            <p>{ bet.ticker } | { bet.wager } | { bet.direction } | ${ bet.start_price } | { bet.percentChange }%</p>
+            <table>
+              <tbody>
+                <tr>
+                  <th>Ticker &ensp;</th>
+                  <th>Wager &ensp;</th>
+                  <th>Direction &ensp;</th>
+                  <th>Start Price &ensp;</th>
+                  <th>%Change &ensp;</th>
+                </tr>
+                <br />
+                <tr>
+                  <th>{bet.ticker}</th>
+                  <th>{bet.wager}</th>
+                  <th>{bet.direction}</th>
+                  <th>{bet.start_price}</th>
+                  <th>{bet.percentChange}</th>
+                </tr>
+              </tbody>
+            </table>
             <br />
             <form onSubmit={this.collect}>
               <input name="percentChange" type="hidden" value={bet.percentChange} />
