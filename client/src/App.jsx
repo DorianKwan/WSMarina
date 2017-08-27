@@ -176,7 +176,13 @@ class App extends React.Component {
       const newMessage = { newchatlist: newchatlist };
       newMessage.type = "newchatlist";
       const nsp = this.state.socket;
-      nsp.emit('message', JSON.stringify(newMessage));
+      if (nsp === null) {
+        this.setState({
+          ChatList: newchatlist
+        });
+      } else {
+        nsp.emit('message', JSON.stringify(newMessage));
+      }
     });
   }
 
@@ -199,7 +205,13 @@ class App extends React.Component {
         const newMessage = { newchatlist: newchatlist };
         newMessage.type = "newchatlist";
         const nsp = this.state.socket;
-        nsp.emit('message', JSON.stringify(newMessage));
+        if (nsp === null) {
+          this.setState({
+            ChatList: newchatlist
+          });
+        } else {
+          nsp.emit('message', JSON.stringify(newMessage));
+        }
       });
     }
   }
