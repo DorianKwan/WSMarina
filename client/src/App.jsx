@@ -139,6 +139,7 @@ class App extends React.Component {
     });
   }
 
+  //renders a list of chatrooms
   getChatList() {
     //For Localhost use the below url
     const url = "/ChatList";
@@ -157,6 +158,7 @@ class App extends React.Component {
     });
   }
 
+  //removes chatroom chatlist by setting isActive to false & set states new chat list
   hideChat(chatroomId) {
     //For Localhost use the below url
     const url = "/ChatList";
@@ -186,6 +188,7 @@ class App extends React.Component {
     });
   }
 
+  //creates a new chat room that users can join
   handleSubmit(chatname) {
     if (chatname) {
       const body = JSON.stringify({ chatname: chatname, currentUserId: this.state.currentUserId });
@@ -216,6 +219,7 @@ class App extends React.Component {
     }
   }
 
+  //creates namespace sockets based on users joined to chatrooms
   getChatroomUsers(){
     const url = "/joinChat";
     fetch(url, {
@@ -226,7 +230,6 @@ class App extends React.Component {
     }).then((response) => {
       return response.json();
     }).then((chatroomUsers) => {
-      console.log("info of chatroomid and its users:", chatroomUsers);
       chatroomUsers.forEach((obj) => {
         if (obj.user_id === this.state.currentUserId) {
           return this.setState({
@@ -239,6 +242,7 @@ class App extends React.Component {
     });
   }
 
+  // updates or inserts user in chatroomusers & creates the related namespaces for socket.
   joinChat(chatroomId) {
     if (this.state.socket) {
       this.state.socket.close();
@@ -271,6 +275,8 @@ class App extends React.Component {
     });
   }
 
+  //creates the namespace socket for current user based on chat joined
+  //creates the event listeners for socket
   createNameSpace(chatroomUsers, self) {
     chatroomUsers.forEach((chatroom) => {
       if (chatroom.user_id === this.state.currentUserId) {
@@ -291,6 +297,7 @@ class App extends React.Component {
               let allMessages = self.state.messages.concat(messageRecieved);
               self.setState({ messages: allMessages });
               break;
+            // ChatList in state will be update to newchatlist
             case "newchatlist":
               self.setState({ ChatList: messageRecieved.newchatlist });
               break;
@@ -300,6 +307,7 @@ class App extends React.Component {
     });
   }
 
+  //sends user's message to server side
   onNewPost(content) {
     const newMessage = { username: this.state.currentUsername, content: content, currentUserFlairs: this.state.currentUserFlairs };
     newMessage.type = "incomingMessage";
@@ -309,6 +317,7 @@ class App extends React.Component {
     nsp.emit('message', JSON.stringify(newMessage));
   }
 
+  //updates the user_flairs table & sets state for currentUserRep and currentUserFlairs
   buyFlairs(body) {
     const url = "/flairs";
     fetch(url, {
@@ -335,6 +344,7 @@ class App extends React.Component {
     });
   }
 
+//deletes user flair pair from user_flairs table & setStates for currentUserFlairs
   deleteFlair(body) {
     const url = "/currentUserFlairs";
     fetch(url, {
@@ -359,6 +369,7 @@ class App extends React.Component {
     });
   }
 
+  //updates user info in users table & sets state for user avatar and bio
   profileSubmit(body) {
     fetch("/profile", {
       method: "PUT",
