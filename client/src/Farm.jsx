@@ -6,14 +6,14 @@ class Farm extends React.Component {
     this.onSubmit = this.handleSubmit.bind(this);
     this.getFarmInfo = this.getFarmInfo.bind(this);
     this.resetFarm = this.resetFarm.bind(this);
-    this.autoFarmCollect = this.autoFarmCollect.bind(this);
+    this.autoFarmReset = this.autoFarmReset.bind(this);
   }
 
   componentDidMount() {
     this.getFarmInfo();
   }
 
-  getResetDate(date) {
+  getResetTime(date) {
     const year = date.slice(0, 4);
     const month = date.slice(5, 7);
     const day = date.slice(8, 10);
@@ -21,9 +21,9 @@ class Farm extends React.Component {
     return fullDate;
   }
 
-  autoFarmCollect(farm) {
+  autoFarmReset(farm) {
     const createdAt = farm.slot_01.created_at;
-    const resetTime = this.getResetDate(createdAt);
+    const resetTime = this.getResetTime(createdAt);
     const today = Date.now();
     if (today > resetTime) {
       this.resetFarm();
@@ -80,7 +80,7 @@ class Farm extends React.Component {
       this.setState(farm);
       return farm;
     }).then((farm) => {
-      this.autoFarmCollect(farm);
+      this.autoFarmReset(farm);
     }).catch((error) => { 
       console.log("error: ", error); 
     });
@@ -169,7 +169,7 @@ class Farm extends React.Component {
             <label>Current value: { this.props.defaultValue[4].name }</label>
             <input id="slot_05" type="text" ref="slot_05" placeholder="Add a new ticker" />
             <br />
-            <input id="submit-farm-button" type="submit" />
+            <input id="submit-farm-button" type="submit" value="Set Farm!" />
           </form>
         </div>
         <br />
