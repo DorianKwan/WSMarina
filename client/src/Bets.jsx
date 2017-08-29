@@ -76,19 +76,14 @@ class Bets extends Component {
     });
   }
 
-  collect(event) {
+  collect(bet, currentUserRep) {
     event.preventDefault();
-    const percentChange = event.target.elements[0].value;
-    const wager = event.target.elements[1].value;
-    const ticker = event.target.elements[2].value;
-    const direction = event.target.elements[3].value;
-    const currentUserRep = event.target.elements[4].value;
+    const { percentChange, wager, ticker, direction } = bet; 
     const body = JSON.stringify({
       percentChange,
       wager,
       ticker,
       direction,
-      percentChange,
       currentUserRep
     });
 
@@ -112,11 +107,11 @@ class Bets extends Component {
   }
 
   setTrue() {
-    this.setState({ direction: true});
+    this.setState({ direction: true });
   }
 
   setFalse() {
-    this.setState({ direction: false});
+    this.setState({ direction: false });
   }
 
   render() {
@@ -146,14 +141,7 @@ class Bets extends Component {
               </tbody>
             </table>
             <br />
-            <form onSubmit={this.collect}>
-              <input name="percentChange" type="hidden" value={bet.percentChange} />
-              <input name="wager" type="hidden" value={bet.wager} />
-              <input name="ticker" type="hidden" value={bet.ticker} />
-              <input name="direction" type="hidden" value={bet.direction} />
-              <input name="currentUserRep" type="hidden" value={this.props.currentUserRep || undefined} />
-              <input type="submit" value="Collect Rep"/>
-            </form>
+              <button onClick={() => { this.collect(bet, this.currentUserRep) }}>Collect !</button>
           </div>
         )
       } else {
@@ -166,21 +154,12 @@ class Bets extends Component {
       }
     });
 
-    // if (errors.length) {
-    //   const error = errors.forEach(err => {
-    //     return (
-    //       <span>{ err }</span>
-    //     );
-    //   });
-    // }
-
     return (
       <section className="bets">
         <div>{ bets }</div>
         <br />
         <h2>Make a Prediction!</h2>
         <form onSubmit={this.makeBet}>
-          {/* <div className="errors-info">{ error }</div> */}
           <input name="currentUserRep" type="hidden" value={this.props.currentUserRep || undefined} />
           <input name="ticker" placeholder="Enter a ticker" />
           <br />
