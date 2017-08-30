@@ -38,39 +38,39 @@ Visit localhost:3000
 
 Login / Register
 
-![Alt text](./client/images/login.jpg)
+![Alt text](./client/images/login.png?raw=true)
 
-![Alt text](./client/images/register.jpg)
+![Alt text](./client/images/register.png?raw=true)
 
 Landing Page
 
-![Alt text](./client/images/landing.jpg)
+![Alt text](./client/images/landing.png?raw=true)
 
 News
 
-![Alt text](./client/images/article.jpg)
-![Alt text](./client/images/news.jpg)
-![Alt text](./client/images/newsource.jpg)
+![Alt text](./client/images/article.png?raw=true)
+![Alt text](./client/images/news.png?raw=true)
+![Alt text](./client/images/newsource.png?raw=true)
 
 Farm 
 
-![Alt text](./client/images/collect.jpg)
-![Alt text](./client/images/farm.jpg)
+![Alt text](./client/images/collect.png?raw=true)
+![Alt text](./client/images/farm.png?raw=true)
 
 Bets 
 
-![Alt text](./client/images/bets.jpg)
+![Alt text](./client/images/bets.png?raw=true)
 
 Store 
 
-![Alt text](./client/images/store.jpg)
+![Alt text](./client/images/store.png?raw=true)
 
 Profile
 
-![Alt text](./client/images/profile.jpg)
+![Alt text](./client/images/profile.png?raw=true)
 
 Chat 
 
-![Alt text](./client/images/chat.jpg)
+![Alt text](./client/images/chat.png?raw=true)
 
-![Alt text](./client/images/newchatroom.jpg)
+![Alt text](./client/images/newchatroom.png?raw=true)
