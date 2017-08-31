@@ -85,6 +85,7 @@ app.get('/', (req, res) => {
   }
 });
 
+//gets a list of chatroom ids where there are users connected
 function getChatrooms(data, createNameSpace){
   let listOfOnlineChatrooms = [];
   data.forEach((room) => {
@@ -102,6 +103,8 @@ function getChatrooms(data, createNameSpace){
   });
 }
 
+//creates a namespace socket for chatroom ids passed in
+//creates event listeners for sockets
 function createNameSpace(chatroomId) {
   if (!io.nsps["/group-" + chatroomId]) {
     const group = io.of('/group-' + chatroomId);
@@ -125,12 +128,13 @@ function createNameSpace(chatroomId) {
             currentUserFlairs: [],
             type: 'incomingMessage'
           };
+
+          // list of chat bot responses
           botResponse.id = uuidv4();
           if (messageRecieved.content.toLowerCase().includes("tilt")){
             botResponse.username = "Jeremy Holman:";
             botResponse.content = "Cause you need another yacht";
             setTimeout(function () { group.emit('data', JSON.stringify(botResponse)); }, 500);
-            // group.emit for bot responses;
           } else if (messageRecieved.content.toLowerCase().includes("@jeremy")) {
             botResponse.username = "Jeremy Holman:";
             botResponse.content = "Foosball, anyone?";
@@ -181,7 +185,8 @@ function createNameSpace(chatroomId) {
         }
       });
 
-      // Set up a callback for when a client closes the socket. This usually means they closed their broioer.
+      // Set up a callback for when a client closes the socket
+      // This occurs when user closes browers or joins a different chat
       socket.on('disconnecting', () => {
         console.log('Client disconnected');
         let noOfClientsLeft = noOfClients - 1;
