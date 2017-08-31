@@ -147,7 +147,25 @@ class Bets extends Component {
       } else {
         return (
           <div key={this.uuid()}>
-            <p>{ bet.ticker } | { bet.wager } | { bet.direction } | ${ bet.start_price } | { bet.percentChange }% | { bet.payout }</p>
+            <table>
+              <tbody>
+                <tr>
+                  <th>Ticker &ensp;</th>
+                  <th>Wager &ensp;</th>
+                  <th>Direction &ensp;</th>
+                  <th>Start Price &ensp;</th>
+                  <th>Payout &ensp;</th>
+                </tr>
+                <br />
+                <tr>
+                  <th>{bet.ticker}</th>
+                  <th>{bet.wager}</th>
+                  <th>{bet.direction}</th>
+                  <th>{bet.start_price}</th>
+                  <th>{bet.payout}</th>
+                </tr>
+              </tbody>
+            </table>
             <br />
           </div>
         )
